@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Generalized linear mixed models – Little Rancheria</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../connectivity.html" rel="next">
+<link href="../3-habitat-analysis/3.1-glm-models.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Generalized linear mixed models – Little Rancheria">
+<meta property="og:description" content="">
+<meta property="og:site_name" content="Little Rancheria">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.1-model-building.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.2-glmm-models.html">GLMM models</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Little Rancheria Caribou Analysis Workbook</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workflow</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data preparation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1-data-preparation/1.1-prepare-caribou.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prepare caribou data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1-data-preparation/1.2-prepare-covariates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prepare covariate data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../1-data-preparation/1.3-extract-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extract values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Movement analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../2-movement-analysis/2.1-movement-rates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Movement rates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../2-movement-analysis/2.2-generate-mcp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minimum convex polygons</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../2-movement-analysis/2.3-estimate-hr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home ranges</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Habitat analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3-habitat-analysis/3.1-model-building.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model building</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3-habitat-analysis/3.1-glm-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GLM models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../3-habitat-analysis/3.2-glmm-models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">GLMM models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Connectivity analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../connectivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Connectivity analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Appendices</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Results dashboard</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#run-models-for-each-season" id="toc-run-models-for-each-season" class="nav-link" data-scroll-target="#run-models-for-each-season">Run models for each season</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.1-model-building.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.2-glmm-models.html">GLMM models</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Generalized linear mixed models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Generalized linear mixed models…</p>
+<p>Read rasters that will be needed for generating prediction maps.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Select a season or comment out line 20</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>seasons <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'earlywinter'</span>, <span class="st">'latewinter'</span>, <span class="st">'summer'</span>, <span class="st">'fallrut'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> seasons[<span class="dv">1</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nsize <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>landcov <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../data/raster30/landcov.tif'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>topo <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../data/raster30/topo.tif'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>fires <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../data/raster30/fires.tif'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dist2line <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../data/raster30/dist2line.tif'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dist2line) <span class="ot">&lt;-</span> <span class="st">"dist2line"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dist2poly <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../data/raster30/dist2poly.tif'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dist2poly) <span class="ot">&lt;-</span> <span class="st">"dist2poly"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>rasters <span class="ot">&lt;-</span> <span class="fu">c</span>(landcov, topo, fires, dist2line, dist2poly)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(rasters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "forest"    "conifer"   "broadleaf" "mixedwood" "wetland"   "shrubland"
+ [7] "grassland" "barren"    "snowice"   "elevation" "slope"     "aspect"   
+[13] "roughness" "northness" "eastness"  "fires"     "dist2line" "dist2poly"</code></pre>
+</div>
+</div>
+</section>
+<section id="run-models-for-each-season" class="level2">
+<h2 class="anchored" data-anchor-id="run-models-for-each-season">Run models for each season</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sea <span class="cf">in</span> seasons) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">'Processing'</span>, sea, <span class="st">'...</span><span class="sc">\n</span><span class="st">'</span>); <span class="fu">flush.console</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prepare data</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  gps <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">'../data/yt_caribou.gpkg'</span>, <span class="st">'gps_vars'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(season<span class="sc">==</span>sea) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pa=</span>occurrence, <span class="at">fpa=</span><span class="fu">as.factor</span>(occurrence)) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">occurrence=</span><span class="cn">NULL</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_n</span>(nsize) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  covars <span class="ot">&lt;-</span> <span class="fu">names</span>(gps[,<span class="dv">3</span><span class="sc">:</span><span class="dv">20</span>])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split data into training and test sets</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(gps), <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">nrow</span>(gps))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  test <span class="ot">&lt;-</span> gps[i,]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  train <span class="ot">&lt;-</span> gps[<span class="sc">-</span>i,]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Estimate GLM model</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">#m1 &lt;- glm(pa ~ elevation + aspect + roughness + eastness + northness + footprint500m +</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#          distance2foot + fires + forest + barren, family=binomial, data=train)</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(pa <span class="sc">~</span> <span class="fu">scale</span>(elevation) <span class="sc">+</span> <span class="fu">scale</span>(aspect) <span class="sc">+</span> <span class="fu">scale</span>(roughness) <span class="sc">+</span> <span class="fu">scale</span>(eastness) <span class="sc">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale</span>(northness) <span class="sc">+</span> <span class="fu">scale</span>(dist2line) <span class="sc">+</span> <span class="fu">scale</span>(dist2poly) <span class="sc">+</span> fires <span class="sc">+</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            forest <span class="sc">+</span> barren <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>individual), <span class="at">family=</span>binomial, <span class="at">data=</span>train)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">summary</span>(m1))</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predict</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># https://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="co">#png(paste0('output/glmm/',sea,'_map.png'))</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="co">#p1 &lt;- terra::predict(rasters, m1, const=data.frame(individual=NA), re.form=NA)</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">predict</span>(rasters, m1, <span class="at">re.form=</span><span class="cn">NA</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(p1)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dev.off()</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Evaluate model</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  eva <span class="ot">&lt;-</span> predicts<span class="sc">::</span><span class="fu">pa_evaluate</span>(<span class="fu">predict</span>(m1, test[test<span class="sc">$</span>pa<span class="sc">==</span><span class="dv">1</span>, ]), <span class="fu">predict</span>(m1, test[test<span class="sc">$</span>pa<span class="sc">==</span><span class="dv">0</span>, ]))</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  eva</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="co">#png(paste0('output/glmm/',sea,'_auc.png'))</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(eva, <span class="st">"ROC"</span>)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dev.off()</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Processing earlywinter ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: 
+pa ~ scale(elevation) + scale(aspect) + scale(roughness) + scale(eastness) +  
+    scale(northness) + scale(dist2line) + scale(dist2poly) +  
+    fires + forest + barren + (1 | individual)
+   Data: train
+
+     AIC      BIC   logLik deviance df.resid 
+  7418.3   7502.2  -3697.2   7394.3     7988 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-8.7721 -0.5350 -0.0121  0.5709 21.8804 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ individual (Intercept) 0.9278   0.9632  
+Number of obs: 8000, groups:  individual, 25
+
+Fixed effects:
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       0.42514    0.20872   2.037   0.0417 *  
+scale(elevation) -0.36918    0.05795  -6.370 1.89e-10 ***
+scale(aspect)    -0.01281    0.04680  -0.274   0.7844    
+scale(roughness) -1.42486    0.06556 -21.734  &lt; 2e-16 ***
+scale(eastness)  -0.06760    0.04693  -1.440   0.1498    
+scale(northness)  0.16769    0.02927   5.730 1.00e-08 ***
+scale(dist2line) -0.01868    0.06779  -0.276   0.7829    
+scale(dist2poly) -0.45004    0.07541  -5.968 2.40e-09 ***
+fires            -4.36618    0.32028 -13.632  &lt; 2e-16 ***
+forest           -0.70982    0.09216  -7.702 1.34e-14 ***
+barren            0.62085    0.12514   4.961 7.01e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) scl(l) scl(sp) scl(r) scl(st) scl(n) scl(dst2l) scl(dst2p)
+scale(lvtn) -0.122                                                           
+scale(spct)  0.004 -0.047                                                    
+scl(rghnss)  0.115 -0.579  0.011                                             
+scal(stnss)  0.003 -0.030  0.782   0.012                                     
+scl(nrthns)  0.018 -0.006  0.058   0.023  0.022                              
+scl(dst2ln) -0.001  0.117  0.008  -0.030  0.007  -0.030                      
+scl(dst2pl) -0.036 -0.376  0.002   0.199  0.026   0.023 -0.839               
+fires       -0.047  0.089 -0.021  -0.011 -0.015   0.016  0.004      0.015    
+forest      -0.344  0.339 -0.021  -0.162 -0.022  -0.053  0.017      0.103    
+barren      -0.171 -0.209  0.024  -0.062  0.025  -0.022 -0.084      0.171    
+            fires  forest
+scale(lvtn)              
+scale(spct)              
+scl(rghnss)              
+scal(stnss)              
+scl(nrthns)              
+scl(dst2ln)              
+scl(dst2pl)              
+fires                    
+forest       0.106       
+barren       0.001  0.348
+
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Processing latewinter ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: 
+pa ~ scale(elevation) + scale(aspect) + scale(roughness) + scale(eastness) +  
+    scale(northness) + scale(dist2line) + scale(dist2poly) +  
+    fires + forest + barren + (1 | individual)
+   Data: train
+
+     AIC      BIC   logLik deviance df.resid 
+  7774.0   7857.9  -3875.0   7750.0     7988 
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-18.2828  -0.5827   0.1649   0.6403  11.9064 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ individual (Intercept) 1.167    1.08    
+Number of obs: 8000, groups:  individual, 25
+
+Fixed effects:
+                  Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)      -0.428663   0.232676  -1.842   0.0654 .  
+scale(elevation) -0.518525   0.051829 -10.004  &lt; 2e-16 ***
+scale(aspect)    -0.003525   0.047350  -0.074   0.9406    
+scale(roughness) -0.329915   0.040314  -8.184 2.75e-16 ***
+scale(eastness)  -0.050165   0.047554  -1.055   0.2915    
+scale(northness)  0.068667   0.028430   2.415   0.0157 *  
+scale(dist2line) -1.958515   0.070563 -27.756  &lt; 2e-16 ***
+scale(dist2poly)  1.363673   0.065230  20.905  &lt; 2e-16 ***
+fires            -4.172756   0.349486 -11.940  &lt; 2e-16 ***
+forest            0.500299   0.097007   5.157 2.50e-07 ***
+barren            1.449190   0.122285  11.851  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) scl(l) scl(sp) scl(r) scl(st) scl(n) scl(dst2l) scl(dst2p)
+scale(lvtn) -0.090                                                           
+scale(spct) -0.003 -0.006                                                    
+scl(rghnss)  0.033 -0.536 -0.038                                             
+scal(stnss) -0.020 -0.020  0.802   0.004                                     
+scl(nrthns)  0.018  0.000  0.013   0.026  0.015                              
+scl(dst2ln)  0.032  0.151  0.020   0.001  0.016  -0.022                      
+scl(dst2pl) -0.043 -0.356 -0.008   0.126  0.020   0.036 -0.831               
+fires       -0.027  0.075 -0.002  -0.011  0.005   0.008  0.016      0.003    
+forest      -0.340  0.328  0.000  -0.076  0.046  -0.055 -0.036      0.085    
+barren      -0.204 -0.274  0.015  -0.069  0.040  -0.032 -0.098      0.178    
+            fires  forest
+scale(lvtn)              
+scale(spct)              
+scl(rghnss)              
+scal(stnss)              
+scl(nrthns)              
+scl(dst2ln)              
+scl(dst2pl)              
+fires                    
+forest       0.053       
+barren      -0.004  0.440
+
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Processing summer ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: 
+pa ~ scale(elevation) + scale(aspect) + scale(roughness) + scale(eastness) +  
+    scale(northness) + scale(dist2line) + scale(dist2poly) +  
+    fires + forest + barren + (1 | individual)
+   Data: train
+
+     AIC      BIC   logLik deviance df.resid 
+  6162.0   6245.9  -3069.0   6138.0     7988 
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-16.9521  -0.3163  -0.0084   0.4809  22.0436 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ individual (Intercept) 3.744    1.935   
+Number of obs: 8000, groups:  individual, 25
+
+Fixed effects:
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)      -0.13634    0.39599  -0.344 0.730619    
+scale(elevation)  1.96502    0.07665  25.636  &lt; 2e-16 ***
+scale(aspect)    -0.10582    0.05548  -1.907 0.056481 .  
+scale(roughness) -0.16457    0.04067  -4.046 5.21e-05 ***
+scale(eastness)  -0.21158    0.05485  -3.857 0.000115 ***
+scale(northness)  0.10710    0.03316   3.229 0.001240 ** 
+scale(dist2line)  0.66084    0.07170   9.216  &lt; 2e-16 ***
+scale(dist2poly) -0.40604    0.07354  -5.521 3.37e-08 ***
+fires            -1.36827    0.27414  -4.991 6.00e-07 ***
+forest           -0.70769    0.08644  -8.187 2.68e-16 ***
+barren           -0.41897    0.09492  -4.414 1.01e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) scl(l) scl(sp) scl(r) scl(st) scl(n) scl(dst2l) scl(dst2p)
+scale(lvtn) -0.042                                                           
+scale(spct)  0.003 -0.026                                                    
+scl(rghnss)  0.021 -0.437 -0.014                                             
+scal(stnss)  0.002 -0.038  0.803   0.023                                     
+scl(nrthns)  0.009  0.024  0.006   0.088 -0.018                              
+scl(dst2ln)  0.011  0.004 -0.009  -0.009 -0.052  -0.019                      
+scl(dst2pl) -0.030 -0.012 -0.008   0.156  0.041   0.039 -0.852               
+fires       -0.022  0.137 -0.012  -0.022  0.012   0.011 -0.006      0.045    
+forest      -0.126  0.269 -0.021  -0.120 -0.010  -0.084 -0.083      0.153    
+barren      -0.093 -0.380  0.023  -0.046  0.019  -0.082 -0.040      0.068    
+            fires  forest
+scale(lvtn)              
+scale(spct)              
+scl(rghnss)              
+scal(stnss)              
+scl(nrthns)              
+scl(dst2ln)              
+scl(dst2pl)              
+fires                    
+forest       0.056       
+barren      -0.024  0.365
+
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Processing fallrut ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: 
+pa ~ scale(elevation) + scale(aspect) + scale(roughness) + scale(eastness) +  
+    scale(northness) + scale(dist2line) + scale(dist2poly) +  
+    fires + forest + barren + (1 | individual)
+   Data: train
+
+     AIC      BIC   logLik deviance df.resid 
+  6989.2   7073.0  -3482.6   6965.2     7988 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-8.8453 -0.4756  0.1002  0.5086 18.0325 
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ individual (Intercept) 4.576    2.139   
+Number of obs: 8000, groups:  individual, 25
+
+Fixed effects:
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       0.22381    0.43753   0.512 0.608972    
+scale(elevation)  0.47985    0.05537   8.667  &lt; 2e-16 ***
+scale(aspect)    -0.00396    0.04999  -0.079 0.936872    
+scale(roughness) -0.46420    0.03923 -11.832  &lt; 2e-16 ***
+scale(eastness)   0.03495    0.04980   0.702 0.482716    
+scale(northness)  0.19695    0.03071   6.413 1.42e-10 ***
+scale(dist2line)  0.62531    0.07030   8.895  &lt; 2e-16 ***
+scale(dist2poly) -0.27851    0.07165  -3.887 0.000101 ***
+fires            -3.94648    0.46631  -8.463  &lt; 2e-16 ***
+forest           -1.60273    0.08567 -18.708  &lt; 2e-16 ***
+barren            0.38657    0.08676   4.456 8.36e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) scl(l) scl(sp) scl(r) scl(st) scl(n) scl(dst2l) scl(dst2p)
+scale(lvtn) -0.018                                                           
+scale(spct) -0.002 -0.004                                                    
+scl(rghnss)  0.010 -0.541 -0.017                                             
+scal(stnss) -0.001 -0.007  0.790   0.016                                     
+scl(nrthns)  0.006  0.009  0.030   0.059  0.025                              
+scl(dst2ln)  0.009  0.066  0.004  -0.051  0.022  -0.043                      
+scl(dst2pl) -0.019 -0.253 -0.017   0.200 -0.002   0.076 -0.846               
+fires       -0.013  0.089 -0.002  -0.012 -0.006  -0.011 -0.017      0.020    
+forest      -0.101  0.372  0.022  -0.091  0.019  -0.072 -0.073      0.114    
+barren      -0.081 -0.288  0.012  -0.076  0.005  -0.024 -0.035      0.115    
+            fires  forest
+scale(lvtn)              
+scale(spct)              
+scl(rghnss)              
+scal(stnss)              
+scl(nrthns)              
+scl(dst2ln)              
+scl(dst2pl)              
+fires                    
+forest       0.093       
+barren       0.000  0.296
+
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2-glmm-models_files/figure-html/unnamed-chunk-3-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../3-habitat-analysis/3.1-glm-models.html" class="pagination-link" aria-label="GLM models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">GLM models</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../connectivity.html" class="pagination-link" aria-label="Connectivity analysis">
+        <span class="nav-page-text">Connectivity analysis</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

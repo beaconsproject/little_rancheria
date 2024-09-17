@@ -1,0 +1,74 @@
+project: 
+  type: website
+  output-dir: _site
+
+website: 
+  page-navigation: true
+  search: true
+  title: "Little Rancheria" 
+  open-graph: true
+  
+  sidebar:
+    title: "Little Rancheria Caribou Analysis Workbook"
+    pinned: true
+    align: left
+    
+    style: "docked"
+    search: false
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: Home
+      - href: workflow.qmd
+        text: Workflow
+      - section: "Data preparation"
+        contents:
+        - href: 1-data-preparation/1.1-prepare-caribou.qmd
+          text: Prepare caribou data
+        - href: 1-data-preparation/1.2-prepare-covariates.qmd
+          text: Prepare covariate data
+        - href: 1-data-preparation/1.3-extract-values.qmd
+          text: Extract values
+      - section: "Movement analysis"
+        contents:
+        - href: 2-movement-analysis/2.1-movement-rates.qmd
+          text: "Movement rates"
+        - href: 2-movement-analysis/2.2-generate-mcp.qmd
+          text: "Minimum convex polygons"
+        - href: 2-movement-analysis/2.3-estimate-hr.qmd
+          text: "Home ranges"
+      - section: "Habitat analysis"
+        contents:
+        - href: 3-habitat-analysis/3.0-overview.qmd
+          text: Model building
+        - href: 3-habitat-analysis/3.1-glm-models.qmd
+          text: GLM models
+        - href: 3-habitat-analysis/3.2-glmm-models.qmd
+          text: GLMM models
+        - href: 3-habitat-analysis/3.3-random-forest-models.qmd
+          text: Random forest models
+      - section: "Connectivity analysis"
+        contents:
+        - href: connectivity.qmd
+          text: Connectivity analysis
+      - href: references.qmd
+        text: References
+      - href: appendices.qmd
+        text: Appendices
+      - ---
+      - href: dashboard.qmd
+        text: Results dashboard
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+    css: styles.css
+
+execute:
+  freeze: auto
+  

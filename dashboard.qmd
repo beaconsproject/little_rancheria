@@ -1,0 +1,37 @@
+---
+title: "Home Ranges"
+format:
+  dashboard:
+    logo: "images/logo.png"
+    orientation: columns
+---
+
+## Column {width="35%"}
+
+Placeholder text for column 1
+
+```{r, loadpackages}
+#| echo: false
+#| include: false
+library(shiny)
+library(tidyverse)
+```
+
+```{r, printstarwars}
+head(starwars)
+```
+
+## Column {width="65%"}
+
+### Row {Height="10%}
+
+Placeholder text for column 2, row 1
+
+### Row {Height="70%}
+
+Placeholder text for column 2, row 2
+
+### Row {Height="20%}
+
+Placeholder text for column 2, row 3
+

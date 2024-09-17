@@ -1,0 +1,15 @@
+{
+  "hash": "08a7feb4b2af5664f4f4f56e6cfd8f44",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Home Ranges\"\nformat:\n  dashboard:\n    logo: \"images/logo.png\"\n    orientation: columns\n---\n\n\n\n\n## Column {width=\"35%\"}\n\nPlaceholder text for column 1\n\n\n\n\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n\n```\n# A tibble: 6 × 14\n  name      height  mass hair_color skin_color eye_color birth_year sex   gender\n  <chr>      <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> <chr> \n1 Luke Sky…    172    77 blond      fair       blue            19   male  mascu…\n2 C-3PO        167    75 <NA>       gold       yellow         112   none  mascu…\n3 R2-D2         96    32 <NA>       white, bl… red             33   none  mascu…\n4 Darth Va…    202   136 none       white      yellow          41.9 male  mascu…\n5 Leia Org…    150    49 brown      light      brown           19   fema… femin…\n6 Owen Lars    178   120 brown, gr… light      blue            52   male  mascu…\n# ℹ 5 more variables: homeworld <chr>, species <chr>, films <list>,\n#   vehicles <list>, starships <list>\n```\n\n\n:::\n:::\n\n\n\n\n## Column {width=\"65%\"}\n\n### Row {Height=\"10%}\n\nPlaceholder text for column 2, row 1\n\n### Row {Height=\"70%}\n\nPlaceholder text for column 2, row 2\n\n### Row {Height=\"20%}\n\nPlaceholder text for column 2, row 3\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
