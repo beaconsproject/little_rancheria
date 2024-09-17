@@ -35,12 +35,12 @@ website:
           text: "Movement rates"
         - href: 2-movement-analysis/2.2-generate-mcp.qmd
           text: "Minimum convex polygons"
-        - href: 2-movement-analysis/2.3-estimate-hr.qmd
+        - href: 2-movement-analysis/2.3-estimate-hr-amt.qmd
           text: "Home ranges"
       - section: "Habitat analysis"
         contents:
-        - href: 3-habitat-analysis/3.0-overview.qmd
-          text: Model building
+        - href: 3-habitat-analysis/overview.qmd
+          text: Overview
         - href: 3-habitat-analysis/3.1-glm-models.qmd
           text: GLM models
         - href: 3-habitat-analysis/3.2-glmm-models.qmd
@@ -57,7 +57,7 @@ website:
         text: Appendices
       - ---
       - href: dashboard.qmd
-        text: Results dashboard
+        text: Dashboard
 
 bibliography: references.bib
 

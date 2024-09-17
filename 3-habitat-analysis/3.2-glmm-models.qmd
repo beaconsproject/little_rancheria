@@ -68,20 +68,24 @@ for (sea in seasons) {
             scale(northness) + scale(dist2line) + scale(dist2poly) + fires +
             forest + barren + (1|individual), family=binomial, data=train)
   print(summary(m1))
+  print(report(m1))
   
   # Predict
   # https://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
-  #png(paste0('output/glmm/',sea,'_map.png'))
   #p1 <- terra::predict(rasters, m1, const=data.frame(individual=NA), re.form=NA)
   p1 <- terra::predict(rasters, m1, re.form=NA)
+  png(paste0('../output/glmm/',sea,'_map.png'))
   plot(p1)
-  #dev.off()
+  dev.off()
+  plot(p1)
+  writeRaster(p1, paste0("../output/glmm/",sea,"map.tif"), overwrite=TRUE)
 
   # Evaluate model
   eva <- predicts::pa_evaluate(predict(m1, test[test$pa==1, ]), predict(m1, test[test$pa==0, ]))
-  eva
-  #png(paste0('output/glmm/',sea,'_auc.png'))
+  png(paste0('../output/glmm/',sea,'_auc.png'))
   plot(eva, "ROC")
-  #dev.off()
+  dev.off()
+  plot(eva, "ROC")
+  print(eva)
 }
 ```

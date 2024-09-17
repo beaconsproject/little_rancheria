@@ -20,6 +20,7 @@ library(tidyverse)
 library(rpart)
 library(rpart.plot)
 library(predicts)
+library(report)
 library(randomForest)
 set.seed(123)
 ```
@@ -52,7 +53,7 @@ for (sea in seasons) {
     sample_n(nsize) |>
     as.data.frame()
 
-  covars <- names(gps[,3:19])
+  (covars <- names(gps[,3:19]))
 
   ################################################################################
   # CART model
@@ -82,34 +83,39 @@ for (sea in seasons) {
   train <- gps[-i,]
   crf <- randomForest(train[, covars], train[, "fpa"])
   crf
-  #png(paste0('output/random_forests/',sea,'_varimp.png'))
+  png(paste0('../output/random_forests/',sea,'_varimp.png'))
   varImpPlot(crf)
-  #dev.off()
+  dev.off()
+  varImpPlot(crf)
   
   # Now we use regression, rather than classification. First we tune a parameter.
   trf <- tuneRF(train[, covars], train[, "pa"])
-  trf
+  print(trf)
   mt <- trf[which.min(trf[,2]), 1]
-  mt
+  print(mt)
 
   rrf <- randomForest(train[, covars], train[, "pa"], mtry=mt, ntree=250)
-  rrf
-  #png(paste0('output/random_forests/',sea,'_rrf.png'))
+  print(rrf)
+  png(paste0('../output/random_forests/',sea,'_rrf.png'))
   plot(rrf)
-  #dev.off()
+  dev.off()
+  plot(rrf)
 
   # Predict
-  #png(paste0('output/random_forests/',sea,'_map.png'))
   rp <- predict(rasters, rrf, na.rm=TRUE)
+  png(paste0('../output/random_forests/',sea,'_map.png'))
   plot(rp)
-  #dev.off()
+  dev.off()
+  plot(rp)
+  writeRaster(p1, paste0("../output/random_forests/",sea,"map.tif"), overwrite=TRUE)
 
   # Evaluate model
   eva <- pa_evaluate(predict(rrf, test[test$pa==1, ]), predict(rrf, test[test$pa==0, ]))
-  eva
-  #png(paste0('output/random_forests/',sea,'_auc.png'))
+  png(paste0('../output/random_forests/',sea,'_auc.png'))
   plot(eva, "ROC")
-  #dev.off()
+  dev.off()
+  plot(eva, "ROC")
+  print(eva)
 
   # Save mapped predictions
   #writeRaster(rp, paste0('output/random_forests/map_',season,'.tif'))

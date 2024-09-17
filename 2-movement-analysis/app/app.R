@@ -14,13 +14,13 @@ library(tidyverse)
 caribou <- sort(c("43161","43147","43146","43144","43159","43141","43158",
   "43164","43150","43154","43145","43143","43140","43155","43156","43160",
   "43152","43148","43151","43142","43149","43162","43153","43157","43163"))
-bnd <- st_read('../../data/yt_caribou.gpkg', 'mcp_buff15k') |>
+bnd <- st_read('yt_caribou.gpkg', 'mcp_buff15k') |>
   st_transform(4326)
 bnd <- vect(bnd)
 bnd50 <- buffer(bnd, 50000)
 #bg <- get_tiles(ext(bnd), provider=opentopomap)
 #bg <- crop(bg, bnd50)
-pts <- st_read('../../data/yt_caribou.gpkg', 'gps') |>
+pts <- st_read('yt_caribou.gpkg', 'gps') |>
   st_transform(4326)
 
 ui <- fluidPage(

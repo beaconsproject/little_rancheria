@@ -1,37 +1,95 @@
 ---
-title: "Home Ranges"
-format:
-  dashboard:
-    logo: "images/logo.png"
-    orientation: columns
+title: "Pedro's Dashboard"
+format: dashboard
 ---
 
-## Column {width="35%"}
+#  {.sidebar}
 
-Placeholder text for column 1
+**Github**
 
-```{r, loadpackages}
-#| echo: false
-#| include: false
-library(shiny)
-library(tidyverse)
+- landing page
+- coding
+- disturbance mapping
+
+**Bookmarks**
+
+
+# Planning
+
+## Row {.tabset}
+
+### Tasks
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/13XoWfMFM5DRWEpyREyqcUBVSo0QmY7GsTyRqueF-_LM/edit" frameborder="0"></iframe>
 ```
 
-```{r, printstarwars}
-head(starwars)
+### Timelines
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/spreadsheets/d/1zUy7QgPnn-Cp8nlaxmCUR9VXAgbjTT3KI0Ad4XHlUiU/edit" frameborder="0"></iframe>
 ```
 
-## Column {width="65%"}
+### Data
 
-### Row {Height="10%}
+Conservation datasets
 
-Placeholder text for column 2, row 1
+### Methods
 
-### Row {Height="70%}
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1kloZEdbjhJQ52IhjIwZva8ApS4JgS1xAtxB4Kw8mMcs/edit" frameborder="0"></iframe>
+```
 
-Placeholder text for column 2, row 2
+### Tools
 
-### Row {Height="20%}
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/spreadsheets/d/10bsfKOUj6lHYxUdj_-GOKALMnBmhkVMTIBntYDvYmq0/edit" frameborder="0"></iframe>
+```
 
-Placeholder text for column 2, row 3
+### Papers
 
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1nmOeguhwiAqYqcQKnfGrqloIxn7FNVsk2b7Eu7NtmcQ/edit" frameborder="0"></iframe>
+```
+
+# Disturbance mapping
+
+## Row {.tabset}
+
+### Workplan
+
+Disturbance mapping workplan.
+
+### Datasets
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/spreadsheets/d/1jrF-9GxjVUxCpmETts-CGrAiqsv6Wm407Qsez8uCN8k/edit?usp=sharing" frameborder="0"></iframe>
+```
+
+### Procedures
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1pVEeJe09dDMEV8KVDPm5VlvCeTs8LtK8vEzI-lGqiC8/edit" frameborder="0"></iframe>
+```
+
+### Paper
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1odYaCYmW05E3kvzcx0dSBb5RGP6l5cOvKXGkJjK26jQ/edit" frameborder="0"></iframe>
+```
+
+### Paper extra
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/18iBdeLx3qgagsvpN4PLxV_dyH3d-eFmAPX9FBWYF_GA/edit" frameborder="0"></iframe>
+```
+
+# Little rancheria
+
+## Row {.tabset}
+
+### Worplan
+
+```{=html}
+<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1p0pAv9950JJwcaKug6WJn6BYHQrtLv95NQadZrdo8iE/edit" frameborder="0"></iframe>
+```
