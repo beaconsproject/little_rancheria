@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendices – Little Rancheria</title>
+<title>Habitat Analysis – Little Rancheria</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./references.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../3-habitat-analysis/3.1-glm-models.html" rel="next">
+<link href="../2-movement-analysis/2.3-estimate-hr-amt.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -68,8 +69,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Appendices – Little Rancheria">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Habitat Analysis – Little Rancheria">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Little Rancheria">
 </head>
@@ -83,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./appendices.html">Appendices</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/overview.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/overview.html">Overview</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -95,20 +96,20 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Little Rancheria Caribou Analysis Workbook</a> 
+      <a href="../">Little Rancheria Caribou Analysis Workbook</a> 
     </div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+  <a href="../workflow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workflow</span></a>
   </div>
 </li>
@@ -123,19 +124,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1-data-preparation/1.1-prepare-caribou.html" class="sidebar-item-text sidebar-link">
+  <a href="../1-data-preparation/1.1-prepare-caribou.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prepare caribou data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1-data-preparation/1.2-prepare-covariates.html" class="sidebar-item-text sidebar-link">
+  <a href="../1-data-preparation/1.2-prepare-covariates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prepare covariate data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1-data-preparation/1.3-extract-values.html" class="sidebar-item-text sidebar-link">
+  <a href="../1-data-preparation/1.3-extract-values.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Extract values</span></a>
   </div>
 </li>
@@ -152,19 +153,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-movement-analysis/2.1-movement-rates.html" class="sidebar-item-text sidebar-link">
+  <a href="../2-movement-analysis/2.1-movement-rates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Movement rates</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-movement-analysis/2.2-generate-mcp.html" class="sidebar-item-text sidebar-link">
+  <a href="../2-movement-analysis/2.2-generate-mcp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimum convex polygons</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2-movement-analysis/2.3-estimate-hr-amt.html" class="sidebar-item-text sidebar-link">
+  <a href="../2-movement-analysis/2.3-estimate-hr-amt.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home ranges</span></a>
   </div>
 </li>
@@ -172,34 +173,34 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Habitat analysis</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-habitat-analysis/overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../3-habitat-analysis/overview.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-habitat-analysis/3.1-glm-models.html" class="sidebar-item-text sidebar-link">
+  <a href="../3-habitat-analysis/3.1-glm-models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GLM models</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-habitat-analysis/3.2-glmm-models.html" class="sidebar-item-text sidebar-link">
+  <a href="../3-habitat-analysis/3.2-glmm-models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GLMM models</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-habitat-analysis/3.3-random-forest-models.html" class="sidebar-item-text sidebar-link">
+  <a href="../3-habitat-analysis/3.3-random-forest-models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Random forest models</span></a>
   </div>
 </li>
@@ -216,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./connectivity.html" class="sidebar-item-text sidebar-link">
+  <a href="../connectivity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Connectivity analysis</span></a>
   </div>
 </li>
@@ -224,20 +225,20 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendices.html" class="sidebar-item-text sidebar-link active">
+  <a href="../appendices.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Appendices</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../dashboard.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard</span></a>
   </div>
 </li>
@@ -251,16 +252,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#seasonal-ranges" id="toc-seasonal-ranges" class="nav-link active" data-scroll-target="#seasonal-ranges">Seasonal ranges</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#model-development" id="toc-model-development" class="nav-link" data-scroll-target="#model-development">Model development</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/overview.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/overview.html">Overview</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Appendices</h1>
+<h1 class="title">Habitat Analysis</h1>
 </div>
 
 
@@ -277,72 +283,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="seasonal-ranges" class="level2">
-<h2 class="anchored" data-anchor-id="seasonal-ranges">Seasonal ranges</h2>
-<p>Seasonal date ranges for the Clear Creek herd and general seasonal dates for Northern Mountain Caribou (from Kelsey Russell).</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 30%">
-<col style="width: 45%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Season(1)</th>
-<th>Clear Creek Dates(2)</th>
-<th>NM caribou (3)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Winter</td>
-<td>Dec 06 - Apr 11</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Early Winter</td>
-<td></td>
-<td>Oct 21 - Jan 31</td>
-</tr>
-<tr class="odd">
-<td>Late Winter</td>
-<td></td>
-<td>Feb 01 - Apr 15</td>
-</tr>
-<tr class="even">
-<td>Spring Migration</td>
-<td>Apr 12 - May 16</td>
-<td>Apr 16 - May 14</td>
-</tr>
-<tr class="odd">
-<td>Calving/post calving</td>
-<td>May 17 - Jun 16</td>
-<td>May 15 - Jun 15</td>
-</tr>
-<tr class="even">
-<td>Summer</td>
-<td>Jun 17 - Sep 17</td>
-<td>Jun 16 - Sep 14</td>
-</tr>
-<tr class="odd">
-<td>Fall rut</td>
-<td>Sep 18 - Oct 06</td>
-<td>Sep 15 - Oct 20</td>
-</tr>
-<tr class="even">
-<td>Fall migration</td>
-<td>Oct 07 - Dec 05</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<ol type="1">
-<li>Identification of migration seasons (fall/spring) and separation of winter seasons by YG depends on the herd and purpose of work.</li>
-<li>Derived from recursive partitioning of movement data.</li>
-<li>Could be used for Klaza herd.</li>
-</ol>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Resource selection functions are powerful tools for predicting habitat selection of animals. Recently, machine-learning methods such as random forest have gained popularity for predicting habitat selection due to their flexibility and strong predictive performance.</p>
+<p>We tested two methods for predicting continental-scale, second-order habitat selection of a wide-ranging large ungulate, the northern mountain caribou (<em>Rangifer tarandus caribou</em>), to support regional conservation management, including estimating abundance, and to predict habitat suitability for recolonizing or reintroduced animals.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>We compared a generalized linear model (GLM) and a random forest model using GPS location data from 25 individuals across the BC and Yukon and landscape data. We internally validated models and examined their ability to correctly classify used and available points by calculating area under the receiver operating characteristics (AUC). We performed leave-one-out (LOO) out-of-sample tests of predictive strength on both models.</p>
+<p>Four seasons were defined using a range of dates (Appendix 1) based on discussions with regional biologists.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="model-development" class="level3">
+<h3 class="anchored" data-anchor-id="model-development">Model development</h3>
+<p>We develop RSF models for four seasons using GLM and Random Forest models.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -768,11 +726,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
+      <a href="../2-movement-analysis/2.3-estimate-hr-amt.html" class="pagination-link" aria-label="Home ranges">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home ranges</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../3-habitat-analysis/3.1-glm-models.html" class="pagination-link" aria-label="GLM models">
+        <span class="nav-page-text">GLM models</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

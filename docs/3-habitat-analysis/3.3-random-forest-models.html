@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.0-overview.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.3-random-forest-models.html">Random forest models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/overview.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.3-random-forest-models.html">Random forest models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -199,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2-movement-analysis/2.3-estimate-hr.html" class="sidebar-item-text sidebar-link">
+  <a href="../2-movement-analysis/2.3-estimate-hr-amt.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home ranges</span></a>
   </div>
 </li>
@@ -216,8 +216,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../3-habitat-analysis/3.0-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model building</span></a>
+  <a href="../3-habitat-analysis/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../dashboard.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Results dashboard</span></a>
+ <span class="menu-text">Dashboard</span></a>
   </div>
 </li>
     </ul>
@@ -293,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.0-overview.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.3-random-forest-models.html">Random forest models</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3-habitat-analysis/overview.html">Habitat analysis</a></li><li class="breadcrumb-item"><a href="../3-habitat-analysis/3.3-random-forest-models.html">Random forest models</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Random forest models</h1>
 </div>
@@ -348,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_n</span>(nsize) <span class="sc">|&gt;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  covars <span class="ot">&lt;-</span> <span class="fu">names</span>(gps[,<span class="dv">3</span><span class="sc">:</span><span class="dv">19</span>])</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  (covars <span class="ot">&lt;-</span> <span class="fu">names</span>(gps[,<span class="dv">3</span><span class="sc">:</span><span class="dv">19</span>]))</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">################################################################################</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># CART model</span></span>
@@ -378,42 +378,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  train <span class="ot">&lt;-</span> gps[<span class="sc">-</span>i,]</span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  crf <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(train[, covars], train[, <span class="st">"fpa"</span>])</span>
 <span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  crf</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="co">#png(paste0('output/random_forests/',sea,'_varimp.png'))</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(<span class="fu">paste0</span>(<span class="st">'../output/randomforest/'</span>,sea,<span class="st">'_varimp.png'</span>))</span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">varImpPlot</span>(crf)</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dev.off()</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Now we use regression, rather than classification. First we tune a parameter.</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  trf <span class="ot">&lt;-</span> <span class="fu">tuneRF</span>(train[, covars], train[, <span class="st">"pa"</span>])</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  trf</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  mt <span class="ot">&lt;-</span> trf[<span class="fu">which.min</span>(trf[,<span class="dv">2</span>]), <span class="dv">1</span>]</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  mt</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  rrf <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(train[, covars], train[, <span class="st">"pa"</span>], <span class="at">mtry=</span>mt, <span class="at">ntree=</span><span class="dv">250</span>)</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  rrf</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  <span class="co">#png(paste0('output/random_forests/',sea,'_rrf.png'))</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(rrf)</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dev.off()</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predict</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="co">#png(paste0('output/random_forests/',sea,'_map.png'))</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  rp <span class="ot">&lt;-</span> <span class="fu">predict</span>(rasters, rrf, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(rp)</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dev.off()</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Evaluate model</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  eva <span class="ot">&lt;-</span> <span class="fu">pa_evaluate</span>(<span class="fu">predict</span>(rrf, test[test<span class="sc">$</span>pa<span class="sc">==</span><span class="dv">1</span>, ]), <span class="fu">predict</span>(rrf, test[test<span class="sc">$</span>pa<span class="sc">==</span><span class="dv">0</span>, ]))</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  eva</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  <span class="co">#png(paste0('output/random_forests/',sea,'_auc.png'))</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(eva, <span class="st">"ROC"</span>)</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dev.off()</span></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save mapped predictions</span></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>  <span class="co">#writeRaster(rp, paste0('output/random_forests/map_',season,'.tif'))</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">varImpPlot</span>(crf)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Now we use regression, rather than classification. First we tune a parameter.</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  trf <span class="ot">&lt;-</span> <span class="fu">tuneRF</span>(train[, covars], train[, <span class="st">"pa"</span>])</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(trf)</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  mt <span class="ot">&lt;-</span> trf[<span class="fu">which.min</span>(trf[,<span class="dv">2</span>]), <span class="dv">1</span>]</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(mt)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  rrf <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(train[, covars], train[, <span class="st">"pa"</span>], <span class="at">mtry=</span>mt, <span class="at">ntree=</span><span class="dv">250</span>)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rrf)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(<span class="fu">paste0</span>(<span class="st">'../output/randomforest/'</span>,sea,<span class="st">'_rrf.png'</span>))</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(rrf)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(rrf)</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predict</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  rp <span class="ot">&lt;-</span> <span class="fu">predict</span>(rasters, rrf, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(<span class="fu">paste0</span>(<span class="st">'../output/randomforest/'</span>,sea,<span class="st">'_map.png'</span>))</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(rp)</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(rp)</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeRaster</span>(rp, <span class="fu">paste0</span>(<span class="st">"../data/predict30/randomforest/"</span>,sea,<span class="st">"map.tif"</span>), <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Evaluate model</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>  eva <span class="ot">&lt;-</span> <span class="fu">pa_evaluate</span>(<span class="fu">predict</span>(rrf, test[test<span class="sc">$</span>pa<span class="sc">==</span><span class="dv">1</span>, ]), <span class="fu">predict</span>(rrf, test[test<span class="sc">$</span>pa<span class="sc">==</span><span class="dv">0</span>, ]))</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(<span class="fu">paste0</span>(<span class="st">'../output/randomforest/'</span>,sea,<span class="st">'_auc.png'</span>))</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(eva, <span class="st">"ROC"</span>)</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(eva, <span class="st">"ROC"</span>)</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(eva)</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save mapped predictions</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>  <span class="co">#writeRaster(rp, paste0('output/random_forests/map_',season,'.tif'))</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Processing earlywinter ...
 Reading layer `gps_vars' from data source 
-  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
+  `C:\Users\PIVER37\Documents\workbooks\little_rancheria\data\yt_caribou.gpkg' 
   using driver `GPKG'
 Simple feature collection with 154182 features and 21 fields
 Geometry type: POINT
@@ -456,22 +461,33 @@ regression?</code></pre>
 <pre><code>mtry = 10   OOB error = 0.1112096 
 0.02959501 0.05 </code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   mtry  OOBError
+3     3 0.1226796
+5     5 0.1146012
+10   10 0.1112096
+[1] 10</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(train[, covars], train[, "pa"], mtry = mt, :
 The response has five or fewer unique values.  Are you sure you want to do
 regression?</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(x = train[, covars], y = train[, "pa"], ntree = 250,      mtry = mt) 
+               Type of random forest: regression
+                     Number of trees: 250
+No. of variables tried at each split: 10
+
+          Mean of squared residuals: 0.1073535
+                    % Var explained: 57.06</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -484,9 +500,44 @@ regression?</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
+<p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>@stats
+   np   na prevalence   auc   cor pcor   ODP
+1 978 1022      0.489 0.922 0.746    0 0.511
+
+@thresholds
+  max_kappa max_spec_sens no_omission equal_prevalence equal_sens_spec
+1     0.523         0.523       0.009            0.487           0.578
+
+@tr_stats
+     treshold kappa  CCR  TPR  TNR  FPR  FNR  PPP  NPP  MCR   OR
+1           0     0 0.49    1    0    1    0 0.49  NaN 0.51  NaN
+2           0  0.03  0.5    1 0.03 0.97    0  0.5    1  0.5  Inf
+3           0  0.03  0.5    1 0.03 0.97    0  0.5    1  0.5  Inf
+4         ...   ...  ...  ...  ...  ...  ...  ...  ...  ...  ...
+1747        1  0.02 0.52 0.02    1    0 0.98 0.95 0.52 0.48 22.4
+1748        1  0.02 0.52 0.02    1    0 0.98 0.95 0.52 0.48 22.4
+1749        1     0 0.51    0    1    0    1  NaN 0.51 0.49  NaN
+Processing latewinter ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\workbooks\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -494,17 +545,6 @@ regression?</code></pre>
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Processing latewinter ...
-Reading layer `gps_vars' from data source 
-  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
-  using driver `GPKG'
-Simple feature collection with 154182 features and 21 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
-Projected CRS: NAD83 / Yukon Albers</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(x, y, mtry = mtryStart, ntree = ntreeTry, : The
@@ -550,22 +590,34 @@ regression?</code></pre>
 <pre><code>mtry = 17   OOB error = 0.07456687 
 0.003157407 0.05 </code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   mtry   OOBError
+3     3 0.09557045
+5     5 0.07979431
+10   10 0.07480305
+17   17 0.07456687
+[1] 17</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(train[, covars], train[, "pa"], mtry = mt, :
 The response has five or fewer unique values.  Are you sure you want to do
 regression?</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(x = train[, covars], y = train[, "pa"], ntree = 250,      mtry = mt) 
+               Type of random forest: regression
+                     Number of trees: 250
+No. of variables tried at each split: 17
+
+          Mean of squared residuals: 0.07131714
+                    % Var explained: 71.47</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -578,9 +630,44 @@ regression?</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
+<p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>@stats
+   np   na prevalence   auc   cor pcor   ODP
+1 971 1029      0.486 0.962 0.837    0 0.514
+
+@thresholds
+  max_kappa max_spec_sens no_omission equal_prevalence equal_sens_spec
+1     0.507         0.507           0            0.486           0.605
+
+@tr_stats
+     treshold kappa  CCR  TPR  TNR  FPR  FNR  PPP  NPP  MCR     OR
+1           0     0 0.49    1    0    1    0 0.49  NaN 0.51    NaN
+2           0  0.41  0.7    1 0.42 0.58    0 0.62 0.99  0.3 237.24
+3           0  0.41  0.7    1 0.42 0.58    0 0.62 0.99  0.3 237.24
+4         ...   ...  ...  ...  ...  ...  ...  ...  ...  ...    ...
+1239        1  0.07 0.55 0.07    1    0 0.93    1 0.53 0.45    Inf
+1240        1  0.07 0.55 0.07    1    0 0.93    1 0.53 0.45    Inf
+1241        1     0 0.51    0    1    0    1  NaN 0.51 0.49    NaN
+Processing summer ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\workbooks\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -588,17 +675,6 @@ regression?</code></pre>
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-10.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Processing summer ...
-Reading layer `gps_vars' from data source 
-  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
-  using driver `GPKG'
-Simple feature collection with 154182 features and 21 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
-Projected CRS: NAD83 / Yukon Albers</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(x, y, mtry = mtryStart, ntree = ntreeTry, : The
@@ -635,22 +711,33 @@ regression?</code></pre>
 <pre><code>mtry = 10   OOB error = 0.09725354 
 0.01105389 0.05 </code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   mtry   OOBError
+3     3 0.10582940
+5     5 0.09834059
+10   10 0.09725354
+[1] 10</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(train[, covars], train[, "pa"], mtry = mt, :
 The response has five or fewer unique values.  Are you sure you want to do
 regression?</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(x = train[, covars], y = train[, "pa"], ntree = 250,      mtry = mt) 
+               Type of random forest: regression
+                     Number of trees: 250
+No. of variables tried at each split: 10
+
+          Mean of squared residuals: 0.09254644
+                    % Var explained: 62.98</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-12.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-13.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -663,9 +750,44 @@ regression?</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
+<p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-13.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-14.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>@stats
+    np  na prevalence   auc   cor pcor   ODP
+1 1009 991      0.504 0.936 0.783    0 0.496
+
+@thresholds
+  max_kappa max_spec_sens no_omission equal_prevalence equal_sens_spec
+1     0.527         0.527           0            0.504            0.59
+
+@tr_stats
+     treshold kappa  CCR  TPR  TNR  FPR  FNR  PPP NPP  MCR     OR
+1           0     0  0.5    1    0    1    0  0.5 NaN  0.5    NaN
+2           0  0.24 0.62    1 0.24 0.76    0 0.57   1 0.38 316.84
+3           0  0.24 0.62    1 0.24 0.76    0 0.57   1 0.38  318.6
+4         ...   ...  ...  ...  ...  ...  ...  ... ...  ...    ...
+1557        1  0.01  0.5 0.01    1    0 0.99    1 0.5  0.5    Inf
+1558        1  0.01  0.5 0.01    1    0 0.99    1 0.5  0.5    Inf
+1559        1     0  0.5    0    1    0    1  NaN 0.5  0.5    NaN
+Processing fallrut ...
+Reading layer `gps_vars' from data source 
+  `C:\Users\PIVER37\Documents\workbooks\little_rancheria\data\yt_caribou.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 154182 features and 21 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
+Projected CRS: NAD83 / Yukon Albers</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -673,17 +795,6 @@ regression?</code></pre>
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-15.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Processing fallrut ...
-Reading layer `gps_vars' from data source 
-  `C:\Users\PIVER37\Documents\little_rancheria\data\yt_caribou.gpkg' 
-  using driver `GPKG'
-Simple feature collection with 154182 features and 21 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 503895 ymin: 466005 xmax: 731595 ymax: 666405
-Projected CRS: NAD83 / Yukon Albers</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(x, y, mtry = mtryStart, ntree = ntreeTry, : The
@@ -720,10 +831,28 @@ regression?</code></pre>
 <pre><code>mtry = 10   OOB error = 0.08721571 
 0.03249984 0.05 </code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   mtry   OOBError
+3     3 0.10335251
+5     5 0.09014542
+10   10 0.08721571
+[1] 10</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in randomForest.default(train[, covars], train[, "pa"], mtry = mt, :
 The response has five or fewer unique values.  Are you sure you want to do
 regression?</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(x = train[, covars], y = train[, "pa"], ntree = 250,      mtry = mt) 
+               Type of random forest: regression
+                     Number of trees: 250
+No. of variables tried at each split: 10
+
+          Mean of squared residuals: 0.08267883
+                    % Var explained: 66.92</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -732,18 +861,18 @@ regression?</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-18.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-|---------|---------|---------|---------|
-=========================================
-                                          </code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -758,6 +887,25 @@ regression?</code></pre>
 <p><img src="3.3-random-forest-models_files/figure-html/unnamed-chunk-3-20.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>@stats
+   np   na prevalence   auc   cor pcor   ODP
+1 984 1016      0.492 0.954 0.817    0 0.508
+
+@thresholds
+  max_kappa max_spec_sens no_omission equal_prevalence equal_sens_spec
+1     0.523         0.523       0.023            0.493           0.577
+
+@tr_stats
+     treshold kappa  CCR  TPR  TNR  FPR  FNR  PPP  NPP  MCR    OR
+1           0     0 0.49    1    0    1    0 0.49  NaN 0.51   NaN
+2           0  0.03  0.5    1 0.03 0.97    0  0.5    1  0.5   Inf
+3           0  0.03  0.5    1 0.03 0.97    0  0.5    1  0.5   Inf
+4         ...   ...  ...  ...  ...  ...  ...  ...  ...  ...   ...
+1704        1  0.02 0.52 0.02    1    0 0.98 0.96 0.51 0.48 24.29
+1705        1  0.02 0.52 0.02    1    0 0.98 0.96 0.51 0.48 24.29
+1706        1     0 0.51    0    1    0    1  NaN 0.51 0.49   NaN</code></pre>
 </div>
 </div>
 

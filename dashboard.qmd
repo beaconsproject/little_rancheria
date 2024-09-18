@@ -1,5 +1,5 @@
 ---
-title: "Pedro's Dashboard"
+title: "Caribou Dashboard"
 format: dashboard
 ---
 
@@ -20,15 +20,9 @@ format: dashboard
 
 ### Tasks
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/13XoWfMFM5DRWEpyREyqcUBVSo0QmY7GsTyRqueF-_LM/edit" frameborder="0"></iframe>
-```
 
 ### Timelines
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/spreadsheets/d/1zUy7QgPnn-Cp8nlaxmCUR9VXAgbjTT3KI0Ad4XHlUiU/edit" frameborder="0"></iframe>
-```
 
 ### Data
 
@@ -36,21 +30,12 @@ Conservation datasets
 
 ### Methods
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1kloZEdbjhJQ52IhjIwZva8ApS4JgS1xAtxB4Kw8mMcs/edit" frameborder="0"></iframe>
-```
 
 ### Tools
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/spreadsheets/d/10bsfKOUj6lHYxUdj_-GOKALMnBmhkVMTIBntYDvYmq0/edit" frameborder="0"></iframe>
-```
 
 ### Papers
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1nmOeguhwiAqYqcQKnfGrqloIxn7FNVsk2b7Eu7NtmcQ/edit" frameborder="0"></iframe>
-```
 
 # Disturbance mapping
 
@@ -62,34 +47,18 @@ Disturbance mapping workplan.
 
 ### Datasets
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/spreadsheets/d/1jrF-9GxjVUxCpmETts-CGrAiqsv6Wm407Qsez8uCN8k/edit?usp=sharing" frameborder="0"></iframe>
-```
 
 ### Procedures
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1pVEeJe09dDMEV8KVDPm5VlvCeTs8LtK8vEzI-lGqiC8/edit" frameborder="0"></iframe>
-```
 
 ### Paper
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1odYaCYmW05E3kvzcx0dSBb5RGP6l5cOvKXGkJjK26jQ/edit" frameborder="0"></iframe>
-```
 
 ### Paper extra
 
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/18iBdeLx3qgagsvpN4PLxV_dyH3d-eFmAPX9FBWYF_GA/edit" frameborder="0"></iframe>
-```
 
 # Little rancheria
 
 ## Row {.tabset}
 
 ### Worplan
-
-```{=html}
-<iframe width="100%" height="100%" src="https://docs.google.com/document/d/1p0pAv9950JJwcaKug6WJn6BYHQrtLv95NQadZrdo8iE/edit" frameborder="0"></iframe>
-```

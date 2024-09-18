@@ -83,7 +83,7 @@ for (sea in seasons) {
   train <- gps[-i,]
   crf <- randomForest(train[, covars], train[, "fpa"])
   crf
-  png(paste0('../output/random_forests/',sea,'_varimp.png'))
+  png(paste0('../output/randomforest/',sea,'_varimp.png'))
   varImpPlot(crf)
   dev.off()
   varImpPlot(crf)
@@ -96,22 +96,22 @@ for (sea in seasons) {
 
   rrf <- randomForest(train[, covars], train[, "pa"], mtry=mt, ntree=250)
   print(rrf)
-  png(paste0('../output/random_forests/',sea,'_rrf.png'))
+  png(paste0('../output/randomforest/',sea,'_rrf.png'))
   plot(rrf)
   dev.off()
   plot(rrf)
 
   # Predict
   rp <- predict(rasters, rrf, na.rm=TRUE)
-  png(paste0('../output/random_forests/',sea,'_map.png'))
+  png(paste0('../output/randomforest/',sea,'_map.png'))
   plot(rp)
   dev.off()
   plot(rp)
-  writeRaster(p1, paste0("../output/random_forests/",sea,"map.tif"), overwrite=TRUE)
+  writeRaster(rp, paste0("../data/predict30/randomforest/",sea,"map.tif"), overwrite=TRUE)
 
   # Evaluate model
   eva <- pa_evaluate(predict(rrf, test[test$pa==1, ]), predict(rrf, test[test$pa==0, ]))
-  png(paste0('../output/random_forests/',sea,'_auc.png'))
+  png(paste0('../output/randomforest/',sea,'_auc.png'))
   plot(eva, "ROC")
   dev.off()
   plot(eva, "ROC")

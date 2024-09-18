@@ -19,3 +19,117 @@ Four seasons were defined using a range of dates (Appendix 1) based on discussio
 ### Model development
 
 We develop RSF models for four seasons using GLM and Random Forest models.
+
+Early winter
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/earlywinter_map.png)
+
+## Random forest
+
+![](../output/randomforest/earlywinter_map.png)
+
+:::
+
+Late winter
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/latewinter_map.png)
+
+## Random forest
+
+![](../output/randomforest/latewinter_map.png)
+
+:::
+
+Summer
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/summer_map.png)
+
+## Random forest
+
+![](../output/randomforest/summer_map.png)
+
+:::
+
+Fall rut
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/fallrut_map.png)
+
+## Random forest
+
+![](../output/randomforest/fallrut_map.png)
+
+:::
+
+### Model evaluation
+
+**Early winter**
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/earlywinter_auc.png)
+
+## Random forest
+
+![](../output/randomforest/earlywinter_auc.png)
+
+:::
+
+**Late winter**
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/latewinter_auc.png)
+
+## Random forest
+
+![](../output/randomforest/latewinter_auc.png)
+
+:::
+
+**Summer**
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/summer_auc.png)
+
+## Random forest
+
+![](../output/randomforest/summer_auc.png)
+
+:::
+
+**Fall rut**
+
+::: {.panel-tabset}
+
+## GLM
+
+![](../output/glm/fallrut_auc.png)
+
+## Random forest
+
+![](../output/randomforest/fallrut_auc.png)
+
+:::
