@@ -479,7 +479,7 @@
     "href": "2-movement-analysis/2.2-generate-mcp.html",
     "title": "Create tracks",
     "section": "",
-    "text": "Objectives:\n\nCreate minimum convex polygons for:\n\nindividual caribou\nall caribou (merged individual MCPs + 5km buffer) The second MCP will be used to define the limit of the study region\n\n\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(adehabitatHR)\n\n\n\n\ngps &lt;- st_read('../data/yt_caribou.gpkg', 'gps', quiet=TRUE)\nglimpse(gps)\n\nRows: 90,864\nColumns: 4\n$ timestamp &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 07…\n$ ID        &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 4316…\n$ season    &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\", …\n$ geom      &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4), …\n\n\n\n\n\n\nimcp &lt;- NULL # for individual MCPs\nmcp &lt;- NULL # for merged MCPs\nfor (i in unique(gps$ID)) {\n  gps1 &lt;- filter(gps, ID==i) %&gt;%\n    dplyr::select(ID)\n  if (nrow(gps1)&gt;=5) {\n    gps1.sp &lt;- as_Spatial(gps1)\n    gps1.mcp &lt;- mcp(gps1.sp, percent=100)\n    mcp1 &lt;- st_as_sf(gps1.mcp)\n    if (i==gps$ID[1]) {\n      imcp &lt;- mcp1\n      mcp &lt;- mcp1\n    } else {\n      imcp &lt;- rbind(imcp, mcp1)\n      mcp &lt;- st_union(mcp, mcp1)\n    }\n  }\n}\n\n\n\n\n\nimcp2 &lt;- imcp |&gt;\n  st_transform(3578)\nrow.names(imcp2) &lt;- NULL\nst_write(imcp2, '../data/yt_caribou.gpkg', 'imcp', delete_layer=TRUE)\n\nDeleting layer `imcp' using driver `GPKG'\nWriting layer `imcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 25 features with 2 fields and geometry type Polygon.\n\nplot(st_geometry(imcp2))\n\n\n\n\n\n\n\n\n\n\n\n\nmcp2 &lt;- mcp |&gt;\n  dplyr::select(id) |&gt;\n  mutate(id='Population MCP') %&gt;%\n  st_transform(3578)\nrow.names(mcp2) &lt;- NULL\nst_write(mcp2, '../data/yt_caribou.gpkg', 'mcp', delete_layer=TRUE)\n\nDeleting layer `mcp' using driver `GPKG'\nWriting layer `mcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nplot(st_geometry(mcp2))\n\n\n\n\n\n\n\n\n\n\n\n\nmcp15k &lt;- st_buffer(mcp2, 15000) %&gt;%\n  mutate(id = 'mcp_buff15k') %&gt;%\n  st_transform(3578)\nst_write(mcp15k, '../data/yt_caribou.gpkg', 'mcp_buff15k', delete_layer=TRUE)\n\nDeleting layer `mcp_buff15k' using driver `GPKG'\nWriting layer `mcp_buff15k' to data source \n  `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nst_layers('../data/yt_caribou.gpkg')\n\nDriver: GPKG \nAvailable layers:\n            layer_name geometry_type features fields             crs_name\n1                  gps         Point    90864      3 NAD83 / Yukon Albers\n2             gps_vars         Point   154182     21 NAD83 / Yukon Albers\n3           akcan_10km Multi Polygon    14378      4 NAD83 / Yukon Albers\n4  ecozone3_ecoregions Multi Polygon       37     11 NAD83 / Yukon Albers\n5            ecozones3 Multi Polygon        3     10 NAD83 / Yukon Albers\n6        sbfi_150x150k Multi Polygon       24      3 NAD83 / Yukon Albers\n7            sbfi_fdas Multi Polygon      124      1 NAD83 / Yukon Albers\n8                 imcp       Polygon       25      2 NAD83 / Yukon Albers\n9                  mcp       Polygon        1      1 NAD83 / Yukon Albers\n10         mcp_buff15k       Polygon        1      1 NAD83 / Yukon Albers\n\nplot(st_geometry(mcp15k))",
+    "text": "Objectives:\n\nCreate minimum convex polygons for:\n\nindividual caribou\nall caribou (merged individual MCPs + 15km buffer) The second MCP will be used to define the limit of the study region\n\n\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(adehabitatHR)\n\n\n\n\ngps &lt;- st_read('../data/yt_caribou.gpkg', 'gps', quiet=TRUE)\nglimpse(gps)\n\nRows: 90,864\nColumns: 4\n$ timestamp &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 07…\n$ ID        &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 4316…\n$ season    &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\", …\n$ geom      &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4), …\n\n\n\n\n\n\nimcp &lt;- NULL # for individual MCPs\nmcp &lt;- NULL # for merged MCPs\nfor (i in unique(gps$ID)) {\n  gps1 &lt;- filter(gps, ID==i) %&gt;%\n    dplyr::select(ID)\n  if (nrow(gps1)&gt;=5) {\n    gps1.sp &lt;- as_Spatial(gps1)\n    gps1.mcp &lt;- mcp(gps1.sp, percent=100)\n    mcp1 &lt;- st_as_sf(gps1.mcp)\n    if (i==gps$ID[1]) {\n      imcp &lt;- mcp1\n      mcp &lt;- mcp1\n    } else {\n      imcp &lt;- rbind(imcp, mcp1)\n      mcp &lt;- st_union(mcp, mcp1)\n    }\n  }\n}\n\n\n\n\n\nimcp2 &lt;- imcp |&gt;\n  st_transform(3578)\nrow.names(imcp2) &lt;- NULL\nst_write(imcp2, '../data/yt_caribou.gpkg', 'imcp', delete_layer=TRUE)\n\nDeleting layer `imcp' using driver `GPKG'\nWriting layer `imcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 25 features with 2 fields and geometry type Polygon.\n\nplot(st_geometry(imcp2))\n\n\n\n\n\n\n\n\n\n\n\n\nmcp2 &lt;- mcp |&gt;\n  dplyr::select(id) |&gt;\n  mutate(id='Population MCP') %&gt;%\n  st_transform(3578)\nrow.names(mcp2) &lt;- NULL\nst_write(mcp2, '../data/yt_caribou.gpkg', 'mcp', delete_layer=TRUE)\n\nDeleting layer `mcp' using driver `GPKG'\nWriting layer `mcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nplot(st_geometry(mcp2))\n\n\n\n\n\n\n\n\n\n\n\nThe value of 15km is based on maximum estimated daily movements in the NWT (2020).\n\nmcp15k &lt;- st_buffer(mcp2, 15000) %&gt;%\n  mutate(id = 'mcp_buff15k') %&gt;%\n  st_transform(3578)\nst_write(mcp15k, '../data/yt_caribou.gpkg', 'mcp_buff15k', delete_layer=TRUE)\n\nDeleting layer `mcp_buff15k' using driver `GPKG'\nWriting layer `mcp_buff15k' to data source \n  `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nst_layers('../data/yt_caribou.gpkg')\n\nDriver: GPKG \nAvailable layers:\n            layer_name geometry_type features fields             crs_name\n1           akcan_10km Multi Polygon    14378      4 NAD83 / Yukon Albers\n2  ecozone3_ecoregions Multi Polygon       37     11 NAD83 / Yukon Albers\n3            ecozones3 Multi Polygon        3     10 NAD83 / Yukon Albers\n4        sbfi_150x150k Multi Polygon       24      3 NAD83 / Yukon Albers\n5            sbfi_fdas Multi Polygon      124      1 NAD83 / Yukon Albers\n6                  gps         Point    90864      3 NAD83 / Yukon Albers\n7             gps_vars         Point   154182     21 NAD83 / Yukon Albers\n8                 imcp       Polygon       25      2 NAD83 / Yukon Albers\n9                  mcp       Polygon        1      1 NAD83 / Yukon Albers\n10         mcp_buff15k       Polygon        1      1 NAD83 / Yukon Albers\n\nplot(st_geometry(mcp15k))",
     "crumbs": [
       "Movement analysis",
       "Minimum convex polygons"
@@ -490,7 +490,7 @@
     "href": "2-movement-analysis/2.2-generate-mcp.html#introduction",
     "title": "Create tracks",
     "section": "",
-    "text": "Objectives:\n\nCreate minimum convex polygons for:\n\nindividual caribou\nall caribou (merged individual MCPs + 5km buffer) The second MCP will be used to define the limit of the study region\n\n\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(adehabitatHR)\n\n\n\n\ngps &lt;- st_read('../data/yt_caribou.gpkg', 'gps', quiet=TRUE)\nglimpse(gps)\n\nRows: 90,864\nColumns: 4\n$ timestamp &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 07…\n$ ID        &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 4316…\n$ season    &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\", …\n$ geom      &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4), …\n\n\n\n\n\n\nimcp &lt;- NULL # for individual MCPs\nmcp &lt;- NULL # for merged MCPs\nfor (i in unique(gps$ID)) {\n  gps1 &lt;- filter(gps, ID==i) %&gt;%\n    dplyr::select(ID)\n  if (nrow(gps1)&gt;=5) {\n    gps1.sp &lt;- as_Spatial(gps1)\n    gps1.mcp &lt;- mcp(gps1.sp, percent=100)\n    mcp1 &lt;- st_as_sf(gps1.mcp)\n    if (i==gps$ID[1]) {\n      imcp &lt;- mcp1\n      mcp &lt;- mcp1\n    } else {\n      imcp &lt;- rbind(imcp, mcp1)\n      mcp &lt;- st_union(mcp, mcp1)\n    }\n  }\n}\n\n\n\n\n\nimcp2 &lt;- imcp |&gt;\n  st_transform(3578)\nrow.names(imcp2) &lt;- NULL\nst_write(imcp2, '../data/yt_caribou.gpkg', 'imcp', delete_layer=TRUE)\n\nDeleting layer `imcp' using driver `GPKG'\nWriting layer `imcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 25 features with 2 fields and geometry type Polygon.\n\nplot(st_geometry(imcp2))\n\n\n\n\n\n\n\n\n\n\n\n\nmcp2 &lt;- mcp |&gt;\n  dplyr::select(id) |&gt;\n  mutate(id='Population MCP') %&gt;%\n  st_transform(3578)\nrow.names(mcp2) &lt;- NULL\nst_write(mcp2, '../data/yt_caribou.gpkg', 'mcp', delete_layer=TRUE)\n\nDeleting layer `mcp' using driver `GPKG'\nWriting layer `mcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nplot(st_geometry(mcp2))\n\n\n\n\n\n\n\n\n\n\n\n\nmcp15k &lt;- st_buffer(mcp2, 15000) %&gt;%\n  mutate(id = 'mcp_buff15k') %&gt;%\n  st_transform(3578)\nst_write(mcp15k, '../data/yt_caribou.gpkg', 'mcp_buff15k', delete_layer=TRUE)\n\nDeleting layer `mcp_buff15k' using driver `GPKG'\nWriting layer `mcp_buff15k' to data source \n  `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nst_layers('../data/yt_caribou.gpkg')\n\nDriver: GPKG \nAvailable layers:\n            layer_name geometry_type features fields             crs_name\n1                  gps         Point    90864      3 NAD83 / Yukon Albers\n2             gps_vars         Point   154182     21 NAD83 / Yukon Albers\n3           akcan_10km Multi Polygon    14378      4 NAD83 / Yukon Albers\n4  ecozone3_ecoregions Multi Polygon       37     11 NAD83 / Yukon Albers\n5            ecozones3 Multi Polygon        3     10 NAD83 / Yukon Albers\n6        sbfi_150x150k Multi Polygon       24      3 NAD83 / Yukon Albers\n7            sbfi_fdas Multi Polygon      124      1 NAD83 / Yukon Albers\n8                 imcp       Polygon       25      2 NAD83 / Yukon Albers\n9                  mcp       Polygon        1      1 NAD83 / Yukon Albers\n10         mcp_buff15k       Polygon        1      1 NAD83 / Yukon Albers\n\nplot(st_geometry(mcp15k))",
+    "text": "Objectives:\n\nCreate minimum convex polygons for:\n\nindividual caribou\nall caribou (merged individual MCPs + 15km buffer) The second MCP will be used to define the limit of the study region\n\n\n\nlibrary(sf)\nlibrary(tidyverse)\nlibrary(adehabitatHR)\n\n\n\n\ngps &lt;- st_read('../data/yt_caribou.gpkg', 'gps', quiet=TRUE)\nglimpse(gps)\n\nRows: 90,864\nColumns: 4\n$ timestamp &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 07…\n$ ID        &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 4316…\n$ season    &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\", …\n$ geom      &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4), …\n\n\n\n\n\n\nimcp &lt;- NULL # for individual MCPs\nmcp &lt;- NULL # for merged MCPs\nfor (i in unique(gps$ID)) {\n  gps1 &lt;- filter(gps, ID==i) %&gt;%\n    dplyr::select(ID)\n  if (nrow(gps1)&gt;=5) {\n    gps1.sp &lt;- as_Spatial(gps1)\n    gps1.mcp &lt;- mcp(gps1.sp, percent=100)\n    mcp1 &lt;- st_as_sf(gps1.mcp)\n    if (i==gps$ID[1]) {\n      imcp &lt;- mcp1\n      mcp &lt;- mcp1\n    } else {\n      imcp &lt;- rbind(imcp, mcp1)\n      mcp &lt;- st_union(mcp, mcp1)\n    }\n  }\n}\n\n\n\n\n\nimcp2 &lt;- imcp |&gt;\n  st_transform(3578)\nrow.names(imcp2) &lt;- NULL\nst_write(imcp2, '../data/yt_caribou.gpkg', 'imcp', delete_layer=TRUE)\n\nDeleting layer `imcp' using driver `GPKG'\nWriting layer `imcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 25 features with 2 fields and geometry type Polygon.\n\nplot(st_geometry(imcp2))\n\n\n\n\n\n\n\n\n\n\n\n\nmcp2 &lt;- mcp |&gt;\n  dplyr::select(id) |&gt;\n  mutate(id='Population MCP') %&gt;%\n  st_transform(3578)\nrow.names(mcp2) &lt;- NULL\nst_write(mcp2, '../data/yt_caribou.gpkg', 'mcp', delete_layer=TRUE)\n\nDeleting layer `mcp' using driver `GPKG'\nWriting layer `mcp' to data source `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nplot(st_geometry(mcp2))\n\n\n\n\n\n\n\n\n\n\n\nThe value of 15km is based on maximum estimated daily movements in the NWT (2020).\n\nmcp15k &lt;- st_buffer(mcp2, 15000) %&gt;%\n  mutate(id = 'mcp_buff15k') %&gt;%\n  st_transform(3578)\nst_write(mcp15k, '../data/yt_caribou.gpkg', 'mcp_buff15k', delete_layer=TRUE)\n\nDeleting layer `mcp_buff15k' using driver `GPKG'\nWriting layer `mcp_buff15k' to data source \n  `../data/yt_caribou.gpkg' using driver `GPKG'\nWriting 1 features with 1 fields and geometry type Polygon.\n\nst_layers('../data/yt_caribou.gpkg')\n\nDriver: GPKG \nAvailable layers:\n            layer_name geometry_type features fields             crs_name\n1           akcan_10km Multi Polygon    14378      4 NAD83 / Yukon Albers\n2  ecozone3_ecoregions Multi Polygon       37     11 NAD83 / Yukon Albers\n3            ecozones3 Multi Polygon        3     10 NAD83 / Yukon Albers\n4        sbfi_150x150k Multi Polygon       24      3 NAD83 / Yukon Albers\n5            sbfi_fdas Multi Polygon      124      1 NAD83 / Yukon Albers\n6                  gps         Point    90864      3 NAD83 / Yukon Albers\n7             gps_vars         Point   154182     21 NAD83 / Yukon Albers\n8                 imcp       Polygon       25      2 NAD83 / Yukon Albers\n9                  mcp       Polygon        1      1 NAD83 / Yukon Albers\n10         mcp_buff15k       Polygon        1      1 NAD83 / Yukon Albers\n\nplot(st_geometry(mcp15k))",
     "crumbs": [
       "Movement analysis",
       "Minimum convex polygons"
@@ -1150,6 +1150,105 @@
   {
     "objectID": "3-habitat-analysis/overview.html#results",
     "href": "3-habitat-analysis/overview.html#results",
+    "title": "Habitat Analysis",
+    "section": "Results",
+    "text": "Results\n\nModel development\nWe develop RSF models for four seasons using GLM and Random Forest models.",
+    "crumbs": [
+      "Habitat analysis",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "2-movement-analysis/2.3-estimate-hr-amt.html",
+    "href": "2-movement-analysis/2.3-estimate-hr-amt.html",
+    "title": "Home ranges",
+    "section": "",
+    "text": "Objectives:\n\nAutocorrelated home range estimation\nhttps://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html\n\n\nlibrary(sf)\nlibrary(amt)\nlibrary(terra)\nlibrary(tidyverse)",
+    "crumbs": [
+      "Movement analysis",
+      "Home ranges"
+    ]
+  },
+  {
+    "objectID": "2-movement-analysis/2.3-estimate-hr-amt.html#introduction",
+    "href": "2-movement-analysis/2.3-estimate-hr-amt.html#introduction",
+    "title": "Home ranges",
+    "section": "",
+    "text": "Objectives:\n\nAutocorrelated home range estimation\nhttps://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html\n\n\nlibrary(sf)\nlibrary(amt)\nlibrary(terra)\nlibrary(tidyverse)",
+    "crumbs": [
+      "Movement analysis",
+      "Home ranges"
+    ]
+  },
+  {
+    "objectID": "2-movement-analysis/2.3-estimate-hr-amt.html#make-tracks",
+    "href": "2-movement-analysis/2.3-estimate-hr-amt.html#make-tracks",
+    "title": "Home ranges",
+    "section": "Make tracks",
+    "text": "Make tracks\n\ngps &lt;- read_csv('../data/yt/gps.csv') |&gt;\n  rename(t_=timestamp,\n  x_=longitude, \n  y_=latitude) |&gt;\n  mutate(id=paste0('',ID),\n  timestamp=NULL, ID=NULL)\nglimpse(gps)\n\nRows: 90,864\nColumns: 5\n$ t_     &lt;dttm&gt; 2020-11-06 19:10:39, 2020-11-07 01:07:00, 2020-11-07 07:05:54,…\n$ x_     &lt;dbl&gt; -129.2876, -129.3327, -129.3022, -129.3021, -129.3146, -129.338…\n$ y_     &lt;dbl&gt; 60.24530, 60.19127, 60.17469, 60.17254, 60.14960, 60.14822, 60.…\n$ season &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\", \"ea…\n$ id     &lt;chr&gt; \"43163\", \"43163\", \"43163\", \"43163\", \"43163\", \"43163\", \"43163\", …\n\ntrk &lt;- make_track(gps, x_, y_, t_, id = id, season=season, crs = 4326) |&gt;\n  transform_coords(crs_to = 3578)\ntrk\n\n# A tibble: 90,864 × 5\n        x_      y_ t_                  id    season     \n *   &lt;dbl&gt;   &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;chr&gt;      \n 1 606014. 563800. 2020-11-03 19:19:10 43161 earlywinter\n 2 606921. 564631. 2020-11-03 19:19:11 43147 earlywinter\n 3 607072. 564647. 2020-11-03 19:19:15 43146 earlywinter\n 4 613483. 568035. 2020-11-04 01:18:15 43144 earlywinter\n 5 614729. 567940. 2020-11-04 01:18:22 43159 earlywinter\n 6 614729. 567937. 2020-11-04 01:18:37 43141 earlywinter\n 7 605307. 565229. 2020-11-04 01:18:38 43158 earlywinter\n 8 608083. 564296. 2020-11-04 01:18:39 43164 earlywinter\n 9 614007. 569526. 2020-11-04 01:18:40 43147 earlywinter\n10 614018. 569523. 2020-11-04 01:19:24 43146 earlywinter\n# ℹ 90,854 more rows\n\n## All caribou\n\n\nggplot(trk, aes(x = x_, y = y_, color = id, group = id)) +\n  geom_point() +\n  coord_equal() +\n  xlab(NULL) +\n  ylab(NULL) +\n  theme_bw()",
+    "crumbs": [
+      "Movement analysis",
+      "Home ranges"
+    ]
+  },
+  {
+    "objectID": "2-movement-analysis/2.3-estimate-hr-amt.html#estimate-home-ranges",
+    "href": "2-movement-analysis/2.3-estimate-hr-amt.html#estimate-home-ranges",
+    "title": "Home ranges",
+    "section": "Estimate home ranges",
+    "text": "Estimate home ranges\nFor each caribou, we will estimate their home range using the autocorrelated kernel density estimator (AKDE) to account for spatial and temporal autocorrelation. Specifically, we using the hr_akde function in the amt package, which is a convenient wrapper for the original function in the ctmmm package. The code below runs the estimator for each caribou and save the results to the “output/home_ranges” folder for use in the subsequent code blocks. It is commented out since it is slow and only needs to be run once. Note, that we estimated AKDE for each caribou across all seasons, rather than for each season. We did this since the intent is to use the HRs to randomly select available locations from the full home range so that comparisons to used locations would be comparable.\n\n# Uncomment to run again\n#for (i in unique(trk$id)) {\n#  cat(\"Processing\", i, \"\\n\"); flush.console()\n#  tr1 &lt;- trk %&gt;% \n#    filter(id %in% c(i))\n#  akde &lt;- hr_akde(tr1, model = fit_ctmm(tr1, \"ou\"), levels = 0.95)\n#  saveRDS(akde, paste0(\"../app/home_ranges/akde_\", i, \".RDS\"))\n#  writeRaster(akde$ud, paste0(\"../app/home_ranges/akde_\", i, \".tif\"), overwrite=TRUE)\n#}",
+    "crumbs": [
+      "Movement analysis",
+      "Home ranges"
+    ]
+  },
+  {
+    "objectID": "2-movement-analysis/2.3-estimate-hr-amt.html#viewing-the-results",
+    "href": "2-movement-analysis/2.3-estimate-hr-amt.html#viewing-the-results",
+    "title": "Home ranges",
+    "section": "Viewing the results",
+    "text": "Viewing the results\nNow that we’ve estimated caribou home ranges, we can plot some results.\nbnd &lt;- st_read(‘../data/yt_caribou.gpkg’, ‘mcp_buff15k’) |&gt; st_transform(4326) bnd &lt;- vect(bnd) bnd50 &lt;- buffer(bnd, 50000)\npts &lt;- sf::st_read(‘../data/yt_caribou.gpkg’, ‘gps’) |&gt; filter(ID==43163) |&gt; st_transform(4326) pts &lt;- vect(pts)\nr=project(akde$ud, “+proj=longlat +datum=WGS84”)\nplet(akde$ud, “layer”, alpha=.2) |&gt; points(pts, col=“gray”, cex=2, popup=TRUE, clusterOptions = markerClusterOptions())\nlibrary(maptiles) bg &lt;- get_tiles(ext(bnd), provider=opentopomap) bg &lt;- crop(bg, bnd50) plotRGB(bg) plot(r, alpha=0.5, add=TRUE) lines(bnd, col=“blue”, lwd=3) points(pts, pch=20, col=“black”, cex=1)",
+    "crumbs": [
+      "Movement analysis",
+      "Home ranges"
+    ]
+  },
+  {
+    "objectID": "3-habitat-analysis/index.html",
+    "href": "3-habitat-analysis/index.html",
+    "title": "Habitat Analysis",
+    "section": "",
+    "text": "Resource selection functions are powerful tools for predicting habitat selection of animals. Recently, machine-learning methods such as random forest have gained popularity for predicting habitat selection due to their flexibility and strong predictive performance.\nWe tested two methods for predicting continental-scale, second-order habitat selection of a wide-ranging large ungulate, the northern mountain caribou (Rangifer tarandus caribou), to support regional conservation management, including estimating abundance, and to predict habitat suitability for recolonizing or reintroduced animals.",
+    "crumbs": [
+      "Habitat analysis",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "3-habitat-analysis/index.html#introduction",
+    "href": "3-habitat-analysis/index.html#introduction",
+    "title": "Habitat Analysis",
+    "section": "",
+    "text": "Resource selection functions are powerful tools for predicting habitat selection of animals. Recently, machine-learning methods such as random forest have gained popularity for predicting habitat selection due to their flexibility and strong predictive performance.\nWe tested two methods for predicting continental-scale, second-order habitat selection of a wide-ranging large ungulate, the northern mountain caribou (Rangifer tarandus caribou), to support regional conservation management, including estimating abundance, and to predict habitat suitability for recolonizing or reintroduced animals.",
+    "crumbs": [
+      "Habitat analysis",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "3-habitat-analysis/index.html#methods",
+    "href": "3-habitat-analysis/index.html#methods",
+    "title": "Habitat Analysis",
+    "section": "Methods",
+    "text": "Methods\nWe compared a generalized linear model (GLM) and a random forest model using GPS location data from 25 individuals across the BC and Yukon and landscape data. We internally validated models and examined their ability to correctly classify used and available points by calculating area under the receiver operating characteristics (AUC). We performed leave-one-out (LOO) out-of-sample tests of predictive strength on both models.\nFour seasons were defined using a range of dates (Appendix 1) based on discussions with regional biologists.",
+    "crumbs": [
+      "Habitat analysis",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "3-habitat-analysis/index.html#results",
+    "href": "3-habitat-analysis/index.html#results",
     "title": "Habitat Analysis",
     "section": "Results",
     "text": "Results\n\nModel development\nWe develop RSF models for four seasons using GLM and Random Forest models.",

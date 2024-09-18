@@ -72,7 +72,7 @@ for (sea in seasons) {
   plot(p1)
   dev.off()
   plot(p1)
-  writeRaster(p1, paste0("../output/glm/",sea,"map.tif"), overwrite=TRUE)
+  writeRaster(p1, paste0("../data/predict30/randomforest/",sea,"map.tif"), overwrite=TRUE)
 
   # Evaluate model
   eva <- predicts::pa_evaluate(predict(m1, test[test$pa==1, ]), predict(m1, test[test$pa==0, ]))

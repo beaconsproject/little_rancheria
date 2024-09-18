@@ -23,6 +23,8 @@ website:
         text: Workflow
       - section: "Data preparation"
         contents:
+        - href: 1-data-preparation/index.qmd
+          text: Overview
         - href: 1-data-preparation/1.1-prepare-caribou.qmd
           text: Prepare caribou data
         - href: 1-data-preparation/1.2-prepare-covariates.qmd
@@ -31,6 +33,8 @@ website:
           text: Extract values
       - section: "Movement analysis"
         contents:
+        - href: 2-movement-analysis/index.qmd
+          text: Overview
         - href: 2-movement-analysis/2.1-movement-rates.qmd
           text: "Movement rates"
         - href: 2-movement-analysis/2.2-generate-mcp.qmd
@@ -39,7 +43,7 @@ website:
           text: "Home ranges"
       - section: "Habitat analysis"
         contents:
-        - href: 3-habitat-analysis/overview.qmd
+        - href: 3-habitat-analysis/index.qmd
           text: Overview
         - href: 3-habitat-analysis/3.1-glm-models.qmd
           text: GLM models
@@ -49,8 +53,8 @@ website:
           text: Random forest models
       - section: "Connectivity analysis"
         contents:
-        - href: connectivity.qmd
-          text: Connectivity analysis
+        - href: 4-connectivity-analysis/index.qmd
+          text: Overview
       - href: references.qmd
         text: References
       - href: appendices.qmd

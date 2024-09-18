@@ -3,62 +3,84 @@ title: "Caribou Dashboard"
 format: dashboard
 ---
 
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(sf)
+library(terra)
+library(tidyverse)
+library(maptiles)
+
+opentopomap <- create_provider(
+  name = "otm",
+  url = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+  sub = c("a", "b", "c"),
+  citation = "map data: @ OpenStreetMap contributors, SRTM | map style: @ OpenTopoMap (CC-BY-SA)"
+)
+
+bnd <- st_read('data/yt_caribou.gpkg', 'mcp_buff15k', quiet=TRUE) |>
+  st_transform(4326)
+bnd <- vect(bnd)
+bg <- get_tiles(ext(bnd), provider=opentopomap)
+bg <- crop(bg, bnd)
+```
+
 #  {.sidebar}
 
 **Github**
 
-- landing page
-- coding
-- disturbance mapping
+- [Analysis workbook](https://beaconsproject.github.io/little_rancheria)
 
 **Bookmarks**
 
 
-# Planning
+# Habitat
 
-## Row {.tabset}
+## Row {height=50%}
 
-### Tasks
+### Column {width=50%}
 
+```{r}
+#| title: Early winter
+r <- rast("data/predict30/randomforest/earlywintermap.tif") |>
+  project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, alpha=0.75, add=TRUE)
+lines(bnd, col="black", lwd=2)
+```
 
-### Timelines
+### Column {width=50%}
 
+```{r}
+#| title: Late winter
+r <- rast("data/predict30/randomforest/latewintermap.tif") |>
+  project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, alpha=0.75, add=TRUE)
+lines(bnd, col="black", lwd=2)
+```
 
-### Data
+## Row {height=50%}
 
-Conservation datasets
+### Column {width=50%}
 
-### Methods
+```{r}
+#| title: Summer
+r <- rast("data/predict30/randomforest/summermap.tif") |>
+  project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, alpha=0.75, add=TRUE)
+lines(bnd, col="black", lwd=2)
+```
 
+### Column {width=50%}
 
-### Tools
-
-
-### Papers
-
-
-# Disturbance mapping
-
-## Row {.tabset}
-
-### Workplan
-
-Disturbance mapping workplan.
-
-### Datasets
-
-
-### Procedures
-
-
-### Paper
-
-
-### Paper extra
-
-
-# Little rancheria
-
-## Row {.tabset}
-
-### Worplan
+```{r}
+#| title: Fall rut
+r <- rast("data/predict30/randomforest/fallrutmap.tif") |>
+  project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, alpha=0.75, add=TRUE)
+lines(bnd, col="black", lwd=2)
+```

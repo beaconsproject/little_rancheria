@@ -82,7 +82,7 @@ for (sea in seasons) {
   test <- gps[i,]
   train <- gps[-i,]
   crf <- randomForest(train[, covars], train[, "fpa"])
-  crf
+  print(crf)
   png(paste0('../output/randomforest/',sea,'_varimp.png'))
   varImpPlot(crf)
   dev.off()

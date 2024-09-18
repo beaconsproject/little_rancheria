@@ -1,0 +1,17 @@
+{
+  "hash": "b6c737ebb996ffa5fae1ba83f77c2aed",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Caribou Dashboard\"\nformat: dashboard\n---\n\n::: {.cell}\n\n:::\n\n\n\n#  {.sidebar}\n\n**Github**\n\n- landing page\n- coding\n- disturbance mapping\n\n**Bookmarks**\n\n\n# Habitat\n\n## Row {height=50%}\n\n### Column {width=50%}\n\n\n\n::: {.cell title='Early winter'}\n::: {.cell-output-display}\n![](dashtest_files/figure-html/unnamed-chunk-2-1.png){width=768}\n:::\n:::\n\n\n\n### Column {width=50%}\n\n\n\n::: {.cell title='Late winter'}\n::: {.cell-output-display}\n![](dashtest_files/figure-html/unnamed-chunk-3-1.png){width=768}\n:::\n:::\n\n\n\n## Row {height=50%}\n\n### Column {width=50%}\n\n\n\n::: {.cell title='Summer'}\n::: {.cell-output-display}\n![](dashtest_files/figure-html/unnamed-chunk-4-1.png){width=768}\n:::\n:::\n\n\n\n### Column {width=50%}\n\n\n\n::: {.cell title='Fall rut'}\n::: {.cell-output-display}\n![](dashtest_files/figure-html/unnamed-chunk-5-1.png){width=768}\n:::\n:::\n",
+    "supporting": [
+      "dashtest_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
