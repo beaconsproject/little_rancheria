@@ -124,7 +124,7 @@
     "href": "index.html",
     "title": "Little Rancheria Caribou Herd: Analysis of Movement, Habitat, and Connectivity",
     "section": "",
-    "text": "Revised: July 29, 2024",
+    "text": "Revised: September 26, 2024",
     "crumbs": [
       "Home"
     ]
@@ -578,7 +578,7 @@
     "href": "1-data-preparation/1.2-prepare-covariates.html",
     "title": "Covariate data",
     "section": "",
-    "text": "Objectives:\n\nPrepare raster covariate data\n\n\nlibrary(sf)\n\nLinking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE\n\nlibrary(terra)\n\nterra 1.7.78\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ tidyr::extract() masks terra::extract()\n✖ dplyr::filter()  masks stats::filter()\n✖ dplyr::lag()     masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nSet working directory and folder locations\n\ndropbox &lt;- 'C:/Users/PIVER37/BEACONs Dropbox/pierre vernier/prv_gisdata/north_america/climate/worldclim/'\n#bpdata &lt;- 'C:/Users/PIVER37/Documents/github/beaconsproject/geopackage_creator/www/bp_datasets.gpkg'\nbpdata &lt;- 'H:/Shared drives/Disturbance Mapping (digitizing)/Data/geopackage_creator/bp_datasets.gpkg'\n\nRead boundary\n\nbnd &lt;- st_read('../data/yt_caribou.gpkg', 'mcp_buff15k')\n\nReading layer `mcp_buff15k' from data source \n  `C:\\Users\\PIVER37\\Documents\\workbooks\\little_rancheria\\data\\yt_caribou.gpkg' \n  using driver `GPKG'\nSimple feature collection with 1 feature and 1 field\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: 503684.6 ymin: 465919.2 xmax: 731665.5 ymax: 666695.1\nProjected CRS: NAD83 / Yukon Albers\n\nbnd_4326 &lt;- st_transform(bnd, 4326)",
+    "text": "Objectives:\n\nPrepare raster covariate data\n\n\nlibrary(sf)\n\nLinking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE\n\nlibrary(terra)\n\nterra 1.7.78\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ tidyr::extract() masks terra::extract()\n✖ dplyr::filter()  masks stats::filter()\n✖ dplyr::lag()     masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nSet working directory and folder locations\n\ndropbox &lt;- 'C:/Users/PIVER37/BEACONs Dropbox/pierre vernier/prv_gisdata/north_america/climate/worldclim/'\n#bpdata &lt;- 'C:/Users/PIVER37/Documents/github/beaconsproject/geopackage_creator/www/bp_datasets.gpkg'\nbpdata &lt;- 'H:/Shared drives/Disturbance Mapping (digitizing)/Data/geopackage_creator/bp_datasets.gpkg'\n\nRead boundary\n\nbnd &lt;- st_read('../data/yt_caribou.gpkg', 'mcp_buff15k')\n\nReading layer `mcp_buff15k' from data source \n  `C:\\Users\\PIVER37\\Desktop\\Projects\\little_rancheria\\data\\yt_caribou.gpkg' \n  using driver `GPKG'\nSimple feature collection with 1 feature and 1 field\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: 503684.6 ymin: 465919.2 xmax: 731665.5 ymax: 666695.1\nProjected CRS: NAD83 / Yukon Albers\n\nbnd_4326 &lt;- st_transform(bnd, 4326)",
     "crumbs": [
       "Data preparation",
       "Prepare covariate data"
@@ -589,7 +589,7 @@
     "href": "1-data-preparation/1.2-prepare-covariates.html#introduction",
     "title": "Covariate data",
     "section": "",
-    "text": "Objectives:\n\nPrepare raster covariate data\n\n\nlibrary(sf)\n\nLinking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE\n\nlibrary(terra)\n\nterra 1.7.78\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ tidyr::extract() masks terra::extract()\n✖ dplyr::filter()  masks stats::filter()\n✖ dplyr::lag()     masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nSet working directory and folder locations\n\ndropbox &lt;- 'C:/Users/PIVER37/BEACONs Dropbox/pierre vernier/prv_gisdata/north_america/climate/worldclim/'\n#bpdata &lt;- 'C:/Users/PIVER37/Documents/github/beaconsproject/geopackage_creator/www/bp_datasets.gpkg'\nbpdata &lt;- 'H:/Shared drives/Disturbance Mapping (digitizing)/Data/geopackage_creator/bp_datasets.gpkg'\n\nRead boundary\n\nbnd &lt;- st_read('../data/yt_caribou.gpkg', 'mcp_buff15k')\n\nReading layer `mcp_buff15k' from data source \n  `C:\\Users\\PIVER37\\Documents\\workbooks\\little_rancheria\\data\\yt_caribou.gpkg' \n  using driver `GPKG'\nSimple feature collection with 1 feature and 1 field\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: 503684.6 ymin: 465919.2 xmax: 731665.5 ymax: 666695.1\nProjected CRS: NAD83 / Yukon Albers\n\nbnd_4326 &lt;- st_transform(bnd, 4326)",
+    "text": "Objectives:\n\nPrepare raster covariate data\n\n\nlibrary(sf)\n\nLinking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE\n\nlibrary(terra)\n\nterra 1.7.78\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ tidyr::extract() masks terra::extract()\n✖ dplyr::filter()  masks stats::filter()\n✖ dplyr::lag()     masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nSet working directory and folder locations\n\ndropbox &lt;- 'C:/Users/PIVER37/BEACONs Dropbox/pierre vernier/prv_gisdata/north_america/climate/worldclim/'\n#bpdata &lt;- 'C:/Users/PIVER37/Documents/github/beaconsproject/geopackage_creator/www/bp_datasets.gpkg'\nbpdata &lt;- 'H:/Shared drives/Disturbance Mapping (digitizing)/Data/geopackage_creator/bp_datasets.gpkg'\n\nRead boundary\n\nbnd &lt;- st_read('../data/yt_caribou.gpkg', 'mcp_buff15k')\n\nReading layer `mcp_buff15k' from data source \n  `C:\\Users\\PIVER37\\Desktop\\Projects\\little_rancheria\\data\\yt_caribou.gpkg' \n  using driver `GPKG'\nSimple feature collection with 1 feature and 1 field\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: 503684.6 ymin: 465919.2 xmax: 731665.5 ymax: 666695.1\nProjected CRS: NAD83 / Yukon Albers\n\nbnd_4326 &lt;- st_transform(bnd, 4326)",
     "crumbs": [
       "Data preparation",
       "Prepare covariate data"
@@ -831,7 +831,7 @@
     "href": "1-data-preparation/1.3-extract-values.html#presence-data",
     "title": "Extract covariate values",
     "section": "Presence data",
-    "text": "Presence data\nPrepare presence and availability points\n\ngps &lt;- st_read('../data/yt_caribou.gpkg', 'gps') |&gt;\n  mutate(individual=ID, occurrence=1, ID=NULL) |&gt;\n  filter(!season=='other')\n\nReading layer `gps' from data source \n  `C:\\Users\\PIVER37\\Documents\\workbooks\\little_rancheria\\data\\yt_caribou.gpkg' \n  using driver `GPKG'\nSimple feature collection with 90864 features and 3 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: 518681.7 ymin: 480918.5 xmax: 716666.7 ymax: 651698.2\nProjected CRS: NAD83 / Yukon Albers\n\nglimpse(gps)\n\nRows: 77,091\nColumns: 5\n$ timestamp  &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 0…\n$ season     &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\",…\n$ geom       &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4),…\n$ individual &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 431…\n$ occurrence &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n\n\nCalculate proportion of locations for each individual caribou\n\ngps_id_prop &lt;- group_by(gps, individual) |&gt;\n  summarize(n=n()) |&gt;\n  mutate(freq=n/sum(n)) |&gt;\n  pull()\ngps_id_prop\n\n [1] 0.053988144 0.054104889 0.053741682 0.054182719 0.054143804 0.054117861\n [7] 0.054014087 0.024205160 0.026916242 0.026060111 0.008366735 0.020495259\n[13] 0.054195691 0.053988144 0.054078946 0.009508244 0.005785371 0.053988144\n[19] 0.024205160 0.054130832 0.054027059 0.019691015 0.024010585 0.053988144\n[25] 0.054065974\n\n\nRead predictor rasters and concatenate them\n\nlandcov &lt;- rast('../data/raster30/landcov.tif')\ntopo &lt;- rast('../data/raster30/topo.tif')\nfires &lt;- rast('../data/raster30/fires.tif')\ndist2line &lt;- rast('../data/raster30/dist2line.tif')\nnames(dist2line) &lt;- \"dist2line\"\ndist2poly &lt;- rast('../data/raster30/dist2poly.tif')\nnames(dist2poly) &lt;- \"dist2poly\"\nrasters &lt;- c(landcov, topo, fires, dist2line, dist2poly)\nnames(rasters)\n\n [1] \"forest\"    \"conifer\"   \"broadleaf\" \"mixedwood\" \"wetland\"   \"shrubland\"\n [7] \"grassland\" \"barren\"    \"snowice\"   \"elevation\" \"slope\"     \"aspect\"   \n[13] \"roughness\" \"northness\" \"eastness\"  \"fires\"     \"dist2line\" \"dist2poly\"\n\nrasters\n\nclass       : SpatRaster \ndimensions  : 6694, 7600, 18  (nrow, ncol, nlyr)\nresolution  : 30, 30  (x, y)\nextent      : 503670, 731670, 465900, 666720  (xmin, xmax, ymin, ymax)\ncoord. ref. : NAD83 / Yukon Albers (EPSG:3578) \nsources     : landcov.tif  (9 layers) \n              topo.tif  (6 layers) \n              fires.tif  \n              ... and 2 more source(s)\nnames       : forest, conifer, broadleaf, mixedwood, wetland, shrubland, ... \nmin values  :      0,       0,         0,         0,       0,         0, ... \nmax values  :      1,       1,         1,         1,       1,         1, ... \n\n\nExtract raster values for GPS locations\n\npres_vars &lt;- terra::extract(rasters, gps) |&gt;\n  mutate(ID=NULL)\npres_vars_sf &lt;- cbind(gps, pres_vars)\npres_vars_sf\n\nSimple feature collection with 77091 features and 22 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: 518681.7 ymin: 480918.5 xmax: 716666.7 ymax: 651698.2\nProjected CRS: NAD83 / Yukon Albers\nFirst 10 features:\n             timestamp      season individual occurrence forest conifer\n1  2020-11-06 19:10:39 earlywinter      43163          1      1       1\n2  2020-11-07 01:07:00 earlywinter      43163          1      1       1\n3  2020-11-07 07:05:54 earlywinter      43163          1      1       1\n4  2020-11-07 13:04:39 earlywinter      43163          1      1       1\n5  2020-11-07 19:03:23 earlywinter      43163          1      1       1\n6  2020-11-08 01:02:25 earlywinter      43163          1      1       1\n7  2020-11-08 07:03:25 earlywinter      43163          1      1       1\n8  2020-11-08 13:00:38 earlywinter      43163          1      1       1\n9  2020-11-08 18:59:39 earlywinter      43163          1      1       1\n10 2020-11-09 00:58:38 earlywinter      43163          1      1       1\n   broadleaf mixedwood wetland shrubland grassland barren snowice elevation\n1          0         0       0         0         0      0       0  688.2874\n2          0         0       0         0         0      0       0  721.8030\n3          0         0       0         0         0      0       0  732.6952\n4          0         0       0         0         0      0       0  734.0319\n5          0         0       0         0         0      0       0  725.3831\n6          0         0       0         0         0      0       0  741.4588\n7          0         0       0         0         0      0       0  748.1053\n8          0         0       0         0         0      0       0  735.0618\n9          0         0       0         0         0      0       0  728.0272\n10         0         0       0         0         0      0       0  728.3869\n       slope    aspect roughness   northness   eastness fires dist2line\n1  1.3049368  76.21446 1.6730957  0.23828828  0.9711944     0  2468.400\n2  1.1596124  13.66821 1.4671021  0.97168040  0.2362990     0   870.000\n3  0.6464857  54.27378 0.9449463  0.58391279  0.8118164     0  3113.069\n4  0.5722326  48.41456 0.8459473  0.66373616  0.7479668     0  3340.793\n5  0.8816819 106.66216 1.1493530 -0.28672776  0.9580121     0  3495.612\n6  1.1163176 138.72826 1.6526489 -0.75158954  0.6596311     0  3180.000\n7  1.0377831  85.68446 1.1655884  0.07524924  0.9971648     0  3930.000\n8  1.4175920  96.07789 1.6336670 -0.10588032  0.9943789     0  3822.735\n9  0.4276250 197.99167 0.5642700 -0.95110142 -0.3088788     0  3976.896\n10 0.9032347  61.24379 1.2843628  0.48108381  0.8766746     0  2886.399\n   dist2poly                      geom\n1   2539.390 POINT (678102.7 642940.6)\n2   2309.026 POINT (675905.1 636811.4)\n3   3471.974 POINT (677688.9 635054.2)\n4   3700.716   POINT (677707 634815.6)\n5   2769.278 POINT (677144.5 632232.1)\n6   2311.752   POINT (675848 632013.4)\n7   3060.588 POINT (676008.2 632788.8)\n8   2983.907 POINT (676611.1 632615.2)\n9   3437.586   POINT (677951 632575.7)\n10  2723.564   POINT (678588 631040.8)\n\nglimpse(pres_vars_sf)\n\nRows: 77,091\nColumns: 23\n$ timestamp  &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 0…\n$ season     &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\",…\n$ individual &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 431…\n$ occurrence &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ forest     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ conifer    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ broadleaf  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ mixedwood  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ wetland    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ shrubland  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ grassland  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ barren     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ snowice    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ elevation  &lt;dbl&gt; 688.2874, 721.8030, 732.6952, 734.0319, 725.3831, 741.4588,…\n$ slope      &lt;dbl&gt; 1.3049368, 1.1596124, 0.6464857, 0.5722326, 0.8816819, 1.11…\n$ aspect     &lt;dbl&gt; 76.21446, 13.66821, 54.27378, 48.41456, 106.66216, 138.7282…\n$ roughness  &lt;dbl&gt; 1.6730957, 1.4671021, 0.9449463, 0.8459473, 1.1493530, 1.65…\n$ northness  &lt;dbl&gt; 0.23828828, 0.97168040, 0.58391279, 0.66373616, -0.28672776…\n$ eastness   &lt;dbl&gt; 0.97119445, 0.23629901, 0.81181639, 0.74796677, 0.95801210,…\n$ fires      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ dist2line  &lt;dbl&gt; 2468.400, 870.000, 3113.069, 3340.793, 3495.612, 3180.000, …\n$ dist2poly  &lt;dbl&gt; 2539.390, 2309.026, 3471.974, 3700.716, 2769.278, 2311.752,…\n$ geom       &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4),…",
+    "text": "Presence data\nPrepare presence and availability points\n\ngps &lt;- st_read('../data/yt_caribou.gpkg', 'gps') |&gt;\n  mutate(individual=ID, occurrence=1, ID=NULL) |&gt;\n  filter(!season=='other')\n\nReading layer `gps' from data source \n  `C:\\Users\\PIVER37\\Desktop\\Projects\\little_rancheria\\data\\yt_caribou.gpkg' \n  using driver `GPKG'\nSimple feature collection with 90864 features and 3 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: 518681.7 ymin: 480918.5 xmax: 716666.7 ymax: 651698.2\nProjected CRS: NAD83 / Yukon Albers\n\nglimpse(gps)\n\nRows: 77,091\nColumns: 5\n$ timestamp  &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 0…\n$ season     &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\",…\n$ geom       &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4),…\n$ individual &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 431…\n$ occurrence &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n\n\nCalculate proportion of locations for each individual caribou\n\ngps_id_prop &lt;- group_by(gps, individual) |&gt;\n  summarize(n=n()) |&gt;\n  mutate(freq=n/sum(n)) |&gt;\n  pull()\ngps_id_prop\n\n [1] 0.053988144 0.054104889 0.053741682 0.054182719 0.054143804 0.054117861\n [7] 0.054014087 0.024205160 0.026916242 0.026060111 0.008366735 0.020495259\n[13] 0.054195691 0.053988144 0.054078946 0.009508244 0.005785371 0.053988144\n[19] 0.024205160 0.054130832 0.054027059 0.019691015 0.024010585 0.053988144\n[25] 0.054065974\n\n\nRead predictor rasters and concatenate them\n\nlandcov &lt;- rast('../data/raster30/landcov.tif')\ntopo &lt;- rast('../data/raster30/topo.tif')\nfires &lt;- rast('../data/raster30/fires.tif')\ndist2line &lt;- rast('../data/raster30/dist2line.tif')\nnames(dist2line) &lt;- \"dist2line\"\ndist2poly &lt;- rast('../data/raster30/dist2poly.tif')\nnames(dist2poly) &lt;- \"dist2poly\"\nrasters &lt;- c(landcov, topo, fires, dist2line, dist2poly)\nnames(rasters)\n\n [1] \"forest\"    \"conifer\"   \"broadleaf\" \"mixedwood\" \"wetland\"   \"shrubland\"\n [7] \"grassland\" \"barren\"    \"snowice\"   \"elevation\" \"slope\"     \"aspect\"   \n[13] \"roughness\" \"northness\" \"eastness\"  \"fires\"     \"dist2line\" \"dist2poly\"\n\nrasters\n\nclass       : SpatRaster \ndimensions  : 6694, 7600, 18  (nrow, ncol, nlyr)\nresolution  : 30, 30  (x, y)\nextent      : 503670, 731670, 465900, 666720  (xmin, xmax, ymin, ymax)\ncoord. ref. : NAD83 / Yukon Albers (EPSG:3578) \nsources     : landcov.tif  (9 layers) \n              topo.tif  (6 layers) \n              fires.tif  \n              ... and 2 more source(s)\nnames       : forest, conifer, broadleaf, mixedwood, wetland, shrubland, ... \nmin values  :      0,       0,         0,         0,       0,         0, ... \nmax values  :      1,       1,         1,         1,       1,         1, ... \n\n\nExtract raster values for GPS locations\n\npres_vars &lt;- terra::extract(rasters, gps) |&gt;\n  mutate(ID=NULL)\npres_vars_sf &lt;- cbind(gps, pres_vars)\npres_vars_sf\n\nSimple feature collection with 77091 features and 22 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: 518681.7 ymin: 480918.5 xmax: 716666.7 ymax: 651698.2\nProjected CRS: NAD83 / Yukon Albers\nFirst 10 features:\n             timestamp      season individual occurrence forest conifer\n1  2020-11-06 19:10:39 earlywinter      43163          1      1       1\n2  2020-11-07 01:07:00 earlywinter      43163          1      1       1\n3  2020-11-07 07:05:54 earlywinter      43163          1      1       1\n4  2020-11-07 13:04:39 earlywinter      43163          1      1       1\n5  2020-11-07 19:03:23 earlywinter      43163          1      1       1\n6  2020-11-08 01:02:25 earlywinter      43163          1      1       1\n7  2020-11-08 07:03:25 earlywinter      43163          1      1       1\n8  2020-11-08 13:00:38 earlywinter      43163          1      1       1\n9  2020-11-08 18:59:39 earlywinter      43163          1      1       1\n10 2020-11-09 00:58:38 earlywinter      43163          1      1       1\n   broadleaf mixedwood wetland shrubland grassland barren snowice elevation\n1          0         0       0         0         0      0       0  688.2874\n2          0         0       0         0         0      0       0  721.8030\n3          0         0       0         0         0      0       0  732.6952\n4          0         0       0         0         0      0       0  734.0319\n5          0         0       0         0         0      0       0  725.3831\n6          0         0       0         0         0      0       0  741.4588\n7          0         0       0         0         0      0       0  748.1053\n8          0         0       0         0         0      0       0  735.0618\n9          0         0       0         0         0      0       0  728.0272\n10         0         0       0         0         0      0       0  728.3869\n       slope    aspect roughness   northness   eastness fires dist2line\n1  1.3049368  76.21446 1.6730957  0.23828828  0.9711944     0  2468.400\n2  1.1596124  13.66821 1.4671021  0.97168040  0.2362990     0   870.000\n3  0.6464857  54.27378 0.9449463  0.58391279  0.8118164     0  3113.069\n4  0.5722326  48.41456 0.8459473  0.66373616  0.7479668     0  3340.793\n5  0.8816819 106.66216 1.1493530 -0.28672776  0.9580121     0  3495.612\n6  1.1163176 138.72826 1.6526489 -0.75158954  0.6596311     0  3180.000\n7  1.0377831  85.68446 1.1655884  0.07524924  0.9971648     0  3930.000\n8  1.4175920  96.07789 1.6336670 -0.10588032  0.9943789     0  3822.735\n9  0.4276250 197.99167 0.5642700 -0.95110142 -0.3088788     0  3976.896\n10 0.9032347  61.24379 1.2843628  0.48108381  0.8766746     0  2886.399\n   dist2poly                      geom\n1   2539.390 POINT (678102.7 642940.6)\n2   2309.026 POINT (675905.1 636811.4)\n3   3471.974 POINT (677688.9 635054.2)\n4   3700.716   POINT (677707 634815.6)\n5   2769.278 POINT (677144.5 632232.1)\n6   2311.752   POINT (675848 632013.4)\n7   3060.588 POINT (676008.2 632788.8)\n8   2983.907 POINT (676611.1 632615.2)\n9   3437.586   POINT (677951 632575.7)\n10  2723.564   POINT (678588 631040.8)\n\nglimpse(pres_vars_sf)\n\nRows: 77,091\nColumns: 23\n$ timestamp  &lt;chr&gt; \"2020-11-06 19:10:39\", \"2020-11-07 01:07:00\", \"2020-11-07 0…\n$ season     &lt;chr&gt; \"earlywinter\", \"earlywinter\", \"earlywinter\", \"earlywinter\",…\n$ individual &lt;int&gt; 43163, 43163, 43163, 43163, 43163, 43163, 43163, 43163, 431…\n$ occurrence &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ forest     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ conifer    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ broadleaf  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ mixedwood  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ wetland    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ shrubland  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ grassland  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ barren     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ snowice    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ elevation  &lt;dbl&gt; 688.2874, 721.8030, 732.6952, 734.0319, 725.3831, 741.4588,…\n$ slope      &lt;dbl&gt; 1.3049368, 1.1596124, 0.6464857, 0.5722326, 0.8816819, 1.11…\n$ aspect     &lt;dbl&gt; 76.21446, 13.66821, 54.27378, 48.41456, 106.66216, 138.7282…\n$ roughness  &lt;dbl&gt; 1.6730957, 1.4671021, 0.9449463, 0.8459473, 1.1493530, 1.65…\n$ northness  &lt;dbl&gt; 0.23828828, 0.97168040, 0.58391279, 0.66373616, -0.28672776…\n$ eastness   &lt;dbl&gt; 0.97119445, 0.23629901, 0.81181639, 0.74796677, 0.95801210,…\n$ fires      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ dist2line  &lt;dbl&gt; 2468.400, 870.000, 3113.069, 3340.793, 3495.612, 3180.000, …\n$ dist2poly  &lt;dbl&gt; 2539.390, 2309.026, 3471.974, 3700.716, 2769.278, 2311.752,…\n$ geom       &lt;POINT [m]&gt; POINT (678102.7 642940.6), POINT (675905.1 636811.4),…",
     "crumbs": [
       "Data preparation",
       "Extract values"
@@ -1255,6 +1255,338 @@
     "crumbs": [
       "Habitat analysis",
       "Overview"
+    ]
+  },
+  {
+    "objectID": "workflow.html#issues",
+    "href": "workflow.html#issues",
+    "title": "Workflow and Issues",
+    "section": "",
+    "text": "Data preparation\n\narea of interest for developing models; for applying models\nidentifying and removing outliers (spatial, temporal)\nthinning locations e.g., one per spatial / temporal unit\n\nMovement analysis\n\nestimating home ranges using autocorrelated KDEs\npositional uncertainty\n\nHabitat analysis\n\nscale of effect\navailability / pseudo-absences\n\nConnectivity analysis",
+    "crumbs": [
+      "Workflow"
+    ]
+  },
+  {
+    "objectID": "workflow.html#workflow",
+    "href": "workflow.html#workflow",
+    "title": "Workflow and Issues",
+    "section": "Workflow",
+    "text": "Workflow\n\n1. Data preparation\nThe objective to create an analysis-ready database consisting of caribou location data and covariate rasters. The steps include:\n\nTelemetry data:\n\nAcquire, clean, and save caribou location data\nExamine track outliers, telemetry errors, and autocorrelation timescales of GPS tracks\nDefine seasons i.e., early winter, late winter, fall rut, spring, summer\n\nCovariate data:\n\nAcquire and prepare a set of covariate rasters that have the same resolution, extent, project, and are aligned\nAcquire and prepare normal and projected bioclimate data\n\n\n\n\n2. Home range estimation\nThe objective to estimate the autocorrelated home ranges for caribou at the individual and population levels. The steps include:\n\nctmm can help us account for telemetry error, autocorrelation and irregular sampling frequencies in animal tracking data\nConvert caribou location data to telemetry objects (include: individual.local.identifier (or tag.local.identifier), timestamp, location.long and location.lat)\nSelect appropriate model(s) for the autocorrelation structure of the data\n\nExamine the autocorrelation structure of the telemetry data using variogram analysis\nFit and select model based on the initial parameter value guess identified above\n\nUse model(s) to estimate home range using the autocorrelated kernel density estimator (AKDE)\nSave various models as geopackage\n\n\n\n3. Habitat modelling\nThe steps include:\n\nDevelop habitat models: population and individual-levels\nUse models to identify\n\nWhat landscape features do animals seek or avoid during their movements?\nIn which areas of the landscape are animals at risk of predation or disease transmission?\n\nInterpret models (https://easystats.github.io/report/)\nTerra random forest models: https://rspatial.org/analysis/5-global_regression.html\nTerra gradient boosting models: https://rspatial.org/sdm/index.html\n\n\n\n4. Connectivity analysis\nThe steps include:\n\nDevelop a permeability/resistance surface using the previously fitted habitat model.\nDevelop a probability of connectivity map using omniscape\nIdentify key (seasonal) movement corridors",
+    "crumbs": [
+      "Workflow"
+    ]
+  },
+  {
+    "objectID": "workflow.html#visualizing-results",
+    "href": "workflow.html#visualizing-results",
+    "title": "Workflow",
+    "section": "Visualizing results",
+    "text": "Visualizing results\nThe objective is to develop a (shiny) dashboard to view the results of the various analyses and allow users to explorer the sensitivity of some of the parameters. Functionality includes:\n\nView estimated seasonal home ranges (present)\nView seasonal probability of occurrence maps (present, future)\nView potential seasonal movement corridors (present, future)",
+    "crumbs": [
+      "Workflow"
+    ]
+  },
+  {
+    "objectID": "workflow.html#resources",
+    "href": "workflow.html#resources",
+    "title": "Workflow",
+    "section": "Resources",
+    "text": "Resources\nHabitat analysis\n\nExample using glm: https://jcoliver.github.io/learn-r/011-species-distribution-models.html\nExample using randomForest: https://rspatial.org/analysis/5-global_regression.html\nExample using gbm: https://rspatial.org/sdm/index.html\nExample using gbm: https://bookdown.org/mcwimberly/gdswr-book/application—species-distribution-modeling.html",
+    "crumbs": [
+      "Workflow"
+    ]
+  },
+  {
+    "objectID": "1-data-preparation/index.html",
+    "href": "1-data-preparation/index.html",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Describe predictor variable: - Distribution and abundance (maps, plots, range of values) - Scale of effect - Hypotheses related to caribou\nTable 2. Covariates.\n\n\n\n\n\n\n\n\n\n\n\n\nCategory\nVariable\nType\nResolution (m)\nContext (m)\nCode\nNote\n\n\n\n\nTopography\nElevation\nContinuous\n30\nna\n1\n\n\n\n\nSlope or roughness\nContinuous\n30\nna\n1\n\n\n\n\nAspect\nContinuous\n30\nna\n1\n\n\n\n\nEastness\nContinuous\n30\nna\n1\n\n\n\n\nNorthness\nContinuous\n30\nna\n1\n\n\n\nLandcover\nForest\nCategorical\n30\nna\n1\n\n\n\n\nConifer\nCategorical\n30\nna\n1\n\n\n\n\nDeciduous\nCategorical\n30\nna\n1\n\n\n\n\nMixedwood\nCategorical\n30\nna\n1\n\n\n\n\nWetland\nCategorical\n30\nna\n1\n\n\n\n\nShrubland\nCategorical\n30\nna\n1\n\n\n\n\nGrassland\nCategorical\n30\nna\n1\n\n\n\n\nBarren\nCategorical\n30\nna\n1\n\n\n\n\nSnowice\nCategorical\n30\nna\n1\n\n\n\nLandscape context\nProportion of conifer forest\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion of mixedwood & deciduous\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion shrubland\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion grassland\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion barren\nContinuous\n30\n1000\n0\nScale of effect?\n\n\nDisturbance (natural)\nProportion recent burned area (0-40 yrs)\nContinuous\n30\n1000\n0\nScale of effect?\n\n\nDisturbance (human)\nLinear feature density\nContinuous\n30\n1000\n0\nNot sure\n\n\n\nDistance to linear disturbance\nContinuous\n30\nna\n1\n\n\n\n\nDistance to areal disturbance\nContinuous\n30\nna\n1\n\n\n\n\nDistance to linear & areal disturbance\nContinuous\n30\nna\n1\n\n\n\nBioclimate\nBIO1 = Annual Mean Temperature\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO2 = Mean Diurnal Range (Mean of monthly (max temp - min temp))\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO3 = Isothermality (BIO2/BIO7) (�100)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO4 = Temperature Seasonality (standard deviation �100)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO5 = Max Temperature of Warmest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO6 = Min Temperature of Coldest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO7 = Temperature Annual Range (BIO5-BIO6)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO8 = Mean Temperature of Wettest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO9 = Mean Temperature of Driest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO10 = Mean Temperature of Warmest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO11 = Mean Temperature of Coldest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO12 = Annual Precipitation\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO13 = Precipitation of Wettest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO14 = Precipitation of Driest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO15 = Precipitation Seasonality (Coefficient of Variation)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO16 = Precipitation of Wettest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO17 = Precipitation of Driest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO18 = Precipitation of Warmest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO19 = Precipitation of Coldest Quarter\nContinuous\n1000\nna\n1\nProjections only",
+    "crumbs": [
+      "Data preparation",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "1-data-preparation/index.html#predictor-variables",
+    "href": "1-data-preparation/index.html#predictor-variables",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Describe predictor variable: - Distribution and abundance (maps, plots, range of values) - Scale of effect - Hypotheses related to caribou\nTable 2. Covariates.\n\n\n\n\n\n\n\n\n\n\n\n\nCategory\nVariable\nType\nResolution (m)\nContext (m)\nCode\nNote\n\n\n\n\nTopography\nElevation\nContinuous\n30\nna\n1\n\n\n\n\nSlope or roughness\nContinuous\n30\nna\n1\n\n\n\n\nAspect\nContinuous\n30\nna\n1\n\n\n\n\nEastness\nContinuous\n30\nna\n1\n\n\n\n\nNorthness\nContinuous\n30\nna\n1\n\n\n\nLandcover\nForest\nCategorical\n30\nna\n1\n\n\n\n\nConifer\nCategorical\n30\nna\n1\n\n\n\n\nDeciduous\nCategorical\n30\nna\n1\n\n\n\n\nMixedwood\nCategorical\n30\nna\n1\n\n\n\n\nWetland\nCategorical\n30\nna\n1\n\n\n\n\nShrubland\nCategorical\n30\nna\n1\n\n\n\n\nGrassland\nCategorical\n30\nna\n1\n\n\n\n\nBarren\nCategorical\n30\nna\n1\n\n\n\n\nSnowice\nCategorical\n30\nna\n1\n\n\n\nLandscape context\nProportion of conifer forest\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion of mixedwood & deciduous\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion shrubland\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion grassland\nContinuous\n30\n1000\n0\nScale of effect?\n\n\n\nProportion barren\nContinuous\n30\n1000\n0\nScale of effect?\n\n\nDisturbance (natural)\nProportion recent burned area (0-40 yrs)\nContinuous\n30\n1000\n0\nScale of effect?\n\n\nDisturbance (human)\nLinear feature density\nContinuous\n30\n1000\n0\nNot sure\n\n\n\nDistance to linear disturbance\nContinuous\n30\nna\n1\n\n\n\n\nDistance to areal disturbance\nContinuous\n30\nna\n1\n\n\n\n\nDistance to linear & areal disturbance\nContinuous\n30\nna\n1\n\n\n\nBioclimate\nBIO1 = Annual Mean Temperature\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO2 = Mean Diurnal Range (Mean of monthly (max temp - min temp))\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO3 = Isothermality (BIO2/BIO7) (�100)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO4 = Temperature Seasonality (standard deviation �100)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO5 = Max Temperature of Warmest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO6 = Min Temperature of Coldest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO7 = Temperature Annual Range (BIO5-BIO6)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO8 = Mean Temperature of Wettest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO9 = Mean Temperature of Driest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO10 = Mean Temperature of Warmest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO11 = Mean Temperature of Coldest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO12 = Annual Precipitation\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO13 = Precipitation of Wettest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO14 = Precipitation of Driest Month\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO15 = Precipitation Seasonality (Coefficient of Variation)\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO16 = Precipitation of Wettest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO17 = Precipitation of Driest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO18 = Precipitation of Warmest Quarter\nContinuous\n1000\nna\n1\nProjections only\n\n\n\nBIO19 = Precipitation of Coldest Quarter\nContinuous\n1000\nna\n1\nProjections only",
+    "crumbs": [
+      "Data preparation",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "workflow.html#methods",
+    "href": "workflow.html#methods",
+    "title": "Workflow",
+    "section": "Methods",
+    "text": "Methods\n\n1. Data preparation\nThe objective to create an analysis-ready database consisting of caribou location data and covariate rasters. The steps include:\n\nTelemetry data:\n\nAcquire, clean, and save caribou location data\nExamine track outliers, telemetry errors, and autocorrelation timescales of GPS tracks\nDefine seasons i.e., early winter, late winter, fall rut, spring, summer\n\nCovariate data:\n\nAcquire and prepare a set of covariate rasters that have the same resolution, extent, project, and are aligned\nAcquire and prepare normal and projected bioclimate data\n\n\n\n\n2. Movement analysis\nHome range estimation\nThe objective to estimate the autocorrelated home ranges for caribou at the individual and population levels. The steps include:\n\nctmm can help us account for telemetry error, autocorrelation and irregular sampling frequencies in animal tracking data\nConvert caribou location data to telemetry objects (include: individual.local.identifier (or tag.local.identifier), timestamp, location.long and location.lat)\nSelect appropriate model(s) for the autocorrelation structure of the data\n\nExamine the autocorrelation structure of the telemetry data using variogram analysis\nFit and select model based on the initial parameter value guess identified above\n\nUse model(s) to estimate home range using the autocorrelated kernel density estimator (AKDE)\nSave various models as geopackage\n\n\n\n3. Habitat analysis\nThe steps include:\n\nDevelop habitat models: population and individual-levels\nUse models to identify\n\nWhat landscape features do animals seek or avoid during their movements?\nIn which areas of the landscape are animals at risk of predation or disease transmission?\n\nInterpret models (https://easystats.github.io/report/)\nTerra random forest models: https://rspatial.org/analysis/5-global_regression.html\nTerra gradient boosting models: https://rspatial.org/sdm/index.html\n\n\n\n4. Connectivity analysis\nThe steps include:\n\nDevelop a permeability/resistance surface using the previously fitted habitat model.\nDevelop a probability of connectivity map using omniscape\nIdentify key (seasonal) movement corridors",
+    "crumbs": [
+      "Workflow"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.1-resistance-surface.html",
+    "href": "4-connectivity-analysis/4.1-resistance-surface.html",
+    "title": "5. Resistance surface",
+    "section": "",
+    "text": "library(sf)\nlibrary(terra)\nlibrary(tidyverse)",
+    "crumbs": [
+      "Connectivity analysis",
+      "Resistance surface"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.1-resistance-surface.html#early-winter",
+    "href": "4-connectivity-analysis/4.1-resistance-surface.html#early-winter",
+    "title": "5. Resistance surface",
+    "section": "Early winter",
+    "text": "Early winter\n\nr &lt;- rast(\"../data/predict30/randomforest/earlywintermap.tif\")\nrs.25 &lt;- negex(c=0.25, h=r)\nrs2 &lt;- negex(c=2, h=r)\nrs8 &lt;- negex(c=8, h=r)\npar(mfrow=c(2,2))\nplot(r, main=\"Prob(occurrence)\")\nplot(rs.25, main=\"Resistance (c=0.25)\")\nplot(rs2, main=\"Resistance (c=2)\")\nplot(rs8, main=\"Resistance (c=8)\")\n\n\n\n\n\n\n\npar(mfrow=c(1,1))",
+    "crumbs": [
+      "Connectivity analysis",
+      "Resistance surface"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.1-resistance-surface.html#transformation",
+    "href": "4-connectivity-analysis/4.1-resistance-surface.html#transformation",
+    "title": "5. Resistance surface",
+    "section": "Transformation",
+    "text": "Transformation\nWe transformed the habitat suitability model with a negative exponential function using three different c scaling parameter values that allow more low- and medium- quality pixels to be classified as low resistance and easier to cross and may more accurately reflect the movements of a habitat generalist. The negative exponential function is:\n\n100 - 99 * ((1 - exp(-c*h)) / (1- exp(-c)))\n\nwhere h was the habitat suitability value (range = 0-100), and c was set to 0.25, 2, and 8, based on recommendations in Keeley et al. (2016). c=0.25 is an approximate negative linear transformation of suitability, meaning resistance decreases at a constant rate as the suitability increases, while 2 and 8 are two increasingly nonlinear transformations. Higher c values reduce the resistance of less suitable values, approximating the use of moderate-quality habitat by dispersers.\n\n# negative exponential function\nnegex &lt;- function(c, h) {\n  x &lt;- 100 - 99 * ((1 - exp(-c*h)) / (1- exp(-c)))\n}",
+    "crumbs": [
+      "Connectivity analysis",
+      "Resistance surface"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.1-resistance-surface.html#late-winter",
+    "href": "4-connectivity-analysis/4.1-resistance-surface.html#late-winter",
+    "title": "5. Resistance surface",
+    "section": "Late winter",
+    "text": "Late winter\n\nr &lt;- rast(\"../data/predict30/randomforest/latewintermap.tif\")\nrs.25 &lt;- negex(c=0.25, h=r)\nrs2 &lt;- negex(c=2, h=r)\nrs8 &lt;- negex(c=8, h=r)\npar(mfrow=c(2,2))\nplot(r, main=\"Prob(occurrence)\")\nplot(rs.25, main=\"Resistance (c=0.25)\")\nplot(rs2, main=\"Resistance (c=2)\")\nplot(rs8, main=\"Resistance (c=8)\")\n\n\n\n\n\n\n\npar(mfrow=c(1,1))",
+    "crumbs": [
+      "Connectivity analysis",
+      "Resistance surface"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.1-resistance-surface.html#summer",
+    "href": "4-connectivity-analysis/4.1-resistance-surface.html#summer",
+    "title": "5. Resistance surface",
+    "section": "Summer",
+    "text": "Summer\n\nr &lt;- rast(\"../data/predict30/randomforest/summermap.tif\")\nrs.25 &lt;- negex(c=0.25, h=r)\nrs2 &lt;- negex(c=2, h=r)\nrs8 &lt;- negex(c=8, h=r)\npar(mfrow=c(2,2))\nplot(r, main=\"Prob(occurrence)\")\nplot(rs.25, main=\"Resistance (c=0.25)\")\nplot(rs2, main=\"Resistance (c=2)\")\nplot(rs8, main=\"Resistance (c=8)\")\n\n\n\n\n\n\n\npar(mfrow=c(1,1))",
+    "crumbs": [
+      "Connectivity analysis",
+      "Resistance surface"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.1-resistance-surface.html#fall-rut",
+    "href": "4-connectivity-analysis/4.1-resistance-surface.html#fall-rut",
+    "title": "5. Resistance surface",
+    "section": "Fall rut",
+    "text": "Fall rut\n\nr &lt;- rast(\"../data/predict30/randomforest/fallrutmap.tif\")\nrs.25 &lt;- negex(c=0.25, h=r)\nrs2 &lt;- negex(c=2, h=r)\nrs8 &lt;- negex(c=8, h=r)\npar(mfrow=c(2,2))\nplot(r, main=\"Prob(occurrence)\")\nplot(rs.25, main=\"Resistance (c=0.25)\")\nplot(rs2, main=\"Resistance (c=2)\")\nplot(rs8, main=\"Resistance (c=8)\")\n\n\n\n\n\n\n\npar(mfrow=c(1,1))",
+    "crumbs": [
+      "Connectivity analysis",
+      "Resistance surface"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html",
+    "href": "4-connectivity-analysis/4.2-omniscape.html",
+    "title": "6. Omniscape",
+    "section": "",
+    "text": "library(sf)\nlibrary(terra)\nlibrary(tidyverse)\nlibrary(rpart)\nlibrary(rpart.plot)\nlibrary(predicts)\nlibrary(randomForest)\nset.seed(123)",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape-c25.html",
+    "href": "4-connectivity-analysis/4.2-omniscape-c25.html",
+    "title": "6. Omniscape",
+    "section": "",
+    "text": "library(sf)\nlibrary(terra)\nlibrary(tidyverse)\nlibrary(rpart)\nlibrary(rpart.plot)\nlibrary(predicts)\nlibrary(randomForest)\nset.seed(123)\n\nCumulative current flow\nThe cumulative current flow map measures the total current flowing through the landscape and can be interpreted as representing forest connectivity. Higher values indicate higher connectivity. In the map below, proposed IPCAs are indicated by transparent blue polygons.\n\nEarly winterLate winterSummerFall rut\n\n\n\nr1a = rast(\"../data/omniscape300/earlywinter_RF300_C25_R1000_T50/cum_currmap.tif\")\nplot(r1a)\n\n\n\n\n\n\n\n\n\n\n\nr1b = rast(\"../data/omniscape300/latewinter_RF300_C25_R1000_T50/cum_currmap.tif\")\nplot(r1b)\n\n\n\n\n\n\n\n\n\n\n\nr1c = rast(\"../data/omniscape300/summer_RF300_C25_R1000_T50/cum_currmap.tif\")\nplot(r1c)\n\n\n\n\n\n\n\n\n\n\n\nr1d = rast(\"../data/omniscape300/fallrut_RF300_C25_R1000_T50/cum_currmap.tif\")\nplot(r1d)\n\n\n\n\n\n\n\n\n\n\n\n\nFlow potential\nThe flow potential map shows what connectivity looks like under “null” conditions (i.e., resistance equals 1 for the whole landscape). In other words, flow potential shows what connectivity would look like in the absence of barriers to movement. In the map below, proposed IPCAs are indicated by transparent blue polygons.\n\nEarly winterLate winterSummerFall rut\n\n\n\nr2a = rast(\"../data/omniscape300/earlywinter_RF300_C25_R1000_T50/flow_potential.tif\")\nplot(r2a)\n\n\n\n\n\n\n\n\n\n\n\nr2b = rast(\"../data/omniscape300/latewinter_RF300_C25_R1000_T50/flow_potential.tif\")\nplot(r2b)\n\n\n\n\n\n\n\n\n\n\n\nr2c = rast(\"../data/omniscape300/summer_RF300_C25_R1000_T50/flow_potential.tif\")\nplot(r2c)\n\n\n\n\n\n\n\n\n\n\n\nr2d = rast(\"../data/omniscape300/fallrut_RF300_C25_R1000_T50/flow_potential.tif\")\nplot(r2d)\n\n\n\n\n\n\n\n\n\n\n\n\n\nNomalized current flow\nThe normalized (cumulative) current flow is calculated as flow potential divided by cumulative current. Values greater than one indicate areas with channelized/bottlenecked flow. Values around 1 (cumulative current ~ flow potential) indicate diffuse current. Values less than 1 indicate impeded flow. In the map below, proposed IPCAs are indicated by transparent blue polygons.\n\nEarly winterLate winterSummerFall rut\n\n\n\nr3a = rast(\"../data/omniscape300/earlywinter_RF300_C25_R1000_T50/normalized_cum_currmap.tif\")\nplot(r3a)\n\n\n\n\n\n\n\n\n\n\n\nr3b = rast(\"../data/omniscape300/latewinter_RF300_C25_R1000_T50/normalized_cum_currmap.tif\")\nplot(r3b)\n\n\n\n\n\n\n\n\n\n\n\nr3c = rast(\"../data/omniscape300/summer_RF300_C25_R1000_T50/normalized_cum_currmap.tif\")\nplot(r3c)\n\n\n\n\n\n\n\n\n\n\n\nr3d = rast(\"../data/omniscape300/fallrut_RF300_C25_R1000_T50/normalized_cum_currmap.tif\")\nplot(r3d)\n\n\n\n\n\n\n\n\n\n\n\n\n\nConnectivity categories\n\nImpeded (0 - 0.7)\nDiffuse (0.7 - 1.3)\nIntensified (1.3 - 1.7)\nChannelized (1.7 - 9999)\n\n\nm &lt;- c(0, 0.7, 1,\n       0.7, 1.3, 2,\n       1.4, 1.7, 3,\n       1.7, 9999, 4)\nrclmat &lt;- matrix(m, ncol=3, byrow=TRUE)\nr4a = as.factor(classify(r3a, rclmat, include.lowest=TRUE))\nr4b = as.factor(classify(r3b, rclmat, include.lowest=TRUE))\nr4c = as.factor(classify(r3c, rclmat, include.lowest=TRUE))\nr4d = as.factor(classify(r3d, rclmat, include.lowest=TRUE))\n\n\nEarly winterLate winterSummerFall rut\n\n\n\nplot(r4a, col=c('gray95', 'lightskyblue', 'green4', 'red'),\n  plg=list(legend=c(\"1 - Impeded\", \"2 - Diffuse\", \"3 - Intensified\", \"4 - Channelized\"), x=\"bottomright\"))\n\n\n\n\n\n\n\n\n\n\n\nplot(r4b, col=c('gray95', 'lightskyblue', 'green4', 'red'),\n  plg=list(legend=c(\"1 - Impeded\", \"2 - Diffuse\", \"3 - Intensified\", \"4 - Channelized\"), x=\"bottomright\"))\n\n\n\n\n\n\n\n\n\n\n\nplot(r4c, col=c('gray95', 'lightskyblue', 'green4', 'red'),\n  plg=list(legend=c(\"1 - Impeded\", \"2 - Diffuse\", \"3 - Intensified\", \"4 - Channelized\"), x=\"bottomright\"))\n\n\n\n\n\n\n\n\n\n\n\nplot(r4d, col=c('gray95', 'lightskyblue', 'green4', 'red'),\n  plg=list(legend=c(\"1 - Impeded\", \"2 - Diffuse\", \"3 - Intensified\", \"4 - Channelized\"), x=\"bottomright\"))\n\n\n\n\n\n\n\n\n\n\n\nFrequency of pixels in each connectivity category\n\nprint(\"Early winter\")\n\n[1] \"Early winter\"\n\nprint(freq(r4a))\n\n  layer value  count\n1     1     1  68696\n2     1     2 201467\n3     1     3  15133\n4     1     4  12562\n\nprint(\"Late winter\")\n\n[1] \"Late winter\"\n\nprint(freq(r4b))\n\n  layer value  count\n1     1     1  70165\n2     1     2 209032\n3     1     3   9058\n4     1     4   9603\n\nprint(\"Summer\")\n\n[1] \"Summer\"\n\nprint(freq(r4c))\n\n  layer value  count\n1     1     1 159092\n2     1     2 124521\n3     1     3   8141\n4     1     4   6104\n\nprint(\"Fall rut\")\n\n[1] \"Fall rut\"\n\nprint(freq(r4d))\n\n  layer value  count\n1     1     1  72994\n2     1     2 209663\n3     1     3   7638\n4     1     4   7563"
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#early-winter",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#early-winter",
+    "title": "6. Omniscape",
+    "section": "Early winter",
+    "text": "Early winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#late-winter",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#late-winter",
+    "title": "6. Omniscape",
+    "section": "Late winter",
+    "text": "Late winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#summer",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#summer",
+    "title": "6. Omniscape",
+    "section": "Summer",
+    "text": "Summer\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#fall-rut",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#fall-rut",
+    "title": "6. Omniscape",
+    "section": "Fall rut",
+    "text": "Fall rut\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#early-winter-1",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#early-winter-1",
+    "title": "6. Omniscape",
+    "section": "Early winter",
+    "text": "Early winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#late-winter-1",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#late-winter-1",
+    "title": "6. Omniscape",
+    "section": "Late winter",
+    "text": "Late winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#summer-1",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#summer-1",
+    "title": "6. Omniscape",
+    "section": "Summer",
+    "text": "Summer\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#fall-rut-1",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#fall-rut-1",
+    "title": "6. Omniscape",
+    "section": "Fall rut",
+    "text": "Fall rut\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#early-winter-2",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#early-winter-2",
+    "title": "6. Omniscape",
+    "section": "Early winter",
+    "text": "Early winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#late-winter-2",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#late-winter-2",
+    "title": "6. Omniscape",
+    "section": "Late winter",
+    "text": "Late winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#summer-2",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#summer-2",
+    "title": "6. Omniscape",
+    "section": "Summer",
+    "text": "Summer\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#fall-rut-2",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#fall-rut-2",
+    "title": "6. Omniscape",
+    "section": "Fall rut",
+    "text": "Fall rut\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#early-winter-3",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#early-winter-3",
+    "title": "6. Omniscape",
+    "section": "Early winter",
+    "text": "Early winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#late-winter-3",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#late-winter-3",
+    "title": "6. Omniscape",
+    "section": "Late winter",
+    "text": "Late winter\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#summer-3",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#summer-3",
+    "title": "6. Omniscape",
+    "section": "Summer",
+    "text": "Summer\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
+    ]
+  },
+  {
+    "objectID": "4-connectivity-analysis/4.2-omniscape.html#fall-rut-3",
+    "href": "4-connectivity-analysis/4.2-omniscape.html#fall-rut-3",
+    "title": "6. Omniscape",
+    "section": "Fall rut",
+    "text": "Fall rut\n\nc = 0.25c = 2c = 8",
+    "crumbs": [
+      "Connectivity analysis",
+      "Omniscape analysis"
     ]
   }
 ]

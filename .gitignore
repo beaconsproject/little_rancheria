@@ -1,5 +1,11 @@
+_render.sh
 code
 data
-docs2
-report
+issues
+output
+references.bib
+XTRA
+R 4.4.1.lnk
+
 /.quarto/
+.Rproj.user

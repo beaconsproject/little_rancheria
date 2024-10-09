@@ -71,6 +71,7 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Data Preparation – Little Rancheria">
+<meta property="og:description" content="">
 <meta property="og:site_name" content="Little Rancheria">
 </head>
 
@@ -149,13 +150,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Movement analysis</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../2-movement-analysis/index.html" class="sidebar-item-text sidebar-link">
@@ -184,13 +185,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Habitat analysis</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3-habitat-analysis/index.html" class="sidebar-item-text sidebar-link">
@@ -219,17 +220,29 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Connectivity analysis</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../4-connectivity-analysis/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../4-connectivity-analysis/4.1-resistance-surface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resistance surface</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../4-connectivity-analysis/4.2-omniscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Omniscape analysis</span></a>
   </div>
 </li>
       </ul>
@@ -249,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../little_rancheria_dashboard/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard</span></a>
   </div>
 </li>
@@ -263,7 +276,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#predictor-variables" id="toc-predictor-variables" class="nav-link active" data-scroll-target="#predictor-variables">Predictor variables</a></li>
   </ul>
 </nav>
     </div>
@@ -289,8 +302,421 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="predictor-variables" class="level2">
+<h2 class="anchored" data-anchor-id="predictor-variables">Predictor variables</h2>
+<p>Describe predictor variable: - Distribution and abundance (maps, plots, range of values) - Scale of effect - Hypotheses related to caribou</p>
+<p>Table 2. Covariates.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 42%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 5%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Category</strong></th>
+<th><strong>Variable</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Resolution (m)</strong></th>
+<th><strong>Context (m)</strong></th>
+<th><strong>Code</strong></th>
+<th><strong>Note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Topography</td>
+<td>Elevation</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Slope or roughness</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Aspect</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Eastness</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Northness</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Landcover</td>
+<td>Forest</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Conifer</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Deciduous</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Mixedwood</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Wetland</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Shrubland</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Grassland</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Barren</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Snowice</td>
+<td>Categorical</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Landscape context</td>
+<td>Proportion of conifer forest</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Scale of effect?</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Proportion of mixedwood &amp; deciduous</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Scale of effect?</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Proportion shrubland</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Scale of effect?</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Proportion grassland</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Scale of effect?</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Proportion barren</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Scale of effect?</td>
+</tr>
+<tr class="even">
+<td>Disturbance (natural)</td>
+<td>Proportion recent burned area (0-40 yrs)</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Scale of effect?</td>
+</tr>
+<tr class="odd">
+<td>Disturbance (human)</td>
+<td>Linear feature density</td>
+<td>Continuous</td>
+<td>30</td>
+<td>1000</td>
+<td>0</td>
+<td>Not sure</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Distance to linear disturbance</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Distance to areal disturbance</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Distance to linear &amp; areal disturbance</td>
+<td>Continuous</td>
+<td>30</td>
+<td>na</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Bioclimate</td>
+<td>BIO1 = Annual Mean Temperature</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO2 = Mean Diurnal Range (Mean of monthly (max temp - min temp))</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO3 = Isothermality (BIO2/BIO7) (�100)</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO4 = Temperature Seasonality (standard deviation �100)</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO5 = Max Temperature of Warmest Month</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO6 = Min Temperature of Coldest Month</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO7 = Temperature Annual Range (BIO5-BIO6)</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO8 = Mean Temperature of Wettest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO9 = Mean Temperature of Driest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO10 = Mean Temperature of Warmest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO11 = Mean Temperature of Coldest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO12 = Annual Precipitation</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO13 = Precipitation of Wettest Month</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO14 = Precipitation of Driest Month</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO15 = Precipitation Seasonality (Coefficient of Variation)</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO16 = Precipitation of Wettest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO17 = Precipitation of Driest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BIO18 = Precipitation of Warmest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BIO19 = Precipitation of Coldest Quarter</td>
+<td>Continuous</td>
+<td>1000</td>
+<td>na</td>
+<td>1</td>
+<td>Projections only</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

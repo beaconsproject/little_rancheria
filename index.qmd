@@ -2,7 +2,7 @@
 title: "Little Rancheria Caribou Herd: Analysis of Movement, Habitat, and Connectivity"
 ---
 
-Revised: September 18, 2024
+Revised: September 26, 2024
 
 ## Introduction
 
@@ -13,7 +13,7 @@ The objective of this project is to analyse movement patterns, habitat use, and 
 Table 1. Preliminary tasks and timelines organized into five components.
 
 | **Component** | **Task** | **Timeline** |
-|----------------|---------------------------------------|----------------|
+|-----------------|--------------------------------------|-----------------|
 | Data preparation | Acquire caribou telemetry data and prepare for analysis |  |
 |  | Generate pseudo-absence or availability data for analysis region |  |
 |  | Acquire landscape and bioclimate covariate data and prepare for analysis | July 31 |
@@ -34,7 +34,7 @@ Table 1. Preliminary tasks and timelines organized into five components.
 
 We acquired two telemetry datasets for the Little Rancheria analysis region, one from the Yukon government (Table 2) and the other from the BC government (Table 3). The datasets overlap in space and time with many locations in common (Figure 1). Appendices 1 and 2 provide additional details for collared caribou.
 
-![](docs/gps_yt.png){width="49%"} ![](docs/gps_bc.png){width="49%"} <br>Figure 1. Distribution of caribou locations obtained from Yukon government (left) and BC government (right). Caribou with a collar id are shown in red. The grey polygon represents the 100% MCP + 5km buffer for all collared caribou with at least 5 locations.
+![](images/gps_yt.png){width="49%"} ![](images/gps_bc.png){width="49%"} <br>Figure 1. Distribution of caribou locations obtained from Yukon government (left) and BC government (right). Caribou with a collar id are shown in red. The grey polygon represents the 100% MCP + 5km buffer for all collared caribou with at least 5 locations.
 
 <br>Table 2. YT dataset. Number of caribou locations, collars, and mortality by year.
 

@@ -1,0 +1,185 @@
+--- 
+title: "Connectivity Explorer"
+subtitle: ""
+format: dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+library(terra)
+library(maptiles)
+v <- vect('mcp15k.gpkg', 'mcp_buff15k')
+bg <- get_tiles(v,
+  crop = TRUE, provider = "Esri.WorldShadedRelief",
+  zoom = 8, project = TRUE, cachedir = "."
+)
+```
+
+# {.sidebar}
+
+**Habitat**
+
+<hr>
+
+**Connectivity**
+
+```{r}
+selectInput("type", "Map type:", choices=c("Cumulative current flow", "Flow potential", "Normalized current flow", "Categorized connectivity"))
+selectInput("c", "c-value", choices = c(0.25, 2, 8))
+```
+
+<hr>
+
+**Report**
+
+- [Analysis workbook](../docs/index.html)
+
+# Habitat
+
+## Row {height=50%}
+
+### Column {width=50%}
+
+```{r}
+#| title: Early winter
+r <- rast("../data/predict30/randomforest/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {width=50%}
+
+```{r}
+#| title: Late winter
+r <- rast("../data/predict30/randomforest/latewintermap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+## Row {height=50%}
+
+### Column {width=50%}
+
+```{r}
+#| title: Summer
+r <- rast("../data/predict30/randomforest/summermap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {width=50%}
+
+```{r}
+#| title: Fall rut
+r <- rast("../data/predict30/randomforest/fallrutmap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+# Connectivity
+
+## Row {height=50%}
+
+```{r}
+#| title: Early winter
+plotOutput('plot1')
+```
+
+```{r}
+#| title: Late winter
+plotOutput('plot2')
+```
+
+## Row {height=50%}
+
+```{r}
+#| title: Summer
+plotOutput('plot3')
+```
+
+```{r}
+#| title: Fall rut
+plotOutput('plot4')
+```
+
+```{r}
+#| context: server
+
+mval <- reactive({
+  if (input$type=="Cumulative current flow") {
+    type="cum_currmap"
+  } else if (input$type=="Flow potential") {
+    type="flow_potential"
+  } else if (input$type=="Normalized current flow") {
+    type="normalized_cum_currmap"
+  } else if (input$type=="Categorized connectivity") {
+    type="categorized_connectivity"
+  }
+})
+
+cval <- reactive({
+  if (input$c==0.25) {
+    c="25"
+  } else if (input$c==2) {
+    c="200"
+  } else if (input$c==8) {
+    c="800"
+  }
+})
+
+output$plot1 <- renderPlot({
+  r1 = rast(paste0("../data/omniscape300/earlywinter_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  plotRGB(bg)
+  if (input$type=="Categorized connectivity") {
+    levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+    plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  } else {
+    plot(r1, breaks=10, breakby='cases', main="Early winter", alpha=0.5, add=TRUE)
+  }
+  lines(v, col="black", lwd=2)
+})
+
+output$plot2 <- renderPlot({
+  r2 = rast(paste0("../data/omniscape300/latewinter_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  plotRGB(bg)
+  if (input$type=="Categorized connectivity") {
+    levels(r2) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+    plot(r2, main="Late winter",  alpha=0.5, add=TRUE)
+  } else {
+    plot(r2, breaks=10, breakby='cases', main="Late winter", alpha=0.5, add=TRUE)
+  }
+  lines(v, col="black", lwd=2)
+})
+
+output$plot3 <- renderPlot({
+  r3 = rast(paste0("../data/omniscape300/summer_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  plotRGB(bg)
+  if (input$type=="Categorized connectivity") {
+    levels(r3) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+    plot(r3, main="Summer", alpha=0.5, add=TRUE)
+  } else {
+    plot(r3, breaks=10, breakby='cases', main="Summer", alpha=0.5, add=TRUE)
+  }
+  lines(v, col="black", lwd=2)
+})
+
+output$plot4 <- renderPlot({
+  r4 = rast(paste0("../data/omniscape300/fallrut_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  plotRGB(bg)
+  if (input$type=="Categorized connectivity") {
+    levels(r4) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+    plot(r4, main="Fall rut", alpha=0.5, add=TRUE)
+  } else {
+    plot(r4, breaks=10, breakby='cases', main="Fall rut", alpha=0.5, add=TRUE)
+  }
+  lines(v, col="black", lwd=2)
+})
+
+``` 
+

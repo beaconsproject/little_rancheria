@@ -15,7 +15,7 @@ website:
     
     style: "docked"
     search: false
-    collapse-level: 1
+    collapse-level: 2
     contents:
       - href: index.qmd
         text: Home
@@ -55,12 +55,16 @@ website:
         contents:
         - href: 4-connectivity-analysis/index.qmd
           text: Overview
+        - href: 4-connectivity-analysis/4.1-resistance-surface.qmd
+          text: Resistance surface
+        - href: 4-connectivity-analysis/4.2-omniscape.qmd
+          text: Omniscape analysis
       - href: references.qmd
         text: References
       - href: appendices.qmd
         text: Appendices
       - ---
-      - href: dashboard.qmd
+      - href: ../../little_rancheria_dashboard/index.html
         text: Dashboard
 
 bibliography: references.bib

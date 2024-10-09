@@ -2,7 +2,12 @@
 title: "Workflow"
 ---
 
-## 1. Data preparation
+## Introduction
+
+
+## Methods
+
+### 1. Data preparation
 
 The objective to create an analysis-ready database consisting of caribou location data and covariate rasters. The steps include:
 
@@ -14,7 +19,9 @@ The objective to create an analysis-ready database consisting of caribou locatio
 	- Acquire and prepare a set of covariate rasters that have the same resolution, extent, project, and are aligned
 	- Acquire and prepare normal and projected bioclimate data
 
-## 2. Home range estimation
+### 2. Movement analysis
+
+Home range estimation
 
 The objective to estimate the autocorrelated home ranges for caribou at the individual and population levels. The steps include:
 
@@ -26,7 +33,7 @@ The objective to estimate the autocorrelated home ranges for caribou at the indi
 - Use model(s) to estimate home range using the autocorrelated kernel density estimator (AKDE)
 - Save various models as geopackage
 
-## 3. Habitat modelling
+### 3. Habitat analysis
 
 The steps include:
 
@@ -38,7 +45,7 @@ The steps include:
 - Terra random forest models: https://rspatial.org/analysis/5-global_regression.html
 - Terra gradient boosting models: https://rspatial.org/sdm/index.html
 
-## 4. Connectivity analysis
+### 4. Connectivity analysis
 
 The steps include:
 
@@ -46,13 +53,15 @@ The steps include:
 - Develop a probability of connectivity map using omniscape
 - Identify key (seasonal) movement corridors
 
-# Visualizing results
+## Visualizing results
 
-The objective is to develop a shiny dashboard to view the results of the various analyses and allow users to explorer the sensitivity of some of the parameters. Functionality includes:
+The objective is to develop a (shiny) dashboard to view the results of the various analyses and allow users to explorer the sensitivity of some of the parameters. Functionality includes:
 
-- View estimate (seasonal) home ranges
+- View estimated seasonal home ranges (present)
+- View seasonal probability of occurrence maps (present, future)
+- View potential seasonal movement corridors (present, future)
 
-# Resources
+## Resources
 
 Habitat analysis
 

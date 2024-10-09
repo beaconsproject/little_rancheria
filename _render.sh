@@ -1,8 +1,8 @@
+# Main docs (fast - 15 seconds)
 quarto render index.qmd
 quarto render workflow.qmd
 quarto render references.qmd
 quarto render appendices.qmd
-quarto render dashboard.qmd
 
 # Data preparation
 quarto render 1-data-preparation/index.qmd
@@ -24,3 +24,5 @@ quarto render 3-habitat-analysis/3.3-random-forest-models.qmd
 
 # Connectivity analysis
 quarto render 4-connectivity-analysis/index.qmd
+quarto render 4-connectivity-analysis/4.1-resistance-surface.qmd
+quarto render 4-connectivity-analysis/4.2-omniscape.qmd
