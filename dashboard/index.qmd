@@ -39,7 +39,7 @@ Landscape resistance is based on a negative exponential transformation of the ra
 
 **Report**
 
-- [Analysis workbook](../docs/index.html)
+- [Analysis workbook](../index.html)
 
 # Movement
 
