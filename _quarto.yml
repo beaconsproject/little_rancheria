@@ -64,7 +64,7 @@ website:
       - href: appendices.qmd
         text: Appendices
       - ---
-      - href: ../../little_rancheria_dashboard/index.html
+      - href: dashboard/index.html
         text: Dashboard
 
 bibliography: references.bib

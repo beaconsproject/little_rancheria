@@ -1,10 +1,10 @@
-code
-data
-issues
-output2
-references.bib
-XTRA
-R 4.4.1.lnk
-
 /.quarto/
 .Rproj.user
+_freeze
+code
+data
+dashboard/Esri.WorldShadedRelief
+dashboard/_freeze
+issues
+output
+XTRA
