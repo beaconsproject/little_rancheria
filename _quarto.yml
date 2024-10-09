@@ -6,7 +6,9 @@ website:
   page-navigation: true
   search: true
   title: "Little Rancheria" 
-  open-graph: true
+  site-url: "https://beaconsproject.github.io/little_rancheria" 
+  repo-url: https://github.com/beaconsproject/little_rancheria 
+  repo-actions: [edit, issue]
   
   sidebar:
     title: "Little Rancheria Caribou Analysis Workbook"
@@ -15,7 +17,7 @@ website:
     
     style: "docked"
     search: false
-    collapse-level: 2
+    collapse-level: 1
     contents:
       - href: index.qmd
         text: Home
