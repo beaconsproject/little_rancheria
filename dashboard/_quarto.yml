@@ -1,0 +1,4 @@
+project: 
+  title: "dashboard"
+execute:
+  freeze: auto

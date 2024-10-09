@@ -1,0 +1,285 @@
+--- 
+title: "Connectivity Explorer"
+subtitle: ""
+format: dashboard
+---
+
+```{r}
+#| context: setup
+library(terra)
+library(maptiles)
+v <- vect('../data/mcp15k.gpkg', 'mcp_buff15k')
+bg <- get_tiles(v,
+  crop = TRUE, provider = "Esri.WorldShadedRelief",
+  zoom = 8, project = TRUE, cachedir = "."
+)
+```
+
+# {.sidebar}
+
+**Movement**
+
+Home ranges were estimated using the autocorrelated kernel density estimator (aKDE).
+
+**Habitat**
+
+We used three different types of models:
+
+- GLM = Generalized linear model
+- GLMM = Generalized linear mixed model
+- RFM = Random forest model
+
+<hr>
+
+**Connectivity**
+
+Landscape resistance is based on a negative exponential transformation of the random forest predictive surface, where c is a measure of increasing mobility.
+
+<hr>
+
+**Report**
+
+- [Analysis workbook](../docs/index.html)
+
+# Movement
+
+# Habitat
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Early winter (GLM)
+r <- rast("../data/predict30/glm/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Late winter (GLM)
+r <- rast("../data/predict30/glm/latewintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/latewintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/latewintermap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Summer (GLM)
+r <- rast("../data/predict30/glm/summermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/summermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/summermap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Fall rut (GLM)
+r <- rast("../data/predict30/glm/fallrutmap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/fallrutmap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/fallrutmap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+# Connectivity
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Early winter (c=0.25)
+  r1 = rast("../data/omniscape300/earlywinter_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/earlywinter_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/earlywinter_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Late winter (c=0.25)
+  r2 = rast("../data/omniscape300/latewinter_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r2) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r2, main="Late winter",  alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/latewinter_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/latewinter_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Summer (0.25)
+  r3 = rast("../data/omniscape300/summer_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r3) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r3, main="Summer", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/summer_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/summer_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Fall rut (c=0.25)
+  r4 = rast("../data/omniscape300/fallrut_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r4) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r4, main="Fall rut", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/fallrut_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/fallrut_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
