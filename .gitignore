@@ -3,8 +3,7 @@
 _freeze
 code
 data
-dashboard/Esri.WorldShadedRelief
-dashboard/_freeze
+dashboard-quarto
 issues
 output
 XTRA
