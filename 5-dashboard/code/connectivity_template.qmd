@@ -1,0 +1,95 @@
+---
+title: "Connectivity Analysis"
+output:
+  html_document:
+    keep_md: false
+    code_folding: hide
+    css: styles.css
+params:
+    res: ""
+    feature: ""
+---
+
+# `r params$feature`
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(sf)
+library(dplyr)
+library(terra)
+library(tmap)
+library(tmaptools)
+bnd <- st_read('../gisdata/lafn718_ipcas.gpkg', 'LAFN718_DraftIPCAs_15NOV2023', quiet=T)
+ipca1 <- st_read('../gisdata/lafn718_ipcas.gpkg', 'Draft IPCA: Tu Ball', quiet=T)
+ipca2 <- st_read('../gisdata/lafn718_ipcas.gpkg', 'Draft IPCA: Little Rancheria Caribou Herd', quiet=T)
+ipca3 <- st_read('../gisdata/lafn718_ipcas.gpkg', 'Draft IPCA: Tu Cho Frances Lake-Nahanni-Hyland', quiet=T)
+pal <- get_brewer_pal("-RdYlBu", n=10, plot=FALSE)
+```
+
+**Cumulative current flow**
+
+The cumulative current flow map measures the total current flowing through the landscape and can be interpreted as representing forest connectivity. Higher values indicate higher connectivity. In the map below, proposed IPCAs are indicated by transparent blue polygons.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+r1 = rast(paste0(params$res,"/cum_currmap.tif"))
+tm_shape(r1) + tm_raster(col.scale=tm_scale_intervals(n=10, style="quantile", values=pal), col.legend = tm_legend(title = "Cumulative flow")) +
+    #tm_shape(bnd) + tm_polygons(fill_alpha=0, col="darkgreen", lwd=2) +
+    tm_shape(ipca1) + tm_polygons(fill_alpha=0.0, col="black", lwd=2) +
+    tm_shape(ipca2) + tm_polygons(fill_alpha=0.0, col="black", lwd=2) +
+    tm_shape(ipca3) + tm_polygons(fill_alpha=0.0, col="black", lwd=2)
+```
+
+**Flow potential**
+
+The flow potential map shows what connectivity looks like under "null" conditions (i.e., resistance equals 1 for the whole landscape). In other words, flow potential shows what connectivity would look like in the absence of barriers to movement. In the map below, proposed IPCAs are indicated by transparent blue polygons.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+r2 = rast(paste0(params$res,"/flow_potential.tif"))
+tm_shape(r2) + tm_raster(col.scale=tm_scale_intervals(n=10, style="quantile", values=pal), col.legend = tm_legend(title = "Flow potential")) +
+    #tm_shape(bnd) + tm_polygons(fill_alpha=0, col="black", lwd=2) +
+    tm_shape(ipca1) + tm_polygons(fill_alpha=0.0, col="black", lwd=1) +
+    tm_shape(ipca2) + tm_polygons(fill_alpha=0.0, col="black", lwd=1) +
+    tm_shape(ipca3) + tm_polygons(fill_alpha=0.0, col="black", lwd=1)
+```
+
+**Nomalized current flow**
+
+The normalized (cumulative) current flow is calculated as flow potential divided by cumulative current. Values greater than one indicate areas with channelized/bottlenecked flow. Values around 1 (cumulative current ~ flow potential) indicate diffuse current. Values less than 1 indicate impeded flow. In the map below, proposed IPCAs are indicated by transparent blue polygons.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+r3 = rast(paste0(params$res,"/normalized_cum_currmap.tif"))
+tm_shape(r3) + tm_raster(col.scale=tm_scale_intervals(n=10, style="quantile", values=pal), col.legend = tm_legend(title = "Normalized flow")) +
+    #tm_shape(bnd) + tm_polygons(fill_alpha=0, col="black", lwd=2) +
+    tm_shape(ipca1) + tm_polygons(fill_alpha=0.0, col="black", lwd=1) +
+    tm_shape(ipca2) + tm_polygons(fill_alpha=0.0, col="black", lwd=1) +
+    tm_shape(ipca3) + tm_polygons(fill_alpha=0.0, col="black", lwd=1)
+```
+
+**High normalized current flow**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#r3 = rast(paste0(params$res,"/normalized_cum_currmap.tif")) %>%
+#r3 = rast("omniscape/nalc2020_moose_300/normalized_cum_currmap.tif")
+m <- c(-9999, 1, 0,
+       1, 9999, 1)
+rclmat <- matrix(m, ncol=3, byrow=TRUE)
+r3r <- classify(r3, rclmat)
+tm_shape(r3r) + tm_raster(col.scale=tm_scale_categorical(values=c('grey','darkgreen')), col.legend = tm_legend(title = "High normalized flow")) +
+    #tm_shape(bnd) + tm_polygons(fill_alpha=0, col="black", lwd=2) +
+    tm_shape(ipca1) + tm_polygons(fill="black", fill_alpha=0.15, col="black", lwd=2) +
+    tm_shape(ipca2) + tm_polygons(fill="black", fill_alpha=0.15, col="black", lwd=2) +
+    tm_shape(ipca3) + tm_polygons(fill="black", fill_alpha=0.15, col="black", lwd=2)
+```
+
+**Normalized current flow (5 classes)**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#r3 = rast(paste0(params$res,"/normalized_cum_currmap.tif")) %>%
+#r3 = rast("omniscape/nalc2020_moose_300/normalized_cum_currmap.tif")
+pal5 <- get_brewer_pal("-RdYlBu", n=5, plot=FALSE)
+tm_shape(r3) + tm_raster(col.scale=tm_scale_intervals(n=5, style="jenks", values=pal), col.legend = tm_legend(title = "Normalized flow")) +
+    #tm_shape(bnd) + tm_polygons(fill_alpha=0, col="black", lwd=2) +
+    tm_shape(ipca1) + tm_polygons(fill="black", fill_alpha=0.15, col="black", lwd=2) +
+    tm_shape(ipca2) + tm_polygons(fill="black", fill_alpha=0.15, col="black", lwd=2) +
+    tm_shape(ipca3) + tm_polygons(fill="black", fill_alpha=0.15, col="black", lwd=2)
+```

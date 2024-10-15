@@ -16,6 +16,7 @@ library(sf)
 library(terra)
 library(report)
 library(tidysdm)
+library(tidyterra)
 library(tidyverse)
 set.seed(5228)
 ```
@@ -27,6 +28,10 @@ Read rasters that will be needed for generating prediction maps.
 seasons <- c('earlywinter', 'latewinter', 'summer', 'fallrut')
 i <- seasons[1]
 nsize = 10000
+```
+
+## Read raster covariates
+```{r}
 landcov <- rast('../data/raster30/landcov.tif')
 topo <- rast('../data/raster30/topo.tif')
 fires <- rast('../data/raster30/fires.tif')
@@ -38,6 +43,10 @@ rasters <- c(landcov, topo, fires, dist2line, dist2poly)
 names(rasters)
 ```
 
+## Read climate data
+```{r}
+bio <- rast('../data/raster1000/bio.tif')
+```
 
 ## Run models for each season
 
@@ -48,11 +57,18 @@ for (sea in seasons) {
   # Prepare data
   gps <- st_read('../data/yt_caribou.gpkg', 'gps_vars', quiet=TRUE) |>
     filter(season==sea) |>
-    thin_by_cell(raster = rasters[[1]]) |>
+    select(individual, occurrence) |>
+    thin_by_cell(raster = bio[[1]])
+  gps1 <- filter(gps, occurrence==1)
+  gps0 <- filter(gps, occurrence==0)
+  
+  dta <- gps |>
     st_drop_geometry() |>
     mutate(pa=occurrence, fpa=as.factor(occurrence)) |>
     mutate(occurrence=NULL) |>
     #sample_n(nsize) |>
     as.data.frame()
 
+  plot(rasters$elevation)
+  points(gps1)
 ```

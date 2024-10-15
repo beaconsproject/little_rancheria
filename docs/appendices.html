@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendices – Little Rancheria</title>
+<title>Analysis issues – Little Rancheria</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,9 +69,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Appendices – Little Rancheria">
-<meta property="og:description" content="">
-<meta property="og:site_name" content="Little Rancheria">
 </head>
 
 <body class="nav-sidebar docked">
@@ -275,16 +272,33 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#seasonal-ranges" id="toc-seasonal-ranges" class="nav-link active" data-scroll-target="#seasonal-ranges">Seasonal ranges</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation">Data preparation</a>
+  <ul class="collapse">
+  <li><a href="#area-of-interest" id="toc-area-of-interest" class="nav-link" data-scroll-target="#area-of-interest">Area of interest</a></li>
+  <li><a href="#caribou-locations" id="toc-caribou-locations" class="nav-link" data-scroll-target="#caribou-locations">Caribou locations</a></li>
+  <li><a href="#seasonal-ranges" id="toc-seasonal-ranges" class="nav-link" data-scroll-target="#seasonal-ranges">Seasonal ranges</a></li>
+  <li><a href="#home-range-estimates" id="toc-home-range-estimates" class="nav-link" data-scroll-target="#home-range-estimates">Home range estimates</a></li>
+  </ul></li>
+  <li><a href="#habitat-analysis" id="toc-habitat-analysis" class="nav-link" data-scroll-target="#habitat-analysis">Habitat analysis</a>
+  <ul class="collapse">
+  <li><a href="#background-points" id="toc-background-points" class="nav-link" data-scroll-target="#background-points">Background points</a></li>
+  <li><a href="#scale-of-effect" id="toc-scale-of-effect" class="nav-link" data-scroll-target="#scale-of-effect">Scale of effect</a></li>
+  <li><a href="#model-types" id="toc-model-types" class="nav-link" data-scroll-target="#model-types">Model types</a></li>
+  </ul></li>
+  <li><a href="#connectivity-analysis" id="toc-connectivity-analysis" class="nav-link" data-scroll-target="#connectivity-analysis">Connectivity analysis</a>
+  <ul class="collapse">
+  <li><a href="#resistance-surface" id="toc-resistance-surface" class="nav-link" data-scroll-target="#resistance-surface">Resistance surface</a></li>
+  <li><a href="#connectivity-products" id="toc-connectivity-products" class="nav-link" data-scroll-target="#connectivity-products">Connectivity products</a></li>
+  </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/beaconsproject/little_rancheria/edit/main/appendices.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/beaconsproject/little_rancheria/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Appendices</h1>
+<h1 class="title">Analysis issues</h1>
 </div>
 
 
@@ -301,8 +315,42 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="data-preparation" class="level1">
+<h1>Data preparation</h1>
+<section id="area-of-interest" class="level2">
+<h2 class="anchored" data-anchor-id="area-of-interest">Area of interest</h2>
+<ul>
+<li>Analysis region vs planning region</li>
+<li>Models are developed within analysis region (e.g., MCP) and used to predict within planning region - see QGIS project</li>
+<li>What is the appropriate planning region?</li>
+</ul>
+<p><img src="images/planning_region.png" class="img-fluid"></p>
+</section>
+<section id="caribou-locations" class="level2">
+<h2 class="anchored" data-anchor-id="caribou-locations">Caribou locations</h2>
+<p>Outliers, thinning by pixel or distance</p>
+<ul>
+<li>Currently working with YT data - 25 individuals followed for 5 years (2020-2024); BC data is not as clean and does not include 2024 data; however, it does have older VHF locations, although without IDs</li>
+<li>Split the location data into 4 seasons: early winter, late winter, summer, fall rut. Based on Kelsey recommendations for Klaza/Clear Creek</li>
+<li>No evident spatial/temporal outliers with YT data</li>
+</ul>
+<p><img src="images/gps_yt.png" class="img-fluid" style="width:49.0%"> <img src="images/gps_bc.png" class="img-fluid" style="width:49.0%"> <br>Figure 1. Distribution of caribou locations obtained from Yukon government (left) and BC government (right). Caribou with a collar id are shown in red. The grey polygon represents the 100% MCP + 5km buffer for all collared caribou with at least 5 locations.</p>
+<p>Data thinning prior to model building</p>
+<ul>
+<li>Caribou GPS data consist of a series of locations that are spatially and temporally correlated i.e., the locations are not independent of each other.</li>
+<li>Possible solutions:
+<ul>
+<li>Thin based on the cells of the raster i.e., retain one location per cell</li>
+<li>Thin the dataset by distance (removing close-by points)</li>
+<li>Combination of both approaches</li>
+</ul></li>
+</ul>
+</section>
 <section id="seasonal-ranges" class="level2">
 <h2 class="anchored" data-anchor-id="seasonal-ranges">Seasonal ranges</h2>
+<ul>
+<li>Definition of seasons: early- and late-winter, summer, fall rut</li>
+</ul>
 <p>Seasonal date ranges for the Clear Creek herd and general seasonal dates for Northern Mountain Caribou (from Kelsey Russell).</p>
 <table class="caption-top table">
 <colgroup>
@@ -365,8 +413,96 @@ ul.task-list li input[type="checkbox"] {
 <li>Derived from recursive partitioning of movement data.</li>
 <li>Could be used for Klaza herd.</li>
 </ol>
+</section>
+<section id="home-range-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="home-range-estimates">Home range estimates</h2>
+<p>Home range estimates: MCP, KDE, aKDE</p>
+<ul>
+<li>Method 1: Minimum convex polygons (MCPs)</li>
+<li>Method 2: Kernel density estimates (KDE)</li>
+<li>Method 2: Autocorrelated KDE (aKDE) [preferred method]</li>
+</ul>
+</section>
+</section>
+<section id="habitat-analysis" class="level1">
+<h1>Habitat analysis</h1>
+<section id="background-points" class="level2">
+<h2 class="anchored" data-anchor-id="background-points">Background points</h2>
+<ul>
+<li>Background (availability) points: union of HR estimates + buffer (15-km)</li>
+</ul>
+<p>Pseudo-absences / availability</p>
+<ul>
+<li>A challenge in many habitat analyses is that only presence data are available, and, consequently, the choice of suitable pseudo-absences and the definition of the planning area (AOI) are important considerations.</li>
+<li>Possible solutions:
+<ul>
+<li>pseudo-absences/background are randomly sampled from the area of interest [current approach]</li>
+<li>pseudo-absences/background are randomly sampled from the region excluding a buffer around presences (e.g., &gt;1-km from presences)</li>
+<li>pseudo-absences/background randomly sampled from the unioned buffers of presences (e.g., MCP or MCP + 15-km)</li>
+<li>pseudo-absences/background randomly sampled from donuts around presences (e.g., &gt; 1-km and &lt; MCP)</li>
+</ul></li>
+</ul>
+<p>Use-availability analysis (population-level)</p>
+<ul>
+<li>Currently, developing population-level seasonal models</li>
+<li>Area of availability defined merging by individual MCPs and adding 15-km buffer (Demars 2020)</li>
+<li>Same area of availability used for each season</li>
+<li>Overall, number of available points = presence points = 77,091</li>
+<li>Many studies use x times the number of presences</li>
+</ul>
+</section>
+<section id="scale-of-effect" class="level2">
+<h2 class="anchored" data-anchor-id="scale-of-effect">Scale of effect</h2>
+<ul>
+<li><p>Scale of effect: anthropogenic covariates (presence, distance, buffer)</p></li>
+<li><p>“The spatial extent, or range of extents, within which a landscape variable has its strongest effect(s) on a particular species’ response has been called the scale of effect of that variable on that species (Jackson and Fahrig 2012)”.</p></li>
+<li><p>Approach 1: Sensitivity analysis - develop models at a ranges of scales (resolution and/or extent) and calculate e.g., beta coefficient (effect-size), AIC, etc.</p>
+<ul>
+<li>For each covariate of interest:
+<ul>
+<li>For each season:
+<ul>
+<li>For each buffer, from 90-2100m, increasing by 180m:
+<ul>
+<li>Calculate proportion of covariate in buffer</li>
+<li>Develop univariate GLM model: caribou ~ b0 + b1*COVAR</li>
+<li>Estimate effect size (b1) and model performance (dAIC)</li>
+</ul></li>
+<li>Plot relationship between buffer size and:
+<ul>
+<li>Effect size (b1)</li>
+<li>dAIC</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Approach 2: Model-based approach e.g., Siland</p></li>
+</ul>
+<p>See sample results here…</p>
+</section>
+<section id="model-types" class="level2">
+<h2 class="anchored" data-anchor-id="model-types">Model types</h2>
+<ul>
+<li>Model types: GLM, GLMM, RF, GBM, ensemble</li>
+</ul>
+</section>
+</section>
+<section id="connectivity-analysis" class="level1">
+<h1>Connectivity analysis</h1>
+<section id="resistance-surface" class="level2">
+<h2 class="anchored" data-anchor-id="resistance-surface">Resistance surface</h2>
+<ul>
+<li>Resistance surface: assignment of values to LCC or transformation of SDM</li>
+</ul>
+</section>
+<section id="connectivity-products" class="level2">
+<h2 class="anchored" data-anchor-id="connectivity-products">Connectivity products</h2>
+<ul>
+<li>Products: Current density maps, seasonal movement corridors</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -462,7 +598,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/beaconsproject\.github\.io\/little_rancheria");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -804,4 +940,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beaconsproject/little_rancheria/edit/main/appendices.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/beaconsproject/little_rancheria/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,169 @@
+--- 
+title: "Connectivity Explorer"
+subtitle: ""
+format: dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+library(sf)
+library(terra)
+library(tidyterra)
+library(tidyverse)
+library(scales)
+library(maptiles)
+library(palmerpenguins)
+data(penguins)
+v <- vect('yt_caribou.gpkg', 'mcp_buff15k')
+rgb_tile <- get_tiles(v,
+  crop = TRUE, provider = "Esri.WorldShadedRelief",
+  zoom = 8, project = FALSE, cachedir = "."
+)
+```
+
+# {.sidebar}
+
+```{r}
+selectInput("type", "Map type:", choices=c("Cumulative current flow", "Flow potential", "Normalized current flow", "Categorized connectivity"))
+selectInput("c", "c-value", choices = c(0.25, 2, 8))
+```
+
+# Plots
+
+## Row {height=50%}
+
+```{r}
+plotOutput('plot1')
+```
+
+```{r}
+plotOutput('plot2')
+```
+
+## Row {height=50%}
+
+```{r}
+plotOutput('plot3')
+```
+
+```{r}
+plotOutput('plot4')
+```
+
+# Data
+
+```{r}
+tableOutput('data')
+```
+
+```{r}
+#| context: server
+
+dataset <- reactive({
+    data = filter(penguins, species %in% input$species & islands %in% input$islands)
+})
+
+mval <- reactive({
+  if (input$type=="Cumulative current flow") {
+    type="cum_currmap"
+  } else if (input$type=="Flow potential") {
+    type="flow_potential"
+  } else if (input$type=="Normalized current flow") {
+    type="normalized_cum_currmap"
+  } else if (input$type=="Categorized connectivity") {
+    type="categorized_connectivity"
+  }
+})
+
+cval <- reactive({
+  if (input$c==0.25) {
+    c="25"
+  } else if (input$c==2) {
+    c="200"
+  } else if (input$c==8) {
+    c="800"
+  }
+})
+
+output$plot1 <- renderPlot({
+  r1 = rast(paste0("omniscape300/earlywinter_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  if (input$type=="Categorized connectivity") {
+    ggplot(v) +
+      geom_spatraster_rgb(data=rgb_tile, alpha=1) +
+      geom_spatraster(data=r1) +
+      geom_spatvector(fill=NA) +
+      coord_sf(expand=FALSE) +
+      scale_fill_whitebox_d(palette = "muted", alpha = 0.5, labels = c("Impeded", "Diffuse", "Intensified", "Channelized")) +
+      theme_minimal() +
+      labs(fill="Category", title = "Early winter")
+  } else {
+    ggplot() +
+      geom_spatraster(data = r1) +
+      scale_fill_grass_c("inferno") +
+      theme_grey() + labs(title="Early winter")
+  }
+})
+
+output$plot2 <- renderPlot({
+  r2 = rast(paste0("omniscape300/latewinter_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  if (input$type=="Categorized connectivity") {
+    ggplot(v) +
+      geom_spatraster_rgb(data=rgb_tile, alpha=1) +
+      geom_spatraster(data=r2) +
+      geom_spatvector(fill=NA) +
+      coord_sf(expand=FALSE) +
+      scale_fill_whitebox_d(palette = "muted", alpha = 0.5, labels = c("Impeded", "Diffuse", "Intensified", "Channelized")) +
+      theme_minimal() +
+      labs(fill="Category", title = "Late winter")
+  } else {
+    ggplot() +
+      geom_spatraster(data = r2) +
+      scale_fill_grass_c("inferno") +
+      theme_grey() + labs(title="Late winter")
+  }
+})
+
+output$plot3 <- renderPlot({
+  r3 = rast(paste0("omniscape300/summer_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  if (input$type=="Categorized connectivity") {
+    ggplot(v) +
+      geom_spatraster_rgb(data=rgb_tile, alpha=1) +
+      geom_spatraster(data=r3) +
+      geom_spatvector(fill=NA) +
+      coord_sf(expand=FALSE) +
+      scale_fill_whitebox_d(palette = "muted", alpha = 0.5, labels = c("Impeded", "Diffuse", "Intensified", "Channelized")) +
+      theme_minimal() +
+      labs(fill="Category", title = "Summer")
+  } else {
+    ggplot() +
+      geom_spatraster(data = r3) +
+      scale_fill_grass_c("inferno") +
+      theme_grey() + labs(title="Summer")
+  }
+})
+
+output$plot4 <- renderPlot({
+  r4 = rast(paste0("omniscape300/fallrut_RF300_C",cval(),"_R1000_T50/",mval(),".tif"))
+  if (input$type=="Categorized connectivity") {
+    ggplot(v) +
+      geom_spatraster_rgb(data=rgb_tile, alpha=1) +
+      geom_spatraster(data=r4) +
+      geom_spatvector(fill=NA) +
+      coord_sf(expand=FALSE) +
+      scale_fill_whitebox_d(palette = "muted", alpha = 0.5, labels = c("Impeded", "Diffuse", "Intensified", "Channelized")) +
+      theme_minimal() +
+      labs(fill="Category", title = "Fall rut")
+  } else {
+    ggplot() +
+      geom_spatraster(data = r4) +
+      scale_fill_grass_c("inferno") +
+      theme_grey() + labs(title="Fall rut")
+  }
+})
+
+output$data <- renderTable ({
+  penguins
+})
+``` 
+

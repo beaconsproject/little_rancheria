@@ -69,9 +69,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Little Rancheria Caribou Herd: Analysis of Movement, Habitat, and Connectivity – Little Rancheria">
-<meta property="og:description" content="">
-<meta property="og:site_name" content="Little Rancheria">
 </head>
 
 <body class="nav-sidebar docked">
@@ -281,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#appendix-1.-yt-dataset" id="toc-appendix-1.-yt-dataset" class="nav-link" data-scroll-target="#appendix-1.-yt-dataset">Appendix 1. YT dataset</a></li>
   <li><a href="#appendix-2.-bc-dataset" id="toc-appendix-2.-bc-dataset" class="nav-link" data-scroll-target="#appendix-2.-bc-dataset">Appendix 2. BC dataset</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/beaconsproject/little_rancheria/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/beaconsproject/little_rancheria/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -309,6 +306,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>The objective of this project is to analyse movement patterns, habitat use, and functional connectivity of caribou in the Little Rancheria region of BC and Yukon. Products will include i) a detailed report describing methods, ii) a set of maps identifying seasonal ranges and movement corridors, and iii) an app allowing users to explore the results of the analyses. This is a draft document that will be revised as necessary based on feedback from collaborators.</p>
+<p><img src="images/little_rancheria.png" class="img-fluid"></p>
 </section>
 <section id="tasks-and-timelines" class="level2">
 <h2 class="anchored" data-anchor-id="tasks-and-timelines">Tasks and timelines</h2>
@@ -1316,7 +1314,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/beaconsproject\.github\.io\/little_rancheria");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -1658,4 +1656,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beaconsproject/little_rancheria/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/beaconsproject/little_rancheria/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
