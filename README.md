@@ -1,6 +1,6 @@
 Little Rancheria Caribou Analysis
 
-Updated: Oct 9, 2024
+Updated: Oct 15, 2024
 
 - [Workbook](https://beaconsproject.github.io/little_rancheria/)
 
