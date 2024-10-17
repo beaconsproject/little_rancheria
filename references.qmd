@@ -63,3 +63,7 @@ Moraga et al. 2019. The scale of effect of landscape context varies with the spe
 **Background points**
 
 Whitford et al. 2024. The influence of the number and distribution of background points in presence-background species distribution models.
+
+**Sample size, positional uncertainty, and sampling bias**
+
+Moudry et al. 2024. Optimising occurrence data in species distribution models: sample size, positional uncertainty, and sampling bias matter.
