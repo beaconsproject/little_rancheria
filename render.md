@@ -20,10 +20,10 @@ quarto render workbook/1-data-preparation/1.2-prepare-covariates.qmd
 quarto render workbook/1-data-preparation/1.3-extract-values.qmd
 
 # Movement analysis
-quarto render 2-movement-analysis/index.qmd
-quarto render 2-movement-analysis/2.1-movement-rates.qmd
-quarto render 2-movement-analysis/2.2-generate-mcp.qmd
-quarto render 2-movement-analysis/2.3-estimate-hr-amt.qmd
+quarto render workbook/2-movement-analysis/index.qmd
+quarto render workbook/2-movement-analysis/2.1-movement-rates.qmd
+quarto render workbook/2-movement-analysis/2.2-generate-mcp.qmd
+quarto render workbook/2-movement-analysis/2.3-estimate-hr-amt.qmd
 
 # Habitat analysis
 quarto render 3-habitat-analysis/index.qmd

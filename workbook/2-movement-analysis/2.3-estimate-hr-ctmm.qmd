@@ -1,0 +1,110 @@
+---
+title: Home ranges
+execute:
+  freeze: auto
+  echo: true
+---
+
+## Introduction
+
+Objectives:
+
+- Autocorrelated home range estimation
+- https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ctmm)
+```
+
+## Step 1 - Formatting and loading an animal tracking dataset
+
+```{r}
+#| warning: false
+c1 <- read.csv("../data/yt/gps.csv")
+head(c1)
+glimpse(c1)
+```
+
+**Convert to telemetry object:**
+
+```{r}
+#| message: false
+#| warning: false
+c1t <- as.telemetry(c1)[['43140']]
+plot(c1t)
+```
+
+## Step 2 - Checking for the range residency assumption
+
+```{r}
+level <- 0.95 # we want to display 95% confidence intervals
+xlim <- c(0,2 %#% "month") # to create a window of 2 months
+SVF <- variogram(c1t)
+par(mfrow = c(1,2))
+plot(SVF, fraction = 1, level = level)
+abline(v = 1, col = "red", lty = 2) # adding a line at 1 month 
+plot(SVF, xlim = xlim, level = level)
+abline(v = 1, col = "red", lty = 2)
+```
+
+## Step 3 - Selecting the best-fit movement model through model selection
+
+**Calculate an automated model guesstimate**
+
+```{r}
+GUESS1 <- ctmm.guess(c1t, interactive = FALSE)
+# Automated model selection, starting from GUESS
+FIT1_ML <- ctmm.select(c1t, GUESS1, method = 'ML')
+FIT1_pHREML <- ctmm.select(c1t, GUESS1, method = 'pHREML')
+# Reminder: it will default to pHREML if no method is specified.
+summary(FIT1_ML)
+summary(FIT1_pHREML)
+```
+
+**Summarize model**
+
+```{r}
+FIT1_pHREML_verbose <- ctmm.select(c1t, GUESS1, verbose = TRUE)
+summary(FIT1_pHREML_verbose)
+```
+
+## Step 4 - Feeding a movement model into the home range estimator
+
+**Run an area-corrected AKDE:**
+
+```{r}
+UD1_ML <- akde(c1t, FIT1_ML)
+UD1_pHREML <- akde(c1t, FIT1_pHREML)
+summary(UD1_pHREML)$CI # home range area estimation
+```
+
+## Step 5 - Evaluating additional biases, applying mitigation measures
+
+```{r}
+summary(UD1_pHREML)$DOF["area"] # effective sample size of animal1
+nrow(c1t) # absolute sample size
+UD1w_pHREML <- akde(c1t, FIT1_pHREML, weights = TRUE)
+summary(UD1w_pHREML)$CI # home range area estimation (weighted)
+```
+
+**Creating an extent that includes both UDs at the 95% CI level:**
+
+```{r}
+EXT <- extent(list(UD1_ML, UD1_pHREML, UD1w_pHREML), level = 0.95)
+```
+
+**Plotting pHREML (with and without weights) side-by-side:**
+
+```{r}
+par(mfrow = c(1,2))
+plot(c1t, UD = UD1_pHREML, ext = EXT)
+title(expression("pHREML AKDE"["C"]))
+plot(c1t, UD = UD1w_pHREML, ext = EXT)
+title(expression("pHREML wAKDE"["C"]))
+
+( 1 - summary(UD1_ML)$CI[1,2] / summary(UD1w_pHREML)$CI[1,2] ) * 100
+```

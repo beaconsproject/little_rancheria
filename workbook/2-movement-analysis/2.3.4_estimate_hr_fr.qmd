@@ -1,0 +1,205 @@
+---
+title: Estimate ctmm movement model and create seasonal range KDEs
+---
+
+## Introduction
+
+Reference: https://ctmm-initiative.github.io/ctmmwebdoc/articles/package_usage.html
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+library(sf)
+library(terra)
+library(dplyr)
+library(ctmm)
+library(magrittr)
+library(ctmmweb)
+library(data.table)
+
+#load data and convert to telemetry object for ctmm functions
+ccgps_summer_filtered <- read.csv('../data/yt/gps_fallrut.csv')
+
+fall_telem <- as.telemetry(ccgps_fall_filtered)
+```
+
+## Variograms
+
+Fall Rut. Caribou 38857 has a gap, 38873 monitored for 8 days. Others have ~15 - 20 days (short season)
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| fig-width: 9
+#| fig-height: 9
+f_vario_list <- lapply(fall_telem, ctmm::variogram)
+# names of vario_list are needed for figure titles
+names(f_vario_list) <- names(fall_telem)
+## 1 - 6
+plot_vario(f_vario_list[1:6]) # plot 6 caribou at a time. 27 caribou total. 
+
+## 7 - 12
+plot_vario(f_vario_list[7:12])
+
+## 13 - 18
+plot_vario(f_vario_list[13:18])
+
+## 19 - 24
+plot_vario(f_vario_list[19:24])
+
+## 25 - 27
+plot_vario(f_vario_list[25])
+
+```
+
+Compare initial movement model parameter guesses to data via variograms
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| fig-width: 9
+#| fig-height: 9
+f_guess_list <- lapply(fall_telem,
+                     function(tele)
+                       ctmm::ctmm.guess(tele, interactive = FALSE))
+
+## 1- 6
+plot_vario(f_vario_list[1:6], f_guess_list[1:6])
+
+## 7 - 12
+plot_vario(f_vario_list[7:12], f_guess_list[7:12])
+
+## 13 - 18
+plot_vario(f_vario_list[13:18], f_guess_list[13:18])
+
+## 19 - 24
+plot_vario(f_vario_list[19:24], f_guess_list[19:24])
+
+## 25 - 27
+plot_vario(f_vario_list[25], f_guess_list[25])
+```
+
+Try different models of multiple animals in parallel with ctm.select. Parallel mode can be turned off with parallel = LASE.
+
+`f_model_try_res` holds a list of items named by animal names. Each item hold the attempted models for that animal as a sub list, named by model type.
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+f_model_try_res <- par_try_models(fall_telem)
+f_model_summary <- summary_tried_models(f_model_try_res)
+knitr::kable(f_model_summary)
+```
+
+Keep only models with lowest dAICc
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+f_lowest_aic_models <- f_model_summary %>% filter(dAICc==0.0)
+knitr::kable(f_lowest_aic_models)
+```
+
+Make selecting a subset easier by converting nested list to a flat list.
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| fig-width: 9
+#| fig-height: 9
+f_model_list <- flatten_models(f_model_try_res)
+
+#we need the model_name to filter the model list, and the animal name to filter the variograms
+f_names_sub2 <- f_model_summary[(model_no %in% f_lowest_aic_models$model_no), .(model_name, identity)]
+
+# filter model list by model names to get subset of model list.
+f_model_list_sub2 <- f_model_list[f_names_sub2$model_name]
+
+# get corresponding variograms by animal names.
+f_vario_list_sub2 <- f_vario_list[f_names_sub2$identity]
+# specify a different color for model
+## 1 - 6
+plot_vario(f_vario_list_sub2[1:6], f_model_list_sub2[1:6], model_color = "purple")
+
+## 7 - 12
+plot_vario(f_vario_list_sub2[7:12], f_model_list_sub2[7:12], model_color = "purple")
+
+## 13 - 18
+plot_vario(f_vario_list_sub2[13:18], f_model_list_sub2[13:18], model_color = "purple")
+
+## 19 - 24
+plot_vario(f_vario_list_sub2[19:24], f_model_list_sub2[19:24], model_color = "purple")
+
+## 25 - 27
+plot_vario(f_vario_list_sub2[25], f_model_list_sub2[25], model_color = "purple")
+
+```
+
+## Home Range
+
+## Batch calculate home ranges 
+
+Use when lots of individuals and don't need to fine tune each model (this case?)
+Compared with first calculation of home range and the outputs are the same. 
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| fig-width: 9
+#| fig-height: 9
+
+# one line to try models. The result is a nested list of CTMM models
+f_model_try_res <- par_try_models(fall_telem)
+#save.image("ew_test.RData")
+# summary models to find the best
+f_model_summary <- summary_tried_models(f_model_try_res)
+# select the best model name for each individual, which is the first one with 0 AICc
+f_best_model_names <- f_model_summary[, .(best_model_name = model_name[1]),
+                                  by = "identity"]$best_model_name
+# get a flat list of model object
+f_model_list <- flatten_models(f_model_try_res)
+# get the best model objects
+f_best_models <- f_model_list[f_best_model_names]
+# calculate home range in same grid, with optimal weighting on
+f_hrange_list_same_grid <- akde(fall_telem, f_best_models, 
+                              weights = TRUE)
+# calculate home range separately, with optimal weighting on
+f_hrange_list <- par_hrange_each(fall_telem, f_best_models,
+                               rep.int(list(TRUE), length(fall_telem)))
+## 1 - 6
+plot_ud(f_hrange_list[1:6])
+
+## 7 - 12
+plot_ud(f_hrange_list[7:12])
+
+## 13 - 18
+plot_ud(f_hrange_list[13:18])
+
+## 19 - 24
+plot_ud(f_hrange_list[19:24])
+
+## 25 - 27
+plot_ud(f_hrange_list[25])
+```
+
+## Map all home ranges
+
+```{r}
+# A map with home range estimates need: list of home range UD object, vector of level.UD in ctmm::plot.telemetry, a vector of color names for each home range estimate.
+range_map(f_hrange_list, 0.95, rainbow(length(f_hrange_list)))
+
+```
+
+## Save home ranges / KDEs
+
+Saving home ranges to a geopackage. 
+
+```{r}
+for (i in 1:length(f_hrange_list)) {
+  x <- f_hrange_list[i]
+  z <- as.sf(x[[1]]) %>% st_transform(3578)
+  st_write(z, "../data/yt/fr_hranges.gpkg", paste0("caribou",i), delete_layer=TRUE)
+}
+
+```
+

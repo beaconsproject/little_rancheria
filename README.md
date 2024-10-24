@@ -27,10 +27,10 @@ Oct 24, 2024
 
 **Movement analysis**
 
-- Overview
-- Movement rates
-- Estimate home ranges using MCPs
-- Estimate home ranges using aKDE
+- [Overview](docs/2-movement-analysis/index.md)
+- [Movement rates](docs/2-movement-analysis/2.1-movement-rates.md)
+- [Estimate home ranges using MCPs](docs/2-movement-analysis/2.2-generate-mcp.md)
+- [Estimate home ranges using aKDE](docs/2-movement-analysis/2.3-estimate-hr-amt.md)
 
 **Habitat analysis**
 

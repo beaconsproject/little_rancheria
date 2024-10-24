@@ -1,0 +1,123 @@
+---
+title: Random forest models
+execute:
+  freeze: auto
+  echo: true
+---
+
+## Introduction
+
+Random forest models...
+
+https://rspatial.org/analysis/5-global_regression.html
+
+```{r}
+#| echo: false
+#| message: false
+library(sf)
+library(terra)
+library(tidyverse)
+library(rpart)
+library(rpart.plot)
+library(predicts)
+library(report)
+library(randomForest)
+set.seed(123)
+```
+
+```{r}
+#Select a season or comment out line 20
+seasons <- c('earlywinter', 'latewinter', 'summer', 'fallrut')
+nsize = 10000
+landcov <- rast('../data/raster30/landcov.tif')
+topo <- rast('../data/raster30/topo.tif')
+fires <- rast('../data/raster30/fires.tif')
+dist2line <- rast('../data/raster30/dist2line.tif')
+names(dist2line) <- "dist2line"
+dist2poly <- rast('../data/raster30/dist2poly.tif')
+names(dist2poly) <- "dist2poly"
+rasters <- c(landcov, topo, fires, dist2line, dist2poly)
+names(rasters)
+```
+
+```{r}
+for (sea in seasons) {
+  cat('Processing', sea, '...\n'); flush.console()
+  
+  # Prepare data
+  gps <- st_read('../data/yt_caribou.gpkg', 'gps_vars') |>
+    st_drop_geometry() |>
+    filter(season==sea) |>
+    mutate(pa=occurrence, fpa=as.factor(occurrence)) |>
+    mutate(occurrence=NULL, individual=NULL) |>
+    sample_n(nsize) |>
+    as.data.frame()
+
+  (covars <- names(gps[,3:19]))
+
+  ################################################################################
+  # CART model
+
+  #bio <- rast('../data/raster1000/bio.tif')
+  #cart <- rpart(pa ~ bio1 + bio12, data=gps)
+  #printcp(cart)
+  #plotcp(cart)
+  ##Use the complexity parameter if needed
+  ##cart2 <- rpart(pa ~ elevation + roughness + bio1 + bio12, data=gps, cp=0.02)
+
+  # Plot CART model to describe the environmental conditions that are associated with caribou locations
+  #rpart.plot(cart, uniform=TRUE, main="Regression Tree")
+
+  # Use the model to show how attractive the climate is for this species.
+  #x <- predict(bio, cart)
+  #x <- mask(x, bio[[1]])
+  #x <- round(x, 2)
+  #plot(x, type="class", plg=list(x="bottomleft"))
+
+  ################################################################################
+  # Random forest
+  
+  # Fit the RandomForest model
+  i <- sample(nrow(gps), 0.2 * nrow(gps))
+  test <- gps[i,]
+  train <- gps[-i,]
+  crf <- randomForest(train[, covars], train[, "fpa"])
+  print(crf)
+  png(paste0('../output/randomforest/',sea,'_varimp.png'))
+  varImpPlot(crf)
+  dev.off()
+  varImpPlot(crf)
+  
+  # Now we use regression, rather than classification. First we tune a parameter.
+  trf <- tuneRF(train[, covars], train[, "pa"])
+  print(trf)
+  mt <- trf[which.min(trf[,2]), 1]
+  print(mt)
+
+  rrf <- randomForest(train[, covars], train[, "pa"], mtry=mt, ntree=250)
+  print(rrf)
+  png(paste0('../output/randomforest/',sea,'_rrf.png'))
+  plot(rrf)
+  dev.off()
+  plot(rrf)
+
+  # Predict
+  rp <- predict(rasters, rrf, na.rm=TRUE)
+  png(paste0('../output/randomforest/',sea,'_map.png'))
+  plot(rp)
+  dev.off()
+  plot(rp)
+  writeRaster(rp, paste0("../data/predict30/randomforest/",sea,"map.tif"), overwrite=TRUE)
+
+  # Evaluate model
+  eva <- pa_evaluate(predict(rrf, test[test$pa==1, ]), predict(rrf, test[test$pa==0, ]))
+  png(paste0('../output/randomforest/',sea,'_auc.png'))
+  plot(eva, "ROC")
+  dev.off()
+  plot(eva, "ROC")
+  print(eva)
+
+  # Save mapped predictions
+  #writeRaster(rp, paste0('output/random_forests/map_',season,'.tif'))
+}
+```

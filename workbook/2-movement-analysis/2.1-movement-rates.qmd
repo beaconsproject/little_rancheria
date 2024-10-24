@@ -1,0 +1,104 @@
+---
+title: Create tracks
+format: gfm
+execute:
+  freeze: auto
+  echo: true
+---
+
+## Introduction
+
+Objectives:
+
+- Create minimum convex polygons for individual caribou
+- Calculate movement rates
+
+```{r}
+#| warning: false
+library(sf)
+library(amt)
+library(tidyverse)
+library(lubridate)
+```
+
+**Read caribou locations (csv file**)
+
+We first read the caribou location data as a csv file. If we use the read.csv function we would have to convert the timestamp field to datetime format (see commented lines below). Conversely, the read_csv function automatically detects the timestamp field. We next modify the field names to match the column names expected by the `amt` package.
+
+```{r}
+#gps <- read.csv('data/yt/gps.csv') |> mutate(timestamp=as.POSIXct(timestamp))
+#gps <- read.csv('data/yt/gps.csv') |> mutate(timestamp=ymd_hms(timestamp, tz="GMT"))
+gps <- read_csv('../../data/yt/gps.csv') |>
+  rename(t_=timestamp,
+  x_=longitude, 
+  y_=latitude) |>
+  mutate(id=paste0('C',ID),
+  timestamp=NULL, ID=NULL)
+glimpse(gps)
+```
+
+**Make tracks**
+
+Read the data set `data/elephants.csv` (note file paths always start globally). Create a track using, make sure that you set the CRS to 4326. Ensure that the timezone is "GMT". Then, transform the track to a projected UTM CRS. Here we the Yukon Albers projection (https://epsg.io/3578).
+
+```{r}
+trk <- make_track(gps, x_, y_, t_, id = id, season=season, crs = 4326) |>
+  transform_coords(crs_to = 3578)
+trk
+```
+
+**Summarize sampling rate for one caribou for one year**
+
+Filter only for the first individual `"C43140"`. Only use data for the year 2020. What is is the sampling rate?
+
+```{r}
+trk1 <- trk |> filter(id == "C43140", year(t_) > 2000)
+from_to(trk)
+from_to(trk1)
+summarize_sampling_rate(trk1)
+```
+
+**Summarize sampling rates for all (25) caribou for all years**
+
+```{r}
+print(summarize_sampling_rate_many(trk, cols='id'), n=25)
+```
+
+
+**Calculate speed**
+
+Calculate the speed (i.e., the distance per unit time) for each relocation, and the time of the day for each relocation. 
+
+```{r}
+trk2 <- trk1 %>% mutate(speed = speed(.)) %>%
+  time_of_day()
+trk2
+```
+
+**Speed and time of day**
+
+Does speed differ between time of day?
+
+```{r}
+theme_set(theme_light())
+ggplot(trk2, aes(tod_, speed)) +
+  geom_boxplot() +
+  labs(x = "Time of day", y = "Speed [m/s]")
+```
+
+
+Add a new column to the data set that indicates the months of the year when each relocation was taken. Does the association between speed and temperature remains the same for each month? Explore this graphically and calculate monthly means and median for speeds.
+
+```{r}
+trk3 <- mutate(trk2, month = month(t_, label = TRUE))
+trk3 %>% group_by(month, tod_) %>% 
+  summarise(m = mean(speed), sd = sd(speed))
+```
+
+**Create tracks with equal sampling rates (bursts)**
+
+If there are gaps and/or different sampling rates, interpolation with continuous time movement models may be an option (Jonsen et al. 2023. aniMotum, an R package for animal movement data)
+
+```{r}
+print(track_resample(trk))
+```

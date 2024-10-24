@@ -1,0 +1,89 @@
+---
+title: Create tracks
+format: gfm
+execute:
+  freeze: auto
+  echo: true
+---
+
+## Introduction
+
+Objectives:
+
+- Create minimum convex polygons for:
+  - individual caribou
+  - all caribou (merged individual MCPs + 15km buffer)
+ The second MCP will be used to define the limit of the study region
+
+```{r}
+#| warning: false
+library(sf)
+library(tidyverse)
+library(adehabitatHR)
+```
+
+### Read locations and convert to simple features (sf object)
+
+```{r}
+gps <- st_read('../../data/yt_caribou.gpkg', 'gps', quiet=TRUE)
+glimpse(gps)
+```
+
+### Create 100% MCP for each individual 
+
+```{r}
+#| warning: false
+imcp <- NULL # for individual MCPs
+mcp <- NULL # for merged MCPs
+for (i in unique(gps$ID)) {
+  gps1 <- filter(gps, ID==i) %>%
+    dplyr::select(ID)
+  if (nrow(gps1)>=5) {
+    gps1.sp <- as_Spatial(gps1)
+    gps1.mcp <- mcp(gps1.sp, percent=100)
+    mcp1 <- st_as_sf(gps1.mcp)
+    if (i==gps$ID[1]) {
+      imcp <- mcp1
+      mcp <- mcp1
+    } else {
+      imcp <- rbind(imcp, mcp1)
+      mcp <- st_union(mcp, mcp1)
+    }
+  }
+}
+```
+
+### Save individual MCPs
+
+```{r}
+imcp2 <- imcp |>
+  st_transform(3578)
+row.names(imcp2) <- NULL
+st_write(imcp2, '../../data/yt_caribou.gpkg', 'imcp', delete_layer=TRUE)
+plot(st_geometry(imcp2))
+```
+
+### Save merged MCPs
+
+```{r}
+mcp2 <- mcp |>
+  dplyr::select(id) |>
+  mutate(id='Population MCP') %>%
+  st_transform(3578)
+row.names(mcp2) <- NULL
+st_write(mcp2, '../../data/yt_caribou.gpkg', 'mcp', delete_layer=TRUE)
+plot(st_geometry(mcp2))
+```
+
+### Buffer merged MCPs by 15km and save
+
+The value of 15km is based on maximum estimated daily movements in the NWT (2020).
+
+```{r}
+mcp15k <- st_buffer(mcp2, 15000) %>%
+  mutate(id = 'mcp_buff15k') %>%
+  st_transform(3578)
+st_write(mcp15k, '../../data/yt_caribou.gpkg', 'mcp_buff15k', delete_layer=TRUE)
+st_layers('../../data/yt_caribou.gpkg')
+plot(st_geometry(mcp15k))
+```

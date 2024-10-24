@@ -1,0 +1,85 @@
+---
+title: Generalized linear models
+execute:
+  freeze: auto
+  echo: true
+---
+
+## Introduction
+
+Generalized linear models...
+
+```{r}
+#| echo: false
+#| message: false
+library(sf)
+library(terra)
+library(report)
+library(tidyverse)
+set.seed(5228)
+```
+
+Read rasters that will be needed for generating prediction maps.
+
+```{r}
+#Select a season or comment out line 20
+seasons <- c('earlywinter', 'latewinter', 'summer', 'fallrut')
+i <- seasons[1]
+nsize = 10000
+landcov <- rast('../data/raster30/landcov.tif')
+topo <- rast('../data/raster30/topo.tif')
+fires <- rast('../data/raster30/fires.tif')
+dist2line <- rast('../data/raster30/dist2line.tif')
+names(dist2line) <- "dist2line"
+dist2poly <- rast('../data/raster30/dist2poly.tif')
+names(dist2poly) <- "dist2poly"
+rasters <- c(landcov, topo, fires, dist2line, dist2poly)
+names(rasters)
+```
+
+## Run models for each season
+
+```{r}
+for (sea in seasons) {
+  cat('Processing', sea, '...\n'); flush.console()
+  
+  # Prepare data
+  gps <- st_read('../data/yt_caribou.gpkg', 'gps_vars', quiet=TRUE) |>
+    st_drop_geometry() |>
+    filter(season==sea) |>
+    mutate(pa=occurrence, fpa=as.factor(occurrence)) |>
+    mutate(occurrence=NULL) |>
+    sample_n(nsize) |>
+    as.data.frame()
+
+  covars <- names(gps[,3:20])
+
+  # Split data into training and test sets
+  i <- sample(nrow(gps), 0.2 * nrow(gps))
+  test <- gps[i,]
+  train <- gps[-i,]
+
+  # Estimate GLM model
+  m1 <- glm(pa ~ scale(elevation) + scale(aspect) + scale(roughness) + scale(eastness) +
+            scale(northness) + scale(dist2line) + scale(dist2poly) + fires +
+            forest + barren, family=binomial, data=train)
+  print(summary(m1))
+  print(report(m1))
+
+  # Predict
+  p1 <- predict(rasters, m1, type='response', na.rm=T)
+  png(paste0('../output/glm/',sea,'_map.png'))
+  plot(p1)
+  dev.off()
+  plot(p1)
+  writeRaster(p1, paste0("../data/predict30/randomforest/",sea,"map.tif"), overwrite=TRUE)
+
+  # Evaluate model
+  eva <- predicts::pa_evaluate(predict(m1, test[test$pa==1, ]), predict(m1, test[test$pa==0, ]))
+  png(paste0('../output/glm/',sea,'_auc.png'))
+  plot(eva, "ROC")
+  dev.off()
+  plot(eva, "ROC")
+  print(eva)
+}
+```
