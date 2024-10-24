@@ -1,5 +1,6 @@
 ---
 title: Extract covariate values
+format: gfm
 execute:
   freeze: auto
   echo: true
