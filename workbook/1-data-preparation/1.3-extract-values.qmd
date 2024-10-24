@@ -1,0 +1,102 @@
+---
+title: Extract covariate values
+execute:
+  freeze: auto
+  echo: true
+---
+
+## Introduction
+
+Objectives:
+
+- Extract raster covariate values
+
+```{r}
+library(sf)
+library(terra)
+library(tidyverse)
+set.seed(5228)
+```
+
+## Presence data
+
+**Prepare presence and availability points**
+
+```{r}
+gps <- st_read('../../data/yt_caribou.gpkg', 'gps') |>
+  mutate(individual=ID, occurrence=1, ID=NULL) |>
+  filter(!season=='other')
+glimpse(gps)
+```
+
+**Calculate proportion of locations for each individual caribou**
+
+```{r}
+gps_id_prop <- group_by(gps, individual) |>
+  summarize(n=n()) |>
+  mutate(freq=n/sum(n)) |>
+  pull()
+gps_id_prop
+```
+
+**Read predictor rasters and concatenate them**
+
+```{r}
+landcov <- rast('../../data/raster30/landcov.tif')
+topo <- rast('../../data/raster30/topo.tif')
+fires <- rast('../../data/raster30/fires.tif')
+dist2line <- rast('../../data/raster30/dist2line.tif')
+names(dist2line) <- "dist2line"
+dist2poly <- rast('../../data/raster30/dist2poly.tif')
+names(dist2poly) <- "dist2poly"
+rasters <- c(landcov, topo, fires, dist2line, dist2poly)
+names(rasters)
+rasters
+```
+
+**Extract raster values for GPS locations**
+
+```{r}
+pres_vars <- terra::extract(rasters, gps) |>
+  mutate(ID=NULL)
+pres_vars_sf <- cbind(gps, pres_vars)
+pres_vars_sf
+glimpse(pres_vars_sf)
+```
+
+## Availability data
+
+**Create availability points and extract raster values**
+
+```{r}
+npoints <- nrow(pres_vars)
+nseasons <- c(rep('earlywinter',length(gps$season[gps$season=='earlywinter'])),
+              rep('latewinter',length(gps$season[gps$season=='latewinter'])),
+              rep('summer',length(gps$season[gps$season=='summer'])),
+              rep('fallrut',length(gps$season[gps$season=='fallrut'])))
+avail_vars <- spatSample(rasters, size=npoints, method="random", as.df=TRUE, values=TRUE, xy=TRUE, na.rm=TRUE)
+avail_vars_sf <-  st_as_sf(avail_vars, coords = c("x", "y"), crs=3578) |>
+  mutate(occurrence=0, x=NULL, y=NULL) |>
+  rename(geom=geometry) |>
+  mutate(season=nseasons)
+avail_vars_sf
+glimpse(avail_vars_sf)
+```
+
+Add individual IDs using proportion of locations for each individual caribou as weights (prob)
+
+```{r}
+avail_ids = sample(unique(gps$individual), nrow(avail_vars_sf), replace=T, prob=gps_id_prop)
+avail_vars_sf$individual <- avail_ids
+table(avail_ids)
+```
+
+## Combine presence and availability data
+
+```{r}
+gps_vars <- bind_rows(pres_vars_sf, avail_vars_sf) %>%
+  mutate(timestamp=NULL) # id=1:nrow(.)
+st_write(gps_vars, '../../data/yt_caribou.gpkg', 'gps_vars', delete_layer=TRUE)
+glimpse(gps_vars)
+head(gps_vars)
+```

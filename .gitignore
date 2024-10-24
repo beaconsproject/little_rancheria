@@ -1,0 +1,8 @@
+/.quarto/
+.Rproj.user
+_freeze
+code
+connectivity
+data
+issues
+output

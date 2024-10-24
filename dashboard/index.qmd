@@ -1,0 +1,429 @@
+--- 
+title: "Little Rancheria"
+subtitle: ""
+format: dashboard
+---
+
+```{r}
+#| context: setup
+library(terra)
+library(maptiles)
+v <- vect('../data/mcp15k.gpkg', 'mcp_buff15k')
+bg <- get_tiles(v,
+  crop = TRUE, provider = "Esri.WorldShadedRelief",
+  zoom = 8, project = TRUE, cachedir = "."
+)
+```
+
+# {.sidebar}
+
+**Sections:**
+
+- Movement
+- Home range
+- Habitat
+- Resistance
+- Connectivity
+
+# Habitat
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Early winter (GLM)
+r <- rast("../data/predict30/glm/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/earlywintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Late winter (GLM)
+r <- rast("../data/predict30/glm/latewintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/latewintermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/latewintermap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Summer (GLM)
+r <- rast("../data/predict30/glm/summermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/summermap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/summermap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Fall rut (GLM)
+r <- rast("../data/predict30/glm/fallrutmap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (GLMM)
+r <- rast("../data/predict30/glmm/fallrutmap.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (RFM)
+r <- rast("../data/predict30/randomforest/fallrutmap.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='cases', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+# Resistance
+
+We transformed the habitat suitability model with a negative exponential function using three different c scaling parameter values that allow more low- and medium- quality pixels to be classified as low resistance and easier to cross and may more accurately reflect the movements of a habitat generalist (Poor et al. 2024). The negative exponential function is:
+
+100 - 99 * ((1 - exp(-c*h)) / (1- exp(-c)))
+
+where h was the habitat suitability value (range = 0-100), and c was set to 0.25, 2, and 8, based on recommendations in Keeley et al. (2016). c=0.25 is an approximate negative linear transformation of suitability, meaning resistance decreases at a constant rate as the suitability increases, while 2 and 8 are two increasingly nonlinear transformations. Higher c values reduce the resistance of less suitable values, approximating the use of moderate-quality habitat by dispersers.
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Early winter (c=0.25)
+r <- rast("../data/resistance30/earlywinter.25.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+r <- rast("../data/resistance30/earlywinter2.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+r <- rast("../data/resistance30/earlywinter8.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Late winter (c=0.25)
+r <- rast("../data/resistance30/latewinter.25.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+r <- rast("../data/resistance30/latewinter2.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+r <- rast("../data/resistance30/latewinter8.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Summer (c=0.25)
+r <- rast("../data/resistance30/summer.25.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+r <- rast("../data/resistance30/summer2.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+r <- rast("../data/resistance30/summer8.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Fall rut (c=0.25)
+r <- rast("../data/resistance30/fallrut.25.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+r <- rast("../data/resistance30/fallrut2.tif") #|>
+  #project("+proj=longlat +datum=WGS84")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+r <- rast("../data/resistance30/fallrut8.tif")
+plotRGB(bg)
+plot(r, breaks=5, breakby='eqint', alpha=0.75, add=TRUE)
+lines(v, col="black", lwd=2)
+```
+
+
+# Connectivity
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Early winter (c=0.25)
+  r1 = rast("../data/omniscape300/earlywinter_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/earlywinter_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/earlywinter_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Late winter (c=0.25)
+  r2 = rast("../data/omniscape300/latewinter_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r2) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r2, main="Late winter",  alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/latewinter_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/latewinter_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+## Row {height=50%}
+
+### Column {.tabset}
+
+```{r}
+#| title: Summer (0.25)
+  r3 = rast("../data/omniscape300/summer_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r3) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r3, main="Summer", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/summer_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/summer_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+### Column {.tabset}
+
+```{r}
+#| title: Fall rut (c=0.25)
+  r4 = rast("../data/omniscape300/fallrut_RF300_C25_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r4) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r4, main="Fall rut", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=2)
+  r1 = rast("../data/omniscape300/fallrut_RF300_C200_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+```{r}
+#| title: (c=8)
+  r1 = rast("../data/omniscape300/fallrut_RF300_C800_R1000_T50/categorized_connectivity.tif")
+  plotRGB(bg)
+  levels(r1) <- data.frame(value=1:4, connectivity=c("Impeded", "Diffuse", "Intensified", "Channelized"))
+  plot(r1, main="Early winter", alpha=0.5, add=TRUE)
+  lines(v, col="black", lwd=2)
+```
+
+# Methods
+
+**Movement**
+
+Home ranges were estimated using the autocorrelated kernel density estimator (aKDE).
+
+<hr>
+
+**Habitat**
+
+We used three different types of models:
+
+- GLM = Generalized linear model
+- GLMM = Generalized linear mixed model
+- RFM = Random forest model
+
+<hr>
+
+**Resistance**
+
+We transformed the habitat suitability model with a negative exponential function using three different c scaling parameter values that allow more low- and medium- quality pixels to be classified as low resistance and easier to cross and may more accurately reflect the movements of a habitat generalist (Poor et al. 2024). The negative exponential function is:
+
+100 - 99 * ((1 - exp(-c*h)) / (1- exp(-c)))
+
+where h was the habitat suitability value (range = 0-100), and c was set to 0.25, 2, and 8, based on recommendations in Keeley et al. (2016). c=0.25 is an approximate negative linear transformation of suitability, meaning resistance decreases at a constant rate as the suitability increases, while 2 and 8 are two increasingly nonlinear transformations. Higher c values reduce the resistance of less suitable values, approximating the use of moderate-quality habitat by dispersers.
+
+<hr>
+
+**Connectivity**
+
+<hr>
+
+**Report**
+
+- [Analysis workbook](../index.html)
