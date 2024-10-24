@@ -42,6 +42,6 @@ Oct 24, 2024
 
 **Connectivity analysis**
 
-- [Overview](docs/4-caribou-analysis/index.md)
-- [Creating movement cost / resistance surfaces](docs/4-caribou-analysis/4.1-resistance-surface.md)
-- [Assessing connectivity using Omniscape](docs/4-caribou-analysis/4.2-omniscape.md)
+- [Overview](docs/4-connectivity-analysis/index.md)
+- [Creating movement cost / resistance surfaces](docs/4-connectivity-analysis/4.1-resistance-surface.md)
+- [Assessing connectivity using Omniscape](docs/4-connectivity-analysis/4.2-omniscape.md)
