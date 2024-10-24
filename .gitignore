@@ -6,3 +6,5 @@ connectivity
 data
 issues
 output
+workbook/.quarto
+workbook/_freeze

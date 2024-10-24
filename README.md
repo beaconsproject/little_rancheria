@@ -21,7 +21,7 @@ Updated: Oct 21, 2024
 
 **Data preparation**
 
--   [Prepare caribou data](docs/1-prepare-caribou/index.md)
--   [Prepare caribou data](docs/1-prepare-caribou/1.1-prepare-caribou.md)
--   [Prepare caribou data](docs/1-prepare-caribou/1.1-prepare-covariates.md)
--   [Prepare caribou data](docs/1-prepare-caribou/1.3-extract-values.md)
+-   [Overview](docs/1-prepare-caribou/index.md)
+-   [Prepare caribou data](docs/1-data-preparation/1.1-prepare-caribou.html)
+-   [Prepare covariate data](docs/1-data-preparation/1.1-prepare-covariates.html)
+-   [Extract covariate values](docs/1-data-preparation/1.3-extract-values.html)
