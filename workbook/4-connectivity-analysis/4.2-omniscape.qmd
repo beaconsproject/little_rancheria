@@ -28,7 +28,7 @@ The cumulative current flow map measures the total current flowing through the l
 
 ```{r}
 #| echo: false
-m1s1c1 = rast("../data/omniscape300/earlywinter_RF300_C25_R1000_T50/cum_currmap.tif")
+m1s1c1 = rast("../../data/omniscape300/earlywinter_RF300_C25_R1000_T50/cum_currmap.tif")
 plot(m1s1c1)
 ```
 
@@ -36,7 +36,7 @@ plot(m1s1c1)
 
 ```{r}
 #| echo: false
-m1s1c2 = rast("../data/omniscape300/earlywinter_RF300_C200_R1000_T50/cum_currmap.tif")
+m1s1c2 = rast("../../data/omniscape300/earlywinter_RF300_C200_R1000_T50/cum_currmap.tif")
 plot(m1s1c2)
 ```
 
@@ -44,7 +44,7 @@ plot(m1s1c2)
 
 ```{r}
 #| echo: false
-m1s1c3 = rast("../data/omniscape300/earlywinter_RF300_C800_R1000_T50/cum_currmap.tif")
+m1s1c3 = rast("../../data/omniscape300/earlywinter_RF300_C800_R1000_T50/cum_currmap.tif")
 plot(m1s1c3)
 ```
 
@@ -58,7 +58,7 @@ plot(m1s1c3)
 
 ```{r}
 #| echo: false
-m1s2c1 = rast("../data/omniscape300/latewinter_RF300_C25_R1000_T50/cum_currmap.tif")
+m1s2c1 = rast("../../data/omniscape300/latewinter_RF300_C25_R1000_T50/cum_currmap.tif")
 plot(m1s2c1)
 ```
 
@@ -66,7 +66,7 @@ plot(m1s2c1)
 
 ```{r}
 #| echo: false
-m1s2c2 = rast("../data/omniscape300/latewinter_RF300_C200_R1000_T50/cum_currmap.tif")
+m1s2c2 = rast("../../data/omniscape300/latewinter_RF300_C200_R1000_T50/cum_currmap.tif")
 plot(m1s2c2)
 ```
 
@@ -74,7 +74,7 @@ plot(m1s2c2)
 
 ```{r}
 #| echo: false
-m1s2c2 = rast("../data/omniscape300/latewinter_RF300_C800_R1000_T50/cum_currmap.tif")
+m1s2c2 = rast("../../data/omniscape300/latewinter_RF300_C800_R1000_T50/cum_currmap.tif")
 plot(m1s2c2)
 ```
 
@@ -88,7 +88,7 @@ plot(m1s2c2)
 
 ```{r}
 #| echo: false
-m1s3c1 = rast("../data/omniscape300/summer_RF300_C25_R1000_T50/cum_currmap.tif")
+m1s3c1 = rast("../../data/omniscape300/summer_RF300_C25_R1000_T50/cum_currmap.tif")
 plot(m1s3c1)
 ```
 
@@ -96,7 +96,7 @@ plot(m1s3c1)
 
 ```{r}
 #| echo: false
-m1s3c2 = rast("../data/omniscape300/summer_RF300_C200_R1000_T50/cum_currmap.tif")
+m1s3c2 = rast("../../data/omniscape300/summer_RF300_C200_R1000_T50/cum_currmap.tif")
 plot(m1s3c2)
 ```
 
@@ -104,7 +104,7 @@ plot(m1s3c2)
 
 ```{r}
 #| echo: false
-m1s3c3 = rast("../data/omniscape300/summer_RF300_C800_R1000_T50/cum_currmap.tif")
+m1s3c3 = rast("../../data/omniscape300/summer_RF300_C800_R1000_T50/cum_currmap.tif")
 plot(m1s3c3)
 ```
 
@@ -119,7 +119,7 @@ plot(m1s3c3)
 
 ```{r}
 #| echo: false
-m1s4c1 = rast("../data/omniscape300/fallrut_RF300_C25_R1000_T50/cum_currmap.tif")
+m1s4c1 = rast("../../data/omniscape300/fallrut_RF300_C25_R1000_T50/cum_currmap.tif")
 plot(m1s4c1)
 ```
 
@@ -127,7 +127,7 @@ plot(m1s4c1)
 
 ```{r}
 #| echo: false
-m1s4c2 = rast("../data/omniscape300/fallrut_RF300_C200_R1000_T50/cum_currmap.tif")
+m1s4c2 = rast("../../data/omniscape300/fallrut_RF300_C200_R1000_T50/cum_currmap.tif")
 plot(m1s4c2)
 ```
 
@@ -135,7 +135,7 @@ plot(m1s4c2)
 
 ```{r}
 #| echo: false
-m1s4c3 = rast("../data/omniscape300/fallrut_RF300_C800_R1000_T50/cum_currmap.tif")
+m1s4c3 = rast("../../data/omniscape300/fallrut_RF300_C800_R1000_T50/cum_currmap.tif")
 plot(m1s4c3)
 ```
 
@@ -155,7 +155,7 @@ The flow potential map shows what connectivity looks like under "null" condition
 
 ```{r}
 #| echo: false
-m2s1c1 = rast("../data/omniscape300/earlywinter_RF300_C25_R1000_T50/flow_potential.tif")
+m2s1c1 = rast("../../data/omniscape300/earlywinter_RF300_C25_R1000_T50/flow_potential.tif")
 plot(m2s1c1)
 ```
 
@@ -163,7 +163,7 @@ plot(m2s1c1)
 
 ```{r}
 #| echo: false
-m2s1c2 = rast("../data/omniscape300/earlywinter_RF300_C200_R1000_T50/flow_potential.tif")
+m2s1c2 = rast("../../data/omniscape300/earlywinter_RF300_C200_R1000_T50/flow_potential.tif")
 plot(m2s1c2)
 ```
 
@@ -171,7 +171,7 @@ plot(m2s1c2)
 
 ```{r}
 #| echo: false
-m2s1c3 = rast("../data/omniscape300/earlywinter_RF300_C800_R1000_T50/flow_potential.tif")
+m2s1c3 = rast("../../data/omniscape300/earlywinter_RF300_C800_R1000_T50/flow_potential.tif")
 plot(m2s1c3)
 ```
 
@@ -185,7 +185,7 @@ plot(m2s1c3)
 
 ```{r}
 #| echo: false
-m2s2c1 = rast("../data/omniscape300/latewinter_RF300_C25_R1000_T50/flow_potential.tif")
+m2s2c1 = rast("../../data/omniscape300/latewinter_RF300_C25_R1000_T50/flow_potential.tif")
 plot(m2s2c1)
 ```
 
@@ -193,7 +193,7 @@ plot(m2s2c1)
 
 ```{r}
 #| echo: false
-m2s2c2 = rast("../data/omniscape300/latewinter_RF300_C200_R1000_T50/flow_potential.tif")
+m2s2c2 = rast("../../data/omniscape300/latewinter_RF300_C200_R1000_T50/flow_potential.tif")
 plot(m2s2c2)
 ```
 
@@ -201,7 +201,7 @@ plot(m2s2c2)
 
 ```{r}
 #| echo: false
-m2s2c2 = rast("../data/omniscape300/latewinter_RF300_C800_R1000_T50/flow_potential.tif")
+m2s2c2 = rast("../../data/omniscape300/latewinter_RF300_C800_R1000_T50/flow_potential.tif")
 plot(m2s2c2)
 ```
 
@@ -215,7 +215,7 @@ plot(m2s2c2)
 
 ```{r}
 #| echo: false
-m2s3c1 = rast("../data/omniscape300/summer_RF300_C25_R1000_T50/flow_potential.tif")
+m2s3c1 = rast("../../data/omniscape300/summer_RF300_C25_R1000_T50/flow_potential.tif")
 plot(m2s3c1)
 ```
 
@@ -223,7 +223,7 @@ plot(m2s3c1)
 
 ```{r}
 #| echo: false
-m2s3c2 = rast("../data/omniscape300/summer_RF300_C200_R1000_T50/flow_potential.tif")
+m2s3c2 = rast("../../data/omniscape300/summer_RF300_C200_R1000_T50/flow_potential.tif")
 plot(m2s3c2)
 ```
 
@@ -231,7 +231,7 @@ plot(m2s3c2)
 
 ```{r}
 #| echo: false
-m2s3c3 = rast("../data/omniscape300/summer_RF300_C800_R1000_T50/flow_potential.tif")
+m2s3c3 = rast("../../data/omniscape300/summer_RF300_C800_R1000_T50/flow_potential.tif")
 plot(m2s3c3)
 ```
 
@@ -246,7 +246,7 @@ plot(m2s3c3)
 
 ```{r}
 #| echo: false
-m2s4c1 = rast("../data/omniscape300/fallrut_RF300_C25_R1000_T50/flow_potential.tif")
+m2s4c1 = rast("../../data/omniscape300/fallrut_RF300_C25_R1000_T50/flow_potential.tif")
 plot(m2s4c1)
 ```
 
@@ -254,7 +254,7 @@ plot(m2s4c1)
 
 ```{r}
 #| echo: false
-m2s4c2 = rast("../data/omniscape300/fallrut_RF300_C200_R1000_T50/flow_potential.tif")
+m2s4c2 = rast("../../data/omniscape300/fallrut_RF300_C200_R1000_T50/flow_potential.tif")
 plot(m2s4c2)
 ```
 
@@ -262,7 +262,7 @@ plot(m2s4c2)
 
 ```{r}
 #| echo: false
-m2s4c3 = rast("../data/omniscape300/fallrut_RF300_C800_R1000_T50/flow_potential.tif")
+m2s4c3 = rast("../../data/omniscape300/fallrut_RF300_C800_R1000_T50/flow_potential.tif")
 plot(m2s4c3)
 ```
 
@@ -282,7 +282,7 @@ The normalized (cumulative) current flow is calculated as flow potential divided
 
 ```{r}
 #| echo: false
-m3s1c1 = rast("../data/omniscape300/earlywinter_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
+m3s1c1 = rast("../../data/omniscape300/earlywinter_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s1c1)
 ```
 
@@ -290,7 +290,7 @@ plot(m3s1c1)
 
 ```{r}
 #| echo: false
-m3s1c2 = rast("../data/omniscape300/earlywinter_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
+m3s1c2 = rast("../../data/omniscape300/earlywinter_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s1c2)
 ```
 
@@ -298,7 +298,7 @@ plot(m3s1c2)
 
 ```{r}
 #| echo: false
-m3s1c3 = rast("../data/omniscape300/earlywinter_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
+m3s1c3 = rast("../../data/omniscape300/earlywinter_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s1c3)
 ```
 
@@ -312,7 +312,7 @@ plot(m3s1c3)
 
 ```{r}
 #| echo: false
-m3s2c1 = rast("../data/omniscape300/latewinter_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
+m3s2c1 = rast("../../data/omniscape300/latewinter_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s2c1)
 ```
 
@@ -320,7 +320,7 @@ plot(m3s2c1)
 
 ```{r}
 #| echo: false
-m3s2c2 = rast("../data/omniscape300/latewinter_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
+m3s2c2 = rast("../../data/omniscape300/latewinter_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s2c2)
 ```
 
@@ -328,7 +328,7 @@ plot(m3s2c2)
 
 ```{r}
 #| echo: false
-m3s2c3 = rast("../data/omniscape300/latewinter_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
+m3s2c3 = rast("../../data/omniscape300/latewinter_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s2c3)
 ```
 
@@ -342,7 +342,7 @@ plot(m3s2c3)
 
 ```{r}
 #| echo: false
-m3s3c1 = rast("../data/omniscape300/summer_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
+m3s3c1 = rast("../../data/omniscape300/summer_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s3c1)
 ```
 
@@ -350,7 +350,7 @@ plot(m3s3c1)
 
 ```{r}
 #| echo: false
-m3s3c2 = rast("../data/omniscape300/summer_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
+m3s3c2 = rast("../../data/omniscape300/summer_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s3c2)
 ```
 
@@ -358,7 +358,7 @@ plot(m3s3c2)
 
 ```{r}
 #| echo: false
-m3s3c3 = rast("../data/omniscape300/summer_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
+m3s3c3 = rast("../../data/omniscape300/summer_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s3c3)
 ```
 
@@ -373,7 +373,7 @@ plot(m3s3c3)
 
 ```{r}
 #| echo: false
-m3s4c1 = rast("../data/omniscape300/fallrut_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
+m3s4c1 = rast("../../data/omniscape300/fallrut_RF300_C25_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s4c1)
 ```
 
@@ -381,7 +381,7 @@ plot(m3s4c1)
 
 ```{r}
 #| echo: false
-m3s4c2 = rast("../data/omniscape300/fallrut_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
+m3s4c2 = rast("../../data/omniscape300/fallrut_RF300_C200_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s4c2)
 ```
 
@@ -389,7 +389,7 @@ plot(m3s4c2)
 
 ```{r}
 #| echo: false
-m3s4c3 = rast("../data/omniscape300/fallrut_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
+m3s4c3 = rast("../../data/omniscape300/fallrut_RF300_C800_R1000_T50/normalized_cum_currmap.tif")
 plot(m3s4c3)
 ```
 
