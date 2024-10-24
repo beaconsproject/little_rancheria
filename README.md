@@ -27,6 +27,21 @@ Oct 24, 2024
 
 **Movement analysis**
 
+- Overview
+- Movement rates
+- Estimate home ranges using MCPs
+- Estimate home ranges using aKDE
+
 **Habitat analysis**
 
+- Overview
+- Covariates: eploratory data analysis
+- Generalized linear models (GLM)
+- Generalized linear mixed models (GLMM)
+- Random forest models
+
 **Connectivity analysis**
+
+- Overview
+- Creating movement cost / resistance surfaces
+- Assessing connectivity using Omniscape
