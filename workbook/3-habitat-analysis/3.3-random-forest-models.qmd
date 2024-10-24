@@ -1,5 +1,6 @@
 ---
 title: Random forest models
+format: gfm
 execute:
   freeze: auto
   echo: true
@@ -29,12 +30,12 @@ set.seed(123)
 #Select a season or comment out line 20
 seasons <- c('earlywinter', 'latewinter', 'summer', 'fallrut')
 nsize = 10000
-landcov <- rast('../data/raster30/landcov.tif')
-topo <- rast('../data/raster30/topo.tif')
-fires <- rast('../data/raster30/fires.tif')
-dist2line <- rast('../data/raster30/dist2line.tif')
+landcov <- rast('../../data/raster30/landcov.tif')
+topo <- rast('../../data/raster30/topo.tif')
+fires <- rast('../../data/raster30/fires.tif')
+dist2line <- rast('../../data/raster30/dist2line.tif')
 names(dist2line) <- "dist2line"
-dist2poly <- rast('../data/raster30/dist2poly.tif')
+dist2poly <- rast('../../data/raster30/dist2poly.tif')
 names(dist2poly) <- "dist2poly"
 rasters <- c(landcov, topo, fires, dist2line, dist2poly)
 names(rasters)
@@ -45,7 +46,7 @@ for (sea in seasons) {
   cat('Processing', sea, '...\n'); flush.console()
   
   # Prepare data
-  gps <- st_read('../data/yt_caribou.gpkg', 'gps_vars') |>
+  gps <- st_read('../../data/yt_caribou.gpkg', 'gps_vars') |>
     st_drop_geometry() |>
     filter(season==sea) |>
     mutate(pa=occurrence, fpa=as.factor(occurrence)) |>
@@ -58,7 +59,7 @@ for (sea in seasons) {
   ################################################################################
   # CART model
 
-  #bio <- rast('../data/raster1000/bio.tif')
+  #bio <- rast('../../data/raster1000/bio.tif')
   #cart <- rpart(pa ~ bio1 + bio12, data=gps)
   #printcp(cart)
   #plotcp(cart)
@@ -83,7 +84,7 @@ for (sea in seasons) {
   train <- gps[-i,]
   crf <- randomForest(train[, covars], train[, "fpa"])
   print(crf)
-  png(paste0('../output/randomforest/',sea,'_varimp.png'))
+  png(paste0('../../output/randomforest/',sea,'_varimp.png'))
   varImpPlot(crf)
   dev.off()
   varImpPlot(crf)
@@ -96,22 +97,22 @@ for (sea in seasons) {
 
   rrf <- randomForest(train[, covars], train[, "pa"], mtry=mt, ntree=250)
   print(rrf)
-  png(paste0('../output/randomforest/',sea,'_rrf.png'))
+  png(paste0('../../output/randomforest/',sea,'_rrf.png'))
   plot(rrf)
   dev.off()
   plot(rrf)
 
   # Predict
   rp <- predict(rasters, rrf, na.rm=TRUE)
-  png(paste0('../output/randomforest/',sea,'_map.png'))
+  png(paste0('../../output/randomforest/',sea,'_map.png'))
   plot(rp)
   dev.off()
   plot(rp)
-  writeRaster(rp, paste0("../data/predict30/randomforest/",sea,"map.tif"), overwrite=TRUE)
+  writeRaster(rp, paste0("../../data/predict30/randomforest/",sea,"map.tif"), overwrite=TRUE)
 
   # Evaluate model
   eva <- pa_evaluate(predict(rrf, test[test$pa==1, ]), predict(rrf, test[test$pa==0, ]))
-  png(paste0('../output/randomforest/',sea,'_auc.png'))
+  png(paste0('../../output/randomforest/',sea,'_auc.png'))
   plot(eva, "ROC")
   dev.off()
   plot(eva, "ROC")

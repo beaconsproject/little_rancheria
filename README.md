@@ -34,14 +34,14 @@ Oct 24, 2024
 
 **Habitat analysis**
 
-- Overview
-- Covariates: eploratory data analysis
-- Generalized linear models (GLM)
-- Generalized linear mixed models (GLMM)
-- Random forest models
+- [Overview](docs/3-habitat-analysis/index.md)
+- [Covariates: eploratory data analysis](docs/3-habitat-analysis/3.0-covariates-eda.md)
+- [Generalized linear models (GLM)](docs/3-habitat-analysis/3.1-glm-models.md)
+- [Generalized linear mixed models (GLMM)](docs/3-habitat-analysis/3.2-glmm-models.md)
+- [Random forest models](docs/3-habitat-analysis/3.3-random-forest-models.md)
 
 **Connectivity analysis**
 
-- Overview
-- Creating movement cost / resistance surfaces
-- Assessing connectivity using Omniscape
+- [Overview](docs/4-caribou-analysis/index.md)
+- [Creating movement cost / resistance surfaces](docs/4-caribou-analysis/4.1-resistance-surface.md)
+- [Assessing connectivity using Omniscape](docs/4-caribou-analysis/4.2-omniscape.md)

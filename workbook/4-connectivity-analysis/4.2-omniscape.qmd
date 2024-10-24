@@ -1,5 +1,6 @@
 ---
 title: "6. Omniscape"
+format: gfm
 ---
 
 ```{r}

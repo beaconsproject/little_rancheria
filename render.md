@@ -26,13 +26,13 @@ quarto render workbook/2-movement-analysis/2.2-generate-mcp.qmd
 quarto render workbook/2-movement-analysis/2.3-estimate-hr-amt.qmd
 
 # Habitat analysis
-quarto render 3-habitat-analysis/index.qmd
-quarto render 3-habitat-analysis/3.0-covariates-eda.qmd
-quarto render 3-habitat-analysis/3.1-glm-models.qmd
-quarto render 3-habitat-analysis/3.2-glmm-models.qmd
-quarto render 3-habitat-analysis/3.3-random-forest-models.qmd
+quarto render workbook/3-habitat-analysis/index.qmd
+quarto render workbook/3-habitat-analysis/3.0-covariates-eda.qmd
+quarto render workbook/3-habitat-analysis/3.1-glm-models.qmd
+quarto render workbook/3-habitat-analysis/3.2-glmm-models.qmd
+quarto render workbook/3-habitat-analysis/3.3-random-forest-models.qmd
 
 # Connectivity analysis
-quarto render 4-connectivity-analysis/index.qmd
-quarto render 4-connectivity-analysis/4.1-resistance-surface.qmd
-quarto render 4-connectivity-analysis/4.2-omniscape.qmd
+quarto render workbook/4-connectivity-analysis/index.qmd
+quarto render workbook/4-connectivity-analysis/4.1-resistance-surface.qmd
+quarto render workbook/4-connectivity-analysis/4.2-omniscape.qmd

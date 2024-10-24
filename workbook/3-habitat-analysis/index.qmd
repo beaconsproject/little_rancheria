@@ -1,5 +1,6 @@
 ---
 title: "Habitat Analysis"
+format: gfm
 ---
 
 ## Introduction
