@@ -9,8 +9,6 @@ Revised: Oct 21, 2024
 
 The objective of this project is to analyse movement patterns, habitat use, and functional connectivity of caribou in the Little Rancheria region of BC and Yukon. Products will include i) a detailed report describing methods, ii) a set of maps identifying seasonal ranges and movement corridors, and iii) an app allowing users to explore the results of the analyses. This is a draft document that will be revised as necessary based on feedback from collaborators.
 
-![](images/little_rancheria.png)
-
 ## Tasks and timelines
 
 Table 1. Preliminary tasks and timelines organized into five components.

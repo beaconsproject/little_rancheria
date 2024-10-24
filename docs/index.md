@@ -14,8 +14,6 @@ movement corridors, and iii) an app allowing users to explore the
 results of the analyses. This is a draft document that will be revised
 as necessary based on feedback from collaborators.
 
-![](images/little_rancheria.png)
-
 ## Tasks and timelines
 
 Table 1. Preliminary tasks and timelines organized into five components.
